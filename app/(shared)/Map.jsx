@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import ManilaShapes from "./constants/ManilaShapes.json";
+import ManilaShapes from "./(constants)/ManilaShapes.json";
+import TopLists from "./TopLists";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
@@ -10,6 +11,7 @@ const MapTooltip = ({ visible, position, content }) => {
     left: position.x,
     position: "absolute",
     backgroundColor: "rgb(191 255 120)",
+    zIndex: 1,
   };
 
   return (
@@ -34,6 +36,7 @@ const Map = () => {
   useEffect(() => {
     const adjustViewBox = () => {
       const svg = svgRef.current;
+
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
@@ -50,7 +53,8 @@ const Map = () => {
         const yOffset = (viewBoxHeight - scaledHeight) / 2;
         newViewBox = `0 ${yOffset} ${viewBoxWidth} ${scaledHeight}`;
       } else {
-        const scaledWidth = viewBoxHeight * windowRatio;
+        // Add /2 on the windowRatio if TopLists is active
+        const scaledWidth = (viewBoxHeight * windowRatio) / 2;
         const xOffset = (viewBoxWidth - scaledWidth) / 2;
         newViewBox = `${xOffset} 0 ${scaledWidth} ${viewBoxHeight}`;
       }
@@ -131,7 +135,7 @@ const Map = () => {
         id="svg574"
         version="1.1"
         ref={svgRef}
-        style={{ width: "100%" }}
+        style={{ width: "100%", position: "relative" }}
       >
         <g
           transform={
