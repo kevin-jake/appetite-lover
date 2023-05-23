@@ -3,7 +3,6 @@ import FoodSpotCards from "./FoodSpotCards";
 
 const TopLists = ({ colNumber = 2 }) => {
   let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
-  console.log("🚀 ~ file: TopLists.jsx:6 ~ TopLists ~ top10:", top10);
   return (
     <div
       id="top-left-modal"

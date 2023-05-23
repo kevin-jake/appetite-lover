@@ -13,7 +13,7 @@ const Navbar = (props) => {
           <p>Sign In</p>
         </div>
       </nav>
-      <hr className="border-1 mx-10" />
+      <hr className="border-2 border-cyan-900 mx-10" />
     </header>
   );
 };
