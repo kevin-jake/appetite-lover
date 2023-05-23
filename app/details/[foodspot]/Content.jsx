@@ -66,7 +66,7 @@ const Content = () => {
   return (
     <div className="flex-col flex w-full  mb-10">
       {/* BREADCRUMBS */}
-      <div className="mb-4 md:mb-0 w-full relative" style={{ height: "24em" }}>
+      <div className="mb-4 md:mb-0 w-full relative" style={{ height: "18em" }}>
         <div
           className="absolute left-0 bottom-0 w-full h-full z-10"
           style={{

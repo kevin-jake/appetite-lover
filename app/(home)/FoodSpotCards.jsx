@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 const FoodSpotCards = ({ name }) => {
+  console.log("🚀 ~ file: FoodSpotCards.jsx:5 ~ FoodSpotCards ~ name:", name);
   return (
     <div className="w-full grid grid-cols-2 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="px-5 py-5 w-full">

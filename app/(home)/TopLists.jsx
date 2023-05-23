@@ -1,7 +1,9 @@
 import React from "react";
 import FoodSpotCards from "./FoodSpotCards";
 
-const TopLists = () => {
+const TopLists = ({ colNumber = 2 }) => {
+  let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
+  console.log("🚀 ~ file: TopLists.jsx:6 ~ TopLists ~ top10:", top10);
   return (
     <div
       id="top-left-modal"
@@ -36,17 +38,10 @@ const TopLists = () => {
               <span className="sr-only">Close modal</span>
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-4 p-6">
-            <FoodSpotCards name={"1"} />
-            <FoodSpotCards name={"2"} />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
-            <FoodSpotCards />
+          <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
+            {top10.map((item) => (
+              <FoodSpotCards key={item} name={item} />
+            ))}
 
             {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
               The European Union’s General Data Protection Regulation (G.D.P.R.)
