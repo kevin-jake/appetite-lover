@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import ManilaShapes from "./(constants)/ManilaShapes.json";
-import TopLists from "./TopLists";
+import ManilaShapes from "./ManilaShapes.json";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
