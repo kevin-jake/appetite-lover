@@ -8,29 +8,28 @@ const MapTooltip = ({ visible, position, content }) => {
   const tooltipStyle = {
     top: position.y,
     left: position.x,
-    position: "absolute",
-    backgroundColor: "rgb(191 255 120)",
-    zIndex: 1,
   };
 
   return (
-    <span style={tooltipStyle} className="map-tooltip">
+    <span
+      style={tooltipStyle}
+      className="absolute font-bold bg-emerald-100 z-10 rounded-lg text-sm p-1"
+    >
       {content}
     </span>
   );
 };
 
-const Map = () => {
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [tooltipContent, setTooltipContent] = useState("");
+const Map = ({ setisTopListVisible, isTopListVisible }) => {
   const [selectedProvince, setSelectedProvince] = useState(null);
-  const [menuVisible, setMenuVisible] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipContent, setTooltipContent] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const svgRef = useRef(null);
 
   const mapShapes = ManilaShapes.find(
     (shapes) => shapes.place === "Metro Manila"
   );
-  const svgRef = useRef(null);
 
   useEffect(() => {
     const adjustViewBox = () => {
@@ -53,77 +52,70 @@ const Map = () => {
         newViewBox = `0 ${yOffset} ${viewBoxWidth} ${scaledHeight}`;
       } else {
         // Add /2 on the windowRatio if TopLists is active
-        const scaledWidth = (viewBoxHeight * windowRatio) / 2;
+        const scaledWidth = isTopListVisible
+          ? (viewBoxHeight * windowRatio) / 2
+          : viewBoxHeight * windowRatio;
         const xOffset = (viewBoxWidth - scaledWidth) / 2;
         newViewBox = `${xOffset} 0 ${scaledWidth} ${viewBoxHeight}`;
       }
 
       svg.setAttribute("viewBox", newViewBox);
     };
-
     adjustViewBox();
+    setTooltipVisible(false);
     window.addEventListener("resize", adjustViewBox);
 
     return () => {
       window.removeEventListener("resize", adjustViewBox);
     };
-  }, []);
+  }, [isTopListVisible]);
 
   const handleProvinceClick = (event) => {
-    setSelectedProvince(event.target.getAttribute("id"));
-    setMenuVisible(true);
+    console.log("🚀 ~ file: Map.jsx:81 ~ handleProvinceClick ~ event:", event);
+    if (selectedProvince) {
+      setSelectedProvince(null);
+      selectedProvince.setAttribute("fill", "#fff");
+      setisTopListVisible(false);
+    }
+    if (
+      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
+    ) {
+      setisTopListVisible(true);
+      event.target.setAttribute("fill", "#4ade80");
+      setSelectedProvince(event.target);
+    }
   };
 
   const handleMouseHover = (event) => {
-    event.target.setAttribute("fill", "#CCCCCC");
-    const targetElement = event.target.parentNode;
-    const tooltipContent = targetElement.getAttribute("id").replace(/_/g, " ");
-    const position = targetElement.getBoundingClientRect();
-    setTooltipPosition({
-      x: position.x + window.pageXOffset,
-      y: position.y + window.pageYOffset,
-    });
-    setTooltipContent(tooltipContent);
-    setTooltipVisible(true);
+    if (
+      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
+    ) {
+      event.target.setAttribute("fill", "#CCCCCC");
+      const position = event.target.parentNode.getBoundingClientRect();
+      setTooltipPosition({
+        x: position.x + window.pageXOffset + 5,
+        y: position.y + window.pageYOffset + 5,
+      });
+      setTooltipContent(
+        event.target.parentNode.getAttribute("id").replace(/_/g, " ")
+      );
+      setTooltipVisible(true);
+    }
   };
 
   const handleMouseLeave = (event) => {
-    event.target.setAttribute("fill", "#fff");
-    setTooltipVisible(false);
+    if (
+      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
+    ) {
+      event.target.setAttribute("fill", "#fff");
+      setTooltipVisible(false);
+    }
   };
 
-  const handleOutsideClick = () => {
-    setMenuVisible(false);
-  };
+  const handleOutsideClick = () => {};
 
   return (
     <>
-      {menuVisible && (
-        <div
-          className="level-menu"
-          style={{
-            position: "absolute",
-            top: 159.803,
-            left: 544.363,
-          }}
-        >
-          <div>
-            <div className="menu-header" onClick={() => window.open(searchUrl)}>
-              {selectedProvince} ↗{" "}
-            </div>
-            {menuOptions.map(({ label, level }) => (
-              <div
-                key={level}
-                level={level}
-                className={`level-${level}`}
-                onClick={(event) => console.log("test")}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
       <MapTooltip
         visible={tooltipVisible}
         content={tooltipContent}

@@ -1,23 +1,19 @@
+"use client";
 import Link from "next/link";
 import Map from "./(home)/Map";
 import TopLists from "./(home)/TopLists";
+import { useState } from "react";
 
 export default function Home() {
+  const [isTopListVisible, setisTopListVisible] = useState(false);
   return (
     <main className=" items-center">
-      <div>
-        <Link href="/details/1">
-          <h4
-            className={`font-bold hover:text-accent-green
-          `}
-          >
-            Test
-          </h4>
-        </Link>
-      </div>
       <div className="flex lg:flex-row xs:flex-col sm:flex-col items-center lg:justify-start sm:justify-center xs:justify-center p-2">
-        <TopLists />
-        <Map />
+        {isTopListVisible && <TopLists />}
+        <Map
+          setisTopListVisible={(state) => setisTopListVisible(state)}
+          isTopListVisible={isTopListVisible}
+        />
       </div>
     </main>
   );
