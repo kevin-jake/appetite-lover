@@ -20,7 +20,7 @@ const MapTooltip = ({ visible, position, content }) => {
   );
 };
 
-const Map = ({ setisTopListVisible, isTopListVisible }) => {
+const Map = ({ setisTopListVisible, isTopListVisible, setGlobalProvince }) => {
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
@@ -83,6 +83,7 @@ const Map = ({ setisTopListVisible, isTopListVisible }) => {
       setisTopListVisible(true);
       event.target.setAttribute("fill", "#4ade80");
       setSelectedProvince(event.target);
+      setGlobalProvince(event.target.getAttribute("id"));
     }
   };
 

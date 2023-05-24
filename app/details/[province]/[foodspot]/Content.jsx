@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Tabs from "./Tabs";
 
-const Content = () => {
+const Content = ({ name, province }) => {
+  console.log("🚀 ~ file: Content.jsx:6 ~ Content ~ province:", province);
   const [isEditable, setIsEditable] = useState(false);
 
   const [title, setTitle] = useState("test");
@@ -71,7 +72,10 @@ const Content = () => {
         href="#"
         className="px-4 py-1 bg-white rounded-lg text-gray-500 flex items-start mb-2"
       >
-        <h5 className="text-wh-300">{`Home > test`}</h5>
+        <h5 className="text-wh-300">{`Home > ${province.replace(
+          /%20/g,
+          " "
+        )} > ${name}`}</h5>
       </a>
       <div
         className=" rounded-lg mb-4 md:mb-0 w-full relative"
@@ -90,7 +94,7 @@ const Content = () => {
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-            Jolliben
+            {name} Jolliben
           </h2>
         </div>
       </div>

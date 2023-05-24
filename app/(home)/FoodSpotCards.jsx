@@ -1,13 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const FoodSpotCards = ({ name }) => {
+const FoodSpotCards = ({ name, province }) => {
   return (
     <div className="w-full grid grid-cols-2 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="px-5 py-5 w-full">
-        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
-          {name} Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </h5>
+        <Link href={`/details/${province}/${name}`}>
+          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
+            {name} Jolliben
+          </h5>
+        </Link>
         <div className="flex items-center mt-2.5 mb-5">
           <svg
             aria-hidden="true"

@@ -2,7 +2,8 @@ import React from "react";
 import Content from "./Content";
 import TopLists from "@/app/(home)/TopLists";
 
-const Post = async () => {
+const Post = async ({ params }) => {
+  console.log("🚀 ~ file: page.jsx:6 ~ Post ~ params:", params);
   const post = [];
 
   if (!post) {
@@ -13,7 +14,7 @@ const Post = async () => {
     <main className="px-10 leading-7">
       <div className="md:flex gap-10 mb-5">
         <div className="basis-3/4">
-          <Content />
+          <Content name={params.foodspot} province={params.province} />
         </div>
         <div className="basis-1/4">
           <TopLists colNumber={"1"} />

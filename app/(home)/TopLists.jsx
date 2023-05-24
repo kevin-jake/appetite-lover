@@ -1,7 +1,8 @@
 import React from "react";
 import FoodSpotCards from "./FoodSpotCards";
 
-const TopLists = ({ colNumber = 2 }) => {
+const TopLists = ({ colNumber = 2, province }) => {
+  console.log("🚀 ~ file: TopLists.jsx:5 ~ TopLists ~ province:", province);
   let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
   return (
     <div
@@ -39,7 +40,7 @@ const TopLists = ({ colNumber = 2 }) => {
           </div>
           <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
             {top10.map((item) => (
-              <FoodSpotCards key={item} name={item} />
+              <FoodSpotCards key={item} name={item} province={province} />
             ))}
 
             {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
