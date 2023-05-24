@@ -90,8 +90,7 @@ const Content = () => {
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-            Pellentesque a consectetur velit, ac molestie ipsum. Donec sodales,
-            massa et auctor.
+            Jolliben
           </h2>
         </div>
       </div>
