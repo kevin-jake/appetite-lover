@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import SignInSignUpModal from "./SignInSignUpModal";
 
 const Navbar = (props) => {
+  const [isSignInOpen, setIsSignInOpen] = useState(false);
   return (
     <header className="mb-5">
       <nav className="flex justify-between items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
@@ -10,10 +13,13 @@ const Navbar = (props) => {
           <h1 className="font-bold text-3xl md:text-5xl">Appetite Lover</h1>
         </div>
         <div>
-          <p>Sign In</p>
+          <p onClick={() => setIsSignInOpen(true)}>Sign In</p>
         </div>
       </nav>
       <hr className="border-2 border-cyan-900 mx-10" />
+      {isSignInOpen && (
+        <SignInSignUpModal closeModal={() => setIsSignInOpen(false)} />
+      )}
     </header>
   );
 };
