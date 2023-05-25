@@ -71,7 +71,6 @@ const Map = ({ setisTopListVisible, isTopListVisible, setGlobalProvince }) => {
   }, [isTopListVisible]);
 
   const handleProvinceClick = (event) => {
-    console.log("🚀 ~ file: Map.jsx:81 ~ handleProvinceClick ~ event:", event);
     if (selectedProvince) {
       setSelectedProvince(null);
       selectedProvince.setAttribute("fill", "#fff");
