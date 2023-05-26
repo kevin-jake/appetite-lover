@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { Client, Account, ID } from "appwrite";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -70,11 +71,13 @@ const initialValuesLogin = {
 const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isLogin = pageType === "Login";
-  console.log(
-    "🚀 ~ file: SignInSignUpForm.jsx:73 ~ SignInSignUpForm ~ isLogin:",
-    isLogin
-  );
   const isRegister = pageType === "Register";
+
+  const client = new Client();
+
+  client
+    .setEndpoint(process.env.NEXT_PUBLIC_ENDPOINT)
+    .setProject(process.env.NEXT_PUBLIC_PROJECT);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -103,17 +106,42 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
   //   closeModal();
   // };
 
-  const handleFormSubmit = (values, onSubmitProps) => {
-    console.log(
-      "🚀 ~ file: SignInSignUpForm.jsx:103 ~ handleFormSubmit ~ values:",
-      values
-    );
+  const handleFormSubmit = async (values, onSubmitProps) => {
+    const account = new Account(client);
+    console.log("test");
     // try {
     if (isLogin) {
-      console.log("login");
+      const { email, password } = values;
+      const promise = account.createEmailSession(email, password);
+
+      try {
+        const userAccount = await promise;
+
+        console.log("Signing up successful");
+        console.log(
+          "🚀 ~ file: SignInSignUpForm.jsx:122 ~ handleFormSubmit ~ userAccount:",
+          userAccount
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
     if (isRegister) {
-      console.log("register");
+      const { email, password, firstName: name } = values;
+      // Bit that creates the account, we use ID.unique() to create a unique identifier for the user
+      const promise = account.create(ID.unique(), email, password, name);
+
+      try {
+        const userAccount = await promise;
+        // If this code is reached it means resource was successfully created, redirect the logged user to the sign in page
+        console.log("Signing up successful");
+        console.log(
+          "🚀 ~ file: SignInSignUpForm.jsx:122 ~ handleFormSubmit ~ userAccount:",
+          userAccount
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
     // } catch (error) {
     //   console.log(error);
@@ -137,14 +165,13 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
         resetForm,
       }) => {
         console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:139 ~ SignInSignUpForm ~ errors:",
-          errors
-        );
-        console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:135 ~ SignInSignUpForm ~ values:",
+          "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ values:",
           values
         );
-
+        console.log(
+          "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ errors:",
+          errors
+        );
         return (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

@@ -1,17 +1,14 @@
-"use client";
-import React, { useState } from "react";
 import ModalBackdrop from "./ModalBackdrop";
 import SignInSignUpForm from "./SignInSignUpForm";
 
-const SignInSignUpModal = ({ closeModal }) => {
-  const [pageType, setPageType] = useState("Login");
+const SignInSignUpModal = ({ closeModal, pageType, setPageType }) => {
   return (
     <>
       <div
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className=" z-30 flex justify-center absolute items-middle w-full h-full"
+        className=" z-30 flex justify-center absolute items-center w-full h-full"
       >
         <div className="relative w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
