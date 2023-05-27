@@ -2,7 +2,6 @@ import React from "react";
 import FoodSpotCards from "./FoodSpotCards";
 
 const TopLists = ({ colNumber = 2, province, closeTopList }) => {
-  console.log("🚀 ~ file: TopLists.jsx:5 ~ TopLists ~ province:", province);
   let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
   return (
     <div
