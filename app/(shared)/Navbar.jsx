@@ -18,7 +18,7 @@ const Navbar = (props) => {
       )}
       <nav className="flex justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
         <div className="basis-2/3 md:mt-3">
-          <h1 className="font-bold text-3xl md:text-5xl">Appetite Lover</h1>
+          <Image src="/logo.png" alt="logo" width={300} height={100} />
         </div>
         <div className="flex justify-between align-bottom space-x-2">
           <button

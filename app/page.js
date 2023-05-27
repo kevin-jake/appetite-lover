@@ -6,13 +6,17 @@ import { useState } from "react";
 
 export default function Home() {
   const [isTopListVisible, setisTopListVisible] = useState(false);
-
   const [globalProvince, setGlobalProvince] = useState("");
 
   return (
     <main className=" items-center">
       <div className="flex lg:flex-row xs:flex-col sm:flex-col items-center lg:justify-start sm:justify-center xs:justify-center p-2">
-        {isTopListVisible && <TopLists province={globalProvince} />}
+        {isTopListVisible && (
+          <TopLists
+            province={globalProvince}
+            closeTopList={() => setisTopListVisible(false)}
+          />
+        )}
         <Map
           setisTopListVisible={(state) => setisTopListVisible(state)}
           isTopListVisible={isTopListVisible}

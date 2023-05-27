@@ -1,7 +1,7 @@
 import React from "react";
 import FoodSpotCards from "./FoodSpotCards";
 
-const TopLists = ({ colNumber = 2, province }) => {
+const TopLists = ({ colNumber = 2, province, closeTopList }) => {
   console.log("🚀 ~ file: TopLists.jsx:5 ~ TopLists ~ province:", province);
   let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
   return (
@@ -19,6 +19,7 @@ const TopLists = ({ colNumber = 2, province }) => {
             </h3>
             <button
               type="button"
+              onClick={closeTopList}
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-hide="top-left-modal"
             >

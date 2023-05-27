@@ -8,6 +8,7 @@ body,
 .app {
   height: 100%;
   width: 100%;
+  font-family: var(--font-inter);
 }
 
 body {
@@ -18,4 +19,11 @@ body {
     rgba(166, 235, 254, 1) 50%,
     rgba(165, 237, 165, 1) 100%
   );
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-playball);
 }

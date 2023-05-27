@@ -1,9 +1,14 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Playball } from "next/font/google";
 import Navbar from "app/(shared)/Navbar";
 import Footer from "app/(shared)/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playball = Playball({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-playball",
+});
 
 export const metadata = {
   title: "Appetite Lover",
@@ -13,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${playball.variable} ${inter.variable} `}>
         <Navbar />
         {children}
         <Footer />
