@@ -1,8 +1,49 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import FoodSpotCards from "./FoodSpotCards";
+import { Databases, Query } from "appwrite";
+import client from "@/libs/appwrite";
 
+const databases = new Databases(client);
+const getProvinceId = async (area) => {
+  const province = await databases.listDocuments(
+    process.env.NEXT_PUBLIC_DATABASE,
+    process.env.NEXT_PUBLIC_PROVINCE_COLLECTION,
+    [Query.equal("provinceName", [area])]
+  );
+  console.log(
+    "🚀 ~ file: TopLists.jsx:13 ~ getProvinceId ~ province:",
+    province
+  );
+  return province.documents[0] || {};
+};
+
+const getTopLists = async (area) => {
+  const { $id: provinceId } = await getProvinceId(area);
+  console.log(
+    "🚀 ~ file: TopLists.jsx:22 ~ getTopLists ~ provinceId:",
+    provinceId
+  );
+  const toplists = await databases.listDocuments(
+    process.env.NEXT_PUBLIC_DATABASE,
+    process.env.NEXT_PUBLIC_FOOD_SPOT_COLLECTION,
+    [Query.equal("provinceId", [provinceId])]
+  );
+  return toplists.documents;
+};
 const TopLists = ({ colNumber = 2, area, closeTopList }) => {
-  let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
+  const [toplists, setToplists] = useState([]);
+  console.log("🚀 ~ file: TopLists.jsx:36 ~ TopLists ~ toplists:", toplists);
+
+  useEffect(() => {
+    const getList = async () => {
+      const lists = await getTopLists(area);
+      setToplists(lists);
+    };
+
+    getList();
+  }, [area]);
+
   return (
     <div
       id="top-left-modal"
@@ -39,17 +80,13 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
             </button>
           </div>
           <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
-            {top10.map((item) => (
-              <FoodSpotCards key={item} name={item} area={area} />
+            {toplists.map((item) => (
+              <FoodSpotCards
+                key={item.spotName}
+                name={item.spotName}
+                area={area}
+              />
             ))}
-
-            {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-              The European Union’s General Data Protection Regulation (G.D.P.R.)
-              goes into effect on May 25 and is meant to ensure a common set of
-              data rights in the European Union. It requires organizations to
-              notify users as soon as possible of high-risk data breaches that
-              could personally affect them.
-            </p> */}
           </div>
         </div>
       </div>

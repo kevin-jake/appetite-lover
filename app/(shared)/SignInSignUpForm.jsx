@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import client from "@/libs/appwrite";
 import useAuth from "@/hooks/useAuth";
 
 const registerSchema = yup.object().shape({

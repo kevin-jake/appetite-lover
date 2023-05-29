@@ -3,68 +3,6 @@ import React, { useState } from "react";
 import Tabs from "./Tabs";
 
 const Content = ({ name, province }) => {
-  console.log("🚀 ~ file: Content.jsx:6 ~ Content ~ province:", province);
-  const [isEditable, setIsEditable] = useState(false);
-
-  const [title, setTitle] = useState("test");
-  const [titleError, setTitleError] = useState("");
-  const [tempTitle, setTempTitle] = useState(title);
-
-  const [content, setContent] = useState("test");
-  const [contentError, setContentError] = useState("");
-  const [tempContent, setTempContent] = useState(content);
-
-  const date = new Date();
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  const formattedDate = date.toLocaleDateString("en-US", options);
-
-  const handleIsEditable = (bool) => {
-    setIsEditable(bool);
-    editor?.setEditable(bool);
-  };
-
-  const handleOnChangeTitle = (e) => {
-    if (title) setTitleError("");
-    setTitle(e.target.value);
-  };
-
-  const handleOnChangeContent = ({ editor }) => {
-    if (!editor.isEmpty) setContentError("");
-    setContent(editor.getHTML());
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // validation checks
-    if (title === "") setTitleError("This field is required.");
-    if (editor?.isEmpty) setContentError("This field is required.");
-    if (title === "" || editor?.isEmpty) return;
-
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/post/${post?.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          content: content,
-        }),
-      }
-    );
-    const data = await response.json();
-
-    handleIsEditable(false);
-    setTempTitle("");
-    setTempContent("");
-
-    setTitle(data.title);
-    setContent(data.content);
-    editor?.commands.setContent(data.content);
-  };
-
   return (
     <div className="flex-col flex w-full  mb-10">
       {/* BREADCRUMBS */}
@@ -72,9 +10,8 @@ const Content = ({ name, province }) => {
         href="#"
         className="px-4 py-1 bg-white rounded-lg text-gray-500 flex items-start mb-2"
       >
-        <h5 className="text-wh-300">{`Home > ${province.replace(
-          /%20/g,
-          " "
+        <h5 className="text-wh-300">{`Home > ${decodeURI(
+          province
         )} > ${name}`}</h5>
       </a>
       <div
