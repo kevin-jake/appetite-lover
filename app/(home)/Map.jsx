@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+"use client";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ManilaShapes from "./ManilaShapes.json";
 
 const MapTooltip = ({ visible, position, content }) => {
@@ -26,8 +27,13 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const svgRef = useRef(null);
 
-  const mapShapes = ManilaShapes.find(
-    (shapes) => shapes.place === "Metro Manila"
+  const mapShapes = useMemo(
+    () =>
+      ManilaShapes.find((shapes) => {
+        console.log("test useMemo");
+        return shapes.place === "Metro Manila";
+      }),
+    []
   );
 
   useEffect(() => {
@@ -63,7 +69,6 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
     adjustViewBox();
     setTooltipVisible(false);
     window.addEventListener("resize", adjustViewBox);
-
     return () => {
       window.removeEventListener("resize", adjustViewBox);
     };

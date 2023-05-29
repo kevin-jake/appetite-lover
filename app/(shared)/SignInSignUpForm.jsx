@@ -2,10 +2,8 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { Client, Account, ID } from "appwrite";
 import client from "@/libs/appwrite";
-import { useDispatch } from "react-redux";
-import { setLogin } from "@/store/slices/auth/authSlice";
+import useAuth from "@/hooks/useAuth";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -68,6 +66,7 @@ const initialValues = {
 
 const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { login, register } = useAuth();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
 
@@ -77,36 +76,11 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
     event.preventDefault();
   };
 
-  // const handleRegister = async (values, onSubmitProps) => {
-  //   const valuesWithImage = await uploadImage(values);
-  //   const userData = await register(values.imagePath ? valuesWithImage : values)
-  //     .unwrap()
-  //     .then()
-  //     .catch((error) => notifyError(error));
-  //   onSubmitProps.resetForm();
-  //   dispatch(setLogin(userData));
-  //   closeModal();
-  // };
-
-  // const handleLogin = async (values, onSubmitProps) => {
-  //   const userData = await login(values)
-  //     .unwrap()
-  //     .then()
-  //     .catch((error) => notifyError(error));
-  //   onSubmitProps.resetForm();
-  //   dispatch(setLogin(userData));
-  //   closeModal();
-  // };
-
   const handleFormSubmit = async (values, onSubmitProps) => {
-    const account = new Account(client);
     if (isLogin) {
       const { email, password } = values;
-      const promise = account.createEmailSession(email, password);
-
       try {
-        const userData = await promise;
-        console.log("Logging in successful");
+        await login(email, password);
         onSubmitProps.resetForm();
         closeModal();
       } catch (error) {
@@ -115,13 +89,8 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
     }
     if (isRegister) {
       const { email, password, firstName: name } = values;
-      // Bit that creates the account, we use ID.unique() to create a unique identifier for the user
-      const promise = account.create(ID.unique(), email, password, name);
-
       try {
-        await promise;
-        // If this code is reached it means resource was successfully created, redirect the logged user to the sign in page
-        console.log("Signing up successful");
+        await register(email, password, name);
         onSubmitProps.resetForm();
         closeModal();
       } catch (error) {

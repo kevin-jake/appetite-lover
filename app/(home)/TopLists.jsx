@@ -8,7 +8,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
       id="top-left-modal"
       data-modal-placement="top-left"
       tabIndex="-1"
-      className="relative top-0 left-0 right-0 z-10 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      className="flex justify-center relative z-10 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full"
     >
       <div className=" max-w-2xl max-h-full">
         <div className=" bg-white rounded-lg shadow dark:bg-gray-700">

@@ -1,8 +1,5 @@
 import client from "@/libs/appwrite";
 import { createSlice } from "@reduxjs/toolkit";
-import { Account } from "appwrite";
-
-const account = new Account(client);
 
 const initialState = {
   mode: "dark",

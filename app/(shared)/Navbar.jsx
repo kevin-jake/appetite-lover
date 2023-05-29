@@ -5,17 +5,12 @@ import SignInSignUpModal from "./SignInSignUpModal";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setLogout } from "@/store/slices/auth/authSlice";
 import useAuth from "@/hooks/useAuth";
+import Link from "next/link";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const {
-    currentAccount: user,
-    isSignInOpen,
-    logout,
-    closeModal,
-    openModal,
-  } = useAuth();
-  console.log("🚀 ~ file: Navbar.jsx:12 ~ Navbar ~ user:", user);
+  const { isSignInOpen, loading, logout, closeModal, openModal } = useAuth();
+  const user = useSelector(selectUser);
 
   const [pageType, setPageType] = useState("Login");
 
@@ -28,12 +23,14 @@ const Navbar = () => {
           setPageType={setPageType}
         />
       )}
-      <nav className="flex justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
+      <nav className="flex  justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
         <div className="basis-2/3 md:mt-3">
-          <Image src="/logo.png" alt="logo" width={300} height={100} />
+          <Link href={"/"}>
+            <Image src="/logo.png" alt="logo" width={300} height={100} />
+          </Link>
         </div>
         <div className="flex justify-between align-bottom space-x-2">
-          {!user && (
+          {!user && !loading && (
             <>
               <button
                 onClick={() => {
@@ -74,7 +71,6 @@ const Navbar = () => {
           )}
         </div>
       </nav>
-      <hr className="border-2 border-cyan-900 mx-10" />
     </header>
   );
 };
