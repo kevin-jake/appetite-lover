@@ -39,6 +39,7 @@ const SignInSignUpModal = ({ closeModal, pageType, setPageType }) => {
               <SignInSignUpForm
                 pageType={pageType}
                 setModalType={(type) => setPageType(type)}
+                closeModal={closeModal}
               />
             </div>
           </div>

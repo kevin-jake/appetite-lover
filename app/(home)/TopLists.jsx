@@ -1,7 +1,7 @@
 import React from "react";
 import FoodSpotCards from "./FoodSpotCards";
 
-const TopLists = ({ colNumber = 2, province, closeTopList }) => {
+const TopLists = ({ colNumber = 2, area, closeTopList }) => {
   let top10 = Array.from({ length: 10 }, (value, index) => index + 1);
   return (
     <div
@@ -14,7 +14,7 @@ const TopLists = ({ colNumber = 2, province, closeTopList }) => {
         <div className=" bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Top 10 Food Spots
+              Top 10 Food Spots on {area}
             </h3>
             <button
               type="button"

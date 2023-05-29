@@ -3,6 +3,9 @@ import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { Client, Account, ID } from "appwrite";
+import client from "@/libs/appwrite";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/slices/auth/authSlice";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -54,7 +57,7 @@ const loginSchema = yup.object().shape({
   password: yup.string().required("Required"),
 });
 
-const initialValuesRegister = {
+const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -63,21 +66,11 @@ const initialValuesRegister = {
   imagePath: "",
 };
 
-const initialValuesLogin = {
-  email: "",
-  password: "",
-};
-
 const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
-
-  const client = new Client();
-
-  client
-    .setEndpoint(process.env.NEXT_PUBLIC_ENDPOINT)
-    .setProject(process.env.NEXT_PUBLIC_PROJECT);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -108,20 +101,16 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     const account = new Account(client);
-    console.log("test");
-    // try {
     if (isLogin) {
       const { email, password } = values;
       const promise = account.createEmailSession(email, password);
 
       try {
-        const userAccount = await promise;
-
-        console.log("Signing up successful");
-        console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:122 ~ handleFormSubmit ~ userAccount:",
-          userAccount
-        );
+        const userData = await promise;
+        console.log("Logging in successful");
+        onSubmitProps.resetForm();
+        dispatch(setLogin(userData));
+        closeModal();
       } catch (error) {
         console.log(error);
       }
@@ -132,26 +121,21 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
       const promise = account.create(ID.unique(), email, password, name);
 
       try {
-        const userAccount = await promise;
+        await promise;
         // If this code is reached it means resource was successfully created, redirect the logged user to the sign in page
         console.log("Signing up successful");
-        console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:122 ~ handleFormSubmit ~ userAccount:",
-          userAccount
-        );
+        onSubmitProps.resetForm();
+        closeModal();
       } catch (error) {
         console.log(error);
       }
     }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={initialValuesRegister}
+      initialValues={initialValues}
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
       {({

@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import ManilaShapes from "./ManilaShapes.json";
 
@@ -20,7 +19,7 @@ const MapTooltip = ({ visible, position, content }) => {
   );
 };
 
-const Map = ({ setisTopListVisible, isTopListVisible, setGlobalProvince }) => {
+const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
@@ -82,7 +81,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setGlobalProvince }) => {
       setisTopListVisible(true);
       event.target.setAttribute("fill", "#4ade80");
       setSelectedProvince(event.target);
-      setGlobalProvince(event.target.getAttribute("id"));
+      setAreaSelected(event.target.getAttribute("id"));
     }
   };
 
@@ -111,8 +110,6 @@ const Map = ({ setisTopListVisible, isTopListVisible, setGlobalProvince }) => {
       setTooltipVisible(false);
     }
   };
-
-  const handleOutsideClick = () => {};
 
   return (
     <>
