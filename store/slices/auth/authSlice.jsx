@@ -1,4 +1,8 @@
+import client from "@/libs/appwrite";
 import { createSlice } from "@reduxjs/toolkit";
+import { Account } from "appwrite";
+
+const account = new Account(client);
 
 const initialState = {
   mode: "dark",
@@ -12,7 +16,7 @@ export const authSlice = createSlice({
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
-    setLogin: (state) => {
+    setLogin: (state, action) => {
       state.user = action.payload;
     },
     setLogout: (state) => {

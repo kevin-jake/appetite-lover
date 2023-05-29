@@ -67,7 +67,6 @@ const initialValues = {
 };
 
 const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
-  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
@@ -109,7 +108,6 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
         const userData = await promise;
         console.log("Logging in successful");
         onSubmitProps.resetForm();
-        dispatch(setLogin(userData));
         closeModal();
       } catch (error) {
         console.log(error);
@@ -148,14 +146,14 @@ const SignInSignUpForm = ({ setModalType, pageType, closeModal }) => {
         setFieldValue,
         resetForm,
       }) => {
-        console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ values:",
-          values
-        );
-        console.log(
-          "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ errors:",
-          errors
-        );
+        // console.log(
+        //   "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ values:",
+        //   values
+        // );
+        // console.log(
+        //   "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ errors:",
+        //   errors
+        // );
         return (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

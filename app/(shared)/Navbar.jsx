@@ -4,20 +4,26 @@ import React, { useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setLogout } from "@/store/slices/auth/authSlice";
+import useAuth from "@/hooks/useAuth";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const {
+    currentAccount: user,
+    isSignInOpen,
+    logout,
+    closeModal,
+    openModal,
+  } = useAuth();
+  console.log("🚀 ~ file: Navbar.jsx:12 ~ Navbar ~ user:", user);
 
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [pageType, setPageType] = useState("Login");
-  console.log("🚀 ~ file: Navbar.jsx:10 ~ Navbar ~ user:", user);
 
   return (
     <header className="mb-5">
       {isSignInOpen && (
         <SignInSignUpModal
-          closeModal={() => setIsSignInOpen(false)}
+          closeModal={closeModal}
           pageType={pageType}
           setPageType={setPageType}
         />
@@ -31,7 +37,7 @@ const Navbar = () => {
             <>
               <button
                 onClick={() => {
-                  setIsSignInOpen(true);
+                  openModal();
                   setPageType("Login");
                 }}
                 className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
@@ -42,7 +48,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => {
-                  setIsSignInOpen(true);
+                  openModal();
                   setPageType("Register");
                 }}
                 className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
@@ -55,7 +61,10 @@ const Navbar = () => {
           )}
           {user && (
             <button
-              onClick={() => dispatch(setLogout())}
+              onClick={() => {
+                logout();
+                dispatch(setLogout());
+              }}
               className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
             >
               <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">

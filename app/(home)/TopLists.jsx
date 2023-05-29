@@ -40,7 +40,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
           </div>
           <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
             {top10.map((item) => (
-              <FoodSpotCards key={item} name={item} province={province} />
+              <FoodSpotCards key={item} name={item} area={area} />
             ))}
 
             {/* <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">

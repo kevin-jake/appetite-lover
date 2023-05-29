@@ -21,10 +21,10 @@ export default function LandingPage() {
   const [isTopListVisible, setisTopListVisible] = useState(false);
   const [areaSelected, setAreaSelected] = useState("");
 
-  useEffect(() => {
-    const topList = async () => await getTopLists(areaSelected);
-    topList();
-  }, [areaSelected]);
+  // useEffect(() => {
+  //   const topList = async () => await getTopLists(areaSelected);
+  //   topList();
+  // }, [areaSelected]);
 
   return (
     <div className="flex lg:flex-row xs:flex-col sm:flex-col items-center lg:justify-start sm:justify-center xs:justify-center p-2">
