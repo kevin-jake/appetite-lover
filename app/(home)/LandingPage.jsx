@@ -22,7 +22,7 @@ export default function LandingPage() {
           <Map
             setisTopListVisible={(state) => setisTopListVisible(state)}
             isTopListVisible={isTopListVisible}
-            setAreaSelected={(province) => setAreaSelected(province)}
+            setAreaSelected={(area) => setAreaSelected(area)}
           />
         </div>
       )}

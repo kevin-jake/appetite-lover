@@ -21,7 +21,7 @@ const MapTooltip = ({ visible, position, content }) => {
 };
 
 const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
-  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [selectedArea, setSelectedArea] = useState(null);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -82,26 +82,22 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
     };
   }, [isTopListVisible]);
 
-  const handleProvinceClick = (event) => {
-    if (selectedProvince) {
-      setSelectedProvince(null);
-      selectedProvince.setAttribute("fill", "#fff");
+  const handleAreaClick = (event) => {
+    if (selectedArea) {
+      setSelectedArea(null);
+      selectedArea.setAttribute("fill", "#fff");
       setisTopListVisible(false);
     }
-    if (
-      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
-    ) {
+    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
       setisTopListVisible(true);
       event.target.setAttribute("fill", "#4ade80");
-      setSelectedProvince(event.target);
+      setSelectedArea(event.target);
       setAreaSelected(event.target.getAttribute("id"));
     }
   };
 
   const handleMouseHover = (event) => {
-    if (
-      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
-    ) {
+    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
       event.target.setAttribute("fill", "#CCCCCC");
       const position = event.target.parentNode.getBoundingClientRect();
       setTooltipPosition({
@@ -116,9 +112,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   };
 
   const handleMouseLeave = (event) => {
-    if (
-      selectedProvince?.getAttribute("id") != event.target.getAttribute("id")
-    ) {
+    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
       event.target.setAttribute("fill", "#fff");
       setTooltipVisible(false);
     }
@@ -141,7 +135,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         <g transform="translate(-140.998,-140.998)">
           {mapShapes.map((area, i) => {
             return (
-              <g className="province-layer" id={area.areaName} key={i}>
+              <g className="area-layer" id={area.areaName} key={i}>
                 <path
                   d={area.areaShape}
                   id={area.areaName}
@@ -156,7 +150,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
                   strokeWidth="1"
                   opacity="1"
                   vectorEffect="non-scaling-stroke"
-                  onClick={(event) => handleProvinceClick(event)}
+                  onClick={(event) => handleAreaClick(event)}
                   onMouseEnter={(event) => handleMouseHover(event)}
                   onMouseLeave={(event) => handleMouseLeave(event)}
                 ></path>

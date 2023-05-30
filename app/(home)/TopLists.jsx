@@ -4,25 +4,22 @@ import FoodSpotCards from "./FoodSpotCards";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 
-const getProvinceId = async (area) => {
-  const province = await database.listDocuments(
+const getAreaId = async (area) => {
+  const areas = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_AREA,
-    [Query.equal("provinceName", [area])]
+    [Query.equal("areaName", [area])]
   );
-  console.log(
-    "🚀 ~ file: TopLists.jsx:13 ~ getProvinceId ~ province:",
-    province
-  );
-  return province.documents[0] || {};
+  console.log("🚀 ~ file: TopLists.jsx:13 ~ getAreaId ~ area:", area);
+  return areas.documents[0] || {};
 };
 
 const getTopLists = async (area) => {
-  const { $id: provinceId } = await getProvinceId(area);
+  const { $id: areaId } = await getAreaId(area);
   const toplists = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_FOOD_SPOT,
-    [Query.equal("provinceId", [provinceId])]
+    [Query.equal("areaId", [areaId])]
   );
   return toplists.documents;
 };

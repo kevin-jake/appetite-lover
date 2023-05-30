@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Tabs from "./Tabs";
 
-const Content = ({ name, province }) => {
+const Content = ({ name, area }) => {
   return (
     <div className="flex-col flex w-full  mb-10">
       {/* BREADCRUMBS */}
@@ -10,9 +10,7 @@ const Content = ({ name, province }) => {
         href="#"
         className="px-4 py-1 bg-white rounded-lg text-gray-500 flex items-start mb-2"
       >
-        <h5 className="text-wh-300">{`Home > ${decodeURI(
-          province
-        )} > ${name}`}</h5>
+        <h5 className="text-wh-300">{`Home > ${decodeURI(area)} > ${name}`}</h5>
       </a>
       <div
         className=" rounded-lg mb-4 md:mb-0 w-full relative"

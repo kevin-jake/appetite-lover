@@ -4,13 +4,13 @@ import TopLists from "@/app/(home)/TopLists";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 
-const getProvinceId = async (provinceId) => {
-  const province = await database.listDocuments(
+const getAreaId = async (areaId) => {
+  const area = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_AREA,
-    [Query.equal("$id", [provinceId])]
+    [Query.equal("$id", [areaId])]
   );
-  return province.documents[0].provinceName;
+  return area.documents[0].areaName;
 };
 
 const getPost = async (foodspotId) => {
@@ -25,7 +25,7 @@ const getPost = async (foodspotId) => {
 const Post = async ({ params }) => {
   console.log("🚀 ~ file: page.jsx:27 ~ params:", params);
   const post = await getPost(params.foodspot);
-  const provinceName = await getProvinceId(post.provinceId);
+  const areaName = await getAreaId(post.areaId);
 
   if (!post) {
     return <div>Post Not Found</div>;
@@ -35,10 +35,10 @@ const Post = async ({ params }) => {
     <main className="px-10 leading-7">
       <div className="md:flex gap-10 mb-5">
         <div className="basis-3/4">
-          <Content name={post.spotName} province={provinceName} />
+          <Content name={post.spotName} area={areaName} />
         </div>
         <div className="basis-1/4">
-          <TopLists colNumber={"1"} area={decodeURI(params.province)} />
+          <TopLists colNumber={"1"} area={decodeURI(params.area)} />
         </div>
       </div>
     </main>
