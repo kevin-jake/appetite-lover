@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import FoodSpotCards from "./FoodSpotCards";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
+import NoResults from "../(shared)/NoResults";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -43,8 +44,8 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
       tabIndex="-1"
       className="flex justify-center relative z-10 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full"
     >
-      <div className=" max-w-2xl max-h-full">
-        <div className=" bg-white rounded-lg shadow dark:bg-gray-700">
+      <div className=" max-w-full max-h-full">
+        <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
               Top 10 Food Spots on {area}
@@ -81,6 +82,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
               />
             ))}
           </div>
+          {toplists.length === 0 && <NoResults />}
         </div>
       </div>
     </div>

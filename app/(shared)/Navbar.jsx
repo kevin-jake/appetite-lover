@@ -17,13 +17,13 @@ const Navbar = () => {
       {isSignInOpen && (
         <SignInSignUpModal pageType={pageType} setPageType={setPageType} />
       )}
-      <nav className="flex  justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
-        <div className="basis-2/3 md:mt-3">
+      <nav className="flex justify-center md:justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
+        <div className="md:basis-2/3 md:mt-3">
           <Link href={"/"}>
             <Image src="/logo.png" alt="logo" width={300} height={100} />
           </Link>
         </div>
-        <div className="flex justify-between align-bottom space-x-2">
+        <div className=" justify-between align-bottom space-x-2 hidden md:flex">
           {!user && !loading && (
             <>
               <button

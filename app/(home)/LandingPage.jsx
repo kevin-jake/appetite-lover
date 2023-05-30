@@ -12,7 +12,7 @@ export default function LandingPage() {
   return (
     <>
       {!loading && (
-        <div className="flex h-full lg:flex-row xs:flex-col sm:flex-col items-start lg:justify-start sm:justify-center xs:justify-center p-2">
+        <div className="flex justify-center flex-col items-start lg:flex-row lg:justify-start h-full p-2">
           {isTopListVisible && (
             <TopLists
               area={areaSelected}
