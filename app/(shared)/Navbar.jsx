@@ -2,26 +2,20 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setLogout } from "@/store/slices/auth/authSlice";
-import useAuth from "@/hooks/useAuth";
+import { UseUser } from "@/hooks/useUser";
 import Link from "next/link";
+import Loading from "./Loading";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const { isSignInOpen, loading, logout, closeModal, openModal } = useAuth();
-  const user = useSelector(selectUser);
+  const { user, loading, isSignInOpen, openModal, logout } = UseUser();
 
   const [pageType, setPageType] = useState("Login");
+  if (loading) return <Loading />;
 
   return (
     <header className="mb-5">
       {isSignInOpen && (
-        <SignInSignUpModal
-          closeModal={closeModal}
-          pageType={pageType}
-          setPageType={setPageType}
-        />
+        <SignInSignUpModal pageType={pageType} setPageType={setPageType} />
       )}
       <nav className="flex  justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
         <div className="basis-2/3 md:mt-3">
@@ -60,7 +54,6 @@ const Navbar = () => {
             <button
               onClick={() => {
                 logout();
-                dispatch(setLogout());
               }}
               className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
             >
