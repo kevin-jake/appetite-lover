@@ -132,7 +132,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         ref={svgRef}
         style={{ width: "100%", position: "relative" }}
       >
-        <g transform="translate(-140.998,-140.998)">
+        <g transform="translate(-40.998,-140.998)">
           {mapShapes.map((area, i) => {
             return (
               <g className="area-layer" id={area.areaName} key={i}>
