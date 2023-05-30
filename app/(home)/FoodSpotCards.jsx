@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 
-const FoodSpotCards = ({ name, area }) => {
+const FoodSpotCards = ({ name, area, foodSpotId }) => {
   return (
     <div className="w-full grid grid-cols-2 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="px-5 py-5 w-full">
-        <Link href={`/details/${area}/${name}`}>
+        <Link href={`/details/${area}/${foodSpotId}`}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
             {name} Jolliben
           </h5>

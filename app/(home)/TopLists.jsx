@@ -84,6 +84,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
               <FoodSpotCards
                 key={item.spotName}
                 name={item.spotName}
+                foodSpotId={item.$id}
                 area={area}
               />
             ))}
