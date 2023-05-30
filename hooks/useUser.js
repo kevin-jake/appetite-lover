@@ -1,7 +1,5 @@
 "use client";
-import client from "@/libs/appwrite";
-import { Account } from "appwrite";
-import { useRouter } from "next/router";
+import { account } from "@/libs/appwrite";
 import { useContext, createContext, useEffect, useState } from "react";
 
 const defaultState = {
@@ -12,7 +10,6 @@ const defaultState = {
   signup: async () => {},
   login: async () => {},
 };
-const account = new Account(client);
 const userContext = createContext(defaultState);
 
 export const UserProvider = ({ children }) => {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import useAuth, { UseUser } from "@/hooks/useUser";
+import { UseUser } from "@/hooks/useUser";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -65,7 +65,7 @@ const initialValues = {
 
 const SignInSignUpForm = ({ setModalType, pageType }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { user, loading, login, logout, register, closeModal } = UseUser();
+  const { login, register, closeModal } = UseUser();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
 
