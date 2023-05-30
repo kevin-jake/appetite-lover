@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import FoodSpotCards from "./FoodSpotCards";
-import { Databases, Query } from "appwrite";
-import client from "@/libs/appwrite";
+import { Query } from "appwrite";
+import { database } from "@/libs/appwrite";
 
-const databases = new Databases(client);
 const getProvinceId = async (area) => {
-  const province = await databases.listDocuments(
+  const province = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_PROVINCE_COLLECTION,
+    process.env.NEXT_PUBLIC_AREA,
     [Query.equal("provinceName", [area])]
   );
   console.log(
@@ -20,13 +19,9 @@ const getProvinceId = async (area) => {
 
 const getTopLists = async (area) => {
   const { $id: provinceId } = await getProvinceId(area);
-  console.log(
-    "🚀 ~ file: TopLists.jsx:22 ~ getTopLists ~ provinceId:",
-    provinceId
-  );
-  const toplists = await databases.listDocuments(
+  const toplists = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_FOOD_SPOT_COLLECTION,
+    process.env.NEXT_PUBLIC_FOOD_SPOT,
     [Query.equal("provinceId", [provinceId])]
   );
   return toplists.documents;

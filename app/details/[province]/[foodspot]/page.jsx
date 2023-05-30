@@ -1,23 +1,22 @@
 import React from "react";
 import Content from "./Content";
 import TopLists from "@/app/(home)/TopLists";
-import { Databases, Query } from "appwrite";
-import client from "@/libs/appwrite";
+import { Query } from "appwrite";
+import { database } from "@/libs/appwrite";
 
-const databases = new Databases(client);
 const getProvinceId = async (provinceId) => {
-  const province = await databases.listDocuments(
+  const province = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_PROVINCE_COLLECTION,
+    process.env.NEXT_PUBLIC_AREA,
     [Query.equal("$id", [provinceId])]
   );
   return province.documents[0].provinceName;
 };
 
 const getPost = async (foodspotId) => {
-  const post = await databases.listDocuments(
+  const post = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_FOOD_SPOT_COLLECTION,
+    process.env.NEXT_PUBLIC_FOOD_SPOT,
     [Query.equal("$id", [foodspotId])]
   );
   return post.documents[0];

@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import ManilaShapes from "./ManilaShapes.json";
+import { database } from "@/libs/appwrite";
+import React, { useEffect, useRef, useState } from "react";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
@@ -25,16 +25,24 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [mapShapes, setMapshapes] = useState([]);
   const svgRef = useRef(null);
 
-  const mapShapes = useMemo(
-    () =>
-      ManilaShapes.find((shapes) => {
-        console.log("test useMemo");
-        return shapes.place === "Metro Manila";
-      }),
-    []
-  );
+  useEffect(() => {
+    const mapshapes = async () => {
+      try {
+        const areas = await database.listDocuments(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_AREA
+        );
+        setMapshapes(areas.documents);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    mapshapes();
+  }, []);
 
   useEffect(() => {
     const adjustViewBox = () => {
@@ -130,21 +138,13 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         ref={svgRef}
         style={{ width: "100%", position: "relative" }}
       >
-        <g
-          transform={
-            "translate(" +
-            mapShapes.mapTransformTranslate.X +
-            "," +
-            mapShapes.mapTransformTranslate.Y +
-            ")"
-          }
-        >
-          {mapShapes.shapes.map((shape, i) => {
+        <g transform="translate(-140.998,-140.998)">
+          {mapShapes.map((area, i) => {
             return (
-              <g className="province-layer" id={shape.id} key={i}>
+              <g className="province-layer" id={area.areaName} key={i}>
                 <path
-                  d={shape.d}
-                  id={shape.id}
+                  d={area.areaShape}
+                  id={area.areaName}
                   fill="#ffffff"
                   fillRule="nonzero"
                   stroke="#000000"
