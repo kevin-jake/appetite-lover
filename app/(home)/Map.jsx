@@ -45,6 +45,16 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   }, []);
 
   useEffect(() => {
+    console.log(
+      "🚀 ~ file: Map.jsx:49 ~ useEffect ~ isTopListVisible:",
+      isTopListVisible
+    );
+    if (isTopListVisible) {
+      setTooltipVisible(false);
+    }
+  }, [selectedArea, isTopListVisible]);
+
+  useEffect(() => {
     const adjustViewBox = () => {
       const svg = svgRef.current;
 
@@ -75,7 +85,6 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
       svg.setAttribute("viewBox", newViewBox);
     };
     adjustViewBox();
-    setTooltipVisible(false);
     window.addEventListener("resize", adjustViewBox);
     return () => {
       window.removeEventListener("resize", adjustViewBox);

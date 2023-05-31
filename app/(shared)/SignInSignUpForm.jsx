@@ -97,7 +97,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 required={isRegister}
                 type="email"
                 id="email"
-                className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
                   Boolean(touched.email) && Boolean(errors.email)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
                     : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
@@ -123,7 +123,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 value={values.password}
                 name="password"
                 required={isRegister}
-                className={`focus:outline-none focus:ring-1 focus:bg-white dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
                   Boolean(touched.password) && Boolean(errors.password)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
                     : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
@@ -150,7 +150,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.firstName}
-                    className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                    className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400  ${
                       Boolean(touched.firstName) && Boolean(errors.firstName)
                         ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
                         : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
@@ -175,7 +175,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.lastName}
-                    className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                    className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400 ${
                       Boolean(touched.lastName) && Boolean(errors.lastName)
                         ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
                         : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
@@ -186,22 +186,6 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                       {touched.lastName && errors.lastName}
                     </p>
                   )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="location"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Location
-                  </label>
-                  <input
-                    name="location"
-                    id="location"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.location}
-                  />
                 </div>
               </>
             )}

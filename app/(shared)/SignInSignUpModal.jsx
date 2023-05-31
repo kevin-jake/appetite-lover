@@ -8,7 +8,7 @@ const SignInSignUpModal = ({ closeModal, pageType, setPageType }) => {
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className=" z-30 flex justify-center absolute items-center w-full h-full"
+        className=" z-30 flex justify-center absolute items-center w-full h-full md:m-0"
       >
         <div className="relative w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">

@@ -37,7 +37,7 @@ const Spot = async ({ params }) => {
           <Content foodspot={spot} area={areaName} />
         </div>
         <div className="basis-1/4">
-          <TopLists colNumber={"1"} area={areaName} isFromContent={true} />
+          <TopLists area={areaName} isFromContent={true} />
         </div>
       </div>
     </main>

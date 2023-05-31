@@ -6,7 +6,7 @@ const ReviewsTab = ({ reviews }) => {
   return (
     <section className="pt-4 pb-1">
       <div className="text-left">
-        <h4 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+        <h4 className="text-3xl dark:text-lime-200 font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
           Reviews
         </h4>
       </div>

@@ -10,15 +10,15 @@ const ReviewCards = ({ review }) => {
       }`}
     >
       <div>
-        <h5 className="text-2xl font-semibold text-gray-800">
-          {review.comment.split(" ")[0]}
+        <h5 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+          {`${review.comment.split(" ")[0]} ${review.comment.split(" ")[1]}...`}
         </h5>
-        <p className="mt-2">{review.comment}</p>
+        <p className="mt-2 dark:text-white">{review.comment}</p>
       </div>
       <div className="flex justify-between items-center mt-4">
         <p
-          className={`text-xl font-medium ${
-            isPositiveFeedback ? "text-green-500" : "text-red-500"
+          className={`text-sm font-medium ${
+            isPositiveFeedback ? "text-green-500 " : "text-red-500 "
           }`}
         >
           {review.reviewerEmail}

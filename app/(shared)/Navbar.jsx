@@ -10,10 +10,6 @@ const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, closeModal, logout } =
     UseUser();
   const [openDropdown, setOpenDropdown] = useState(false);
-  console.log(
-    "🚀 ~ file: Navbar.jsx:13 ~ Navbar ~ openDropdown:",
-    openDropdown
-  );
 
   const [pageType, setPageType] = useState("Login");
   if (loading) return <Loading />;
@@ -27,7 +23,7 @@ const Navbar = () => {
           closeModal={closeModal}
         />
       )}
-      <nav className="flex justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
+      <nav className="flex justify-between gap-4 align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
         <div className="md:basis-2/3 md:mt-3">
           <Link href="/">
             <Image src="/logo.png" alt="logo" width={300} height={100} />

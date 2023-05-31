@@ -24,7 +24,7 @@ const getTopLists = async (area) => {
   );
   return toplists.documents;
 };
-const TopLists = ({ colNumber = 2, area, closeTopList, isFromContent }) => {
+const TopLists = ({ area, closeTopList, isFromContent }) => {
   const [toplists, setToplists] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList, isFromContent }) => {
         <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
             <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Top 10 Food Spots on {area}
+              Top 10 Food Spots in {area}
             </h3>
             {!isFromContent && (
               <button
@@ -79,7 +79,7 @@ const TopLists = ({ colNumber = 2, area, closeTopList, isFromContent }) => {
           {loading ? (
             <Loading />
           ) : (
-            <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 p-6`}>
               {toplists.map((item) => (
                 <FoodSpotCards
                   key={item.foodSpotName}
