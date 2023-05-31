@@ -4,7 +4,7 @@ import FoodSpotCards from "./FoodSpotCards";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import NoResults from "../(shared)/NoResults";
-import Loading from "../(shared)/Loading copy";
+import Loading from "../(shared)/Loading";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -25,10 +25,6 @@ const getTopLists = async (area) => {
   return toplists.documents;
 };
 const TopLists = ({ colNumber = 2, area, closeTopList, isFromContent }) => {
-  console.log(
-    "🚀 ~ file: TopLists.jsx:28 ~ TopLists ~ isFromContent:",
-    isFromContent
-  );
   const [toplists, setToplists] = useState([]);
   const [loading, setLoading] = useState(false);
 

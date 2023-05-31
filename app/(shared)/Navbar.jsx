@@ -7,8 +7,10 @@ import Link from "next/link";
 import Loading from "./Loading";
 
 const Navbar = () => {
-  const { user, loading, isSignInOpen, openModal, logout } = UseUser();
+  const { user, loading, isSignInOpen, openModal, closeModal, logout } =
+    UseUser();
   const [openDropdown, setOpenDropdown] = useState(false);
+  console.log("🚀 ~ file: Navbar.jsx:11 ~ Navbar ~ loading:", loading);
 
   const [pageType, setPageType] = useState("Login");
   if (loading) return <Loading />;
@@ -16,7 +18,11 @@ const Navbar = () => {
   return (
     <header className="mb-5">
       {isSignInOpen && (
-        <SignInSignUpModal pageType={pageType} setPageType={setPageType} />
+        <SignInSignUpModal
+          pageType={pageType}
+          setPageType={setPageType}
+          closeModal={closeModal}
+        />
       )}
       <nav className="flex justify-center md:justify-between align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4">
         <div className="md:basis-2/3 md:mt-3">

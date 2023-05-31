@@ -1,8 +1,8 @@
 import React from "react";
 import MenuCards from "./MenuCards";
+import NoResults from "@/app/(shared)/NoResults";
 
 const MenuTab = ({ foodMenu }) => {
-  console.log("🚀 ~ file: MenuTab.jsx:5 ~ MenuTab ~ foodMenu:", foodMenu);
   return (
     <section className="mt-4 bg-white">
       <div className="text-left">
@@ -16,6 +16,7 @@ const MenuTab = ({ foodMenu }) => {
             <MenuCards key={food.$id} food={food} />
           ))}
         </div>
+        {foodMenu.length == 0 && <NoResults />}
       </div>
     </section>
   );

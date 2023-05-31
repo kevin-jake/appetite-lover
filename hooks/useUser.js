@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  console.log("🚀 ~ file: useUser.js:19 ~ UserProvider ~ error:", error);
   const [isSignInOpen, setIsSignInOpen] = useState(false);
 
   const openModal = () => {
@@ -28,11 +29,14 @@ export const UserProvider = ({ children }) => {
 
   const loadAccount = async () => {
     try {
+      setLoading(true);
       const loadedAccount = await account.get();
       setUser(loadedAccount);
+      setError("");
+      closeModal();
     } catch (error) {
       console.error(error);
-      setError("failed to load user");
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -43,18 +47,17 @@ export const UserProvider = ({ children }) => {
       await account.createEmailSession(email, password);
       await loadAccount();
     } catch (error) {
-      const appwriteException = error;
-      console.error(appwriteException.message);
+      console.error(error);
+      setError(error.message);
     }
   };
 
   const register = async (email, password, name) => {
     try {
-      const session = await account.create("unique()", email, password, name);
-      setUser(session);
-      await account.createEmailSession(email, password);
+      await account.create("unique()", email, password, name);
+      await login(email, password);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
 
@@ -66,6 +69,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     loadAccount();
   }, []);
+
   return (
     <userContext.Provider
       value={{

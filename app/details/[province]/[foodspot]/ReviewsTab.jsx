@@ -1,5 +1,6 @@
 import React from "react";
 import ReviewCards from "./ReviewCards";
+import NoResults from "@/app/(shared)/NoResults";
 
 const ReviewsTab = ({ reviews }) => {
   return (
@@ -14,6 +15,7 @@ const ReviewsTab = ({ reviews }) => {
           <ReviewCards key={review.$id} review={review} />
         ))}
       </div>
+      {reviews.length == 0 && <NoResults />}
     </section>
   );
 };

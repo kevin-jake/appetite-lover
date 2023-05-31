@@ -24,9 +24,7 @@ const getReviews = async (foodSpotId) => {
 const Content = async ({ foodspot, area }) => {
   const { foodSpotName: name, imgUrl } = foodspot;
   const foodMenu = await getFoodMenu(foodspot.$id);
-  console.log("🚀 ~ file: Content.jsx:27 ~ Content ~ foodMenu:", foodMenu);
   const reviews = await getReviews(foodspot.$id);
-  console.log("🚀 ~ file: Content.jsx:29 ~ Content ~ reviews:", reviews);
 
   return (
     <div className="flex-col flex w-full  mb-10">

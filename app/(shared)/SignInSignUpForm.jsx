@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { UseUser } from "@/hooks/useUser";
+import Loading from "./Loading";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -12,7 +13,6 @@ const registerSchema = yup.object().shape({
     .matches(/^[^0-9]*$/, "Your name should not contain any numbers"),
   lastName: yup
     .string()
-    .required("Required")
     .max(
       35,
       "Woah! you have a longer last name than Sir Wolfeschlegelsteinhausenbergerdorff. Apply in Guiness and get back to us."
@@ -44,7 +44,7 @@ const initialValues = {
 
 const SignInSignUpForm = ({ setModalType, pageType }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { login, register, closeModal } = UseUser();
+  const { login, register, loading } = UseUser();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
 
@@ -57,26 +57,14 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) {
       const { email, password } = values;
-      try {
-        await login(email, password);
-        onSubmitProps.resetForm();
-        closeModal();
-      } catch (error) {
-        console.log(error);
-      }
+      login(email, password);
     }
     if (isRegister) {
-      const { email, password, firstName: name } = values;
-      try {
-        await register(email, password, name);
-        onSubmitProps.resetForm();
-        closeModal();
-      } catch (error) {
-        console.log(error);
-      }
+      const { email, password, firstName, lastName } = values;
+      const name = `${firstName} ${lastName}`;
+      register(email, password, name);
     }
   };
-  // TODO: Add error validation
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -90,17 +78,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
         handleBlur,
         handleChange,
         handleSubmit,
-        setFieldValue,
-        resetForm,
       }) => {
-        // console.log(
-        //   "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ values:",
-        //   values
-        // );
-        // console.log(
-        //   "🚀 ~ file: SignInSignUpForm.jsx:169 ~ SignInSignUpForm ~ errors:",
-        //   errors
-        // );
         return (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -119,9 +97,17 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 required={isRegister}
                 type="email"
                 id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                placeholder="name@company.com"
+                className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                  Boolean(touched.email) && Boolean(errors.email)
+                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
+                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                } `}
               />
+              {Boolean(touched.email) && Boolean(errors.email) && (
+                <p className="text-xs text-red-300">
+                  {touched.email && errors.email}
+                </p>
+              )}
             </div>
             <div>
               <label
@@ -136,9 +122,18 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 onChange={handleChange}
                 value={values.password}
                 name="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required={isRegister}
+                className={`focus:outline-none focus:ring-1 focus:bg-white dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                  Boolean(touched.password) && Boolean(errors.password)
+                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
+                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                } `}
               />
+              {Boolean(touched.password) && Boolean(errors.password) && (
+                <p className="text-xs text-red-300">
+                  {touched.password && errors.password}
+                </p>
+              )}
             </div>
             {isRegister && (
               <>
@@ -152,11 +147,20 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                   <input
                     name="firstName"
                     id="firstName"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.firstName}
+                    className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                      Boolean(touched.firstName) && Boolean(errors.firstName)
+                        ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
+                        : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                    } `}
                   />
+                  {Boolean(touched.firstName) && Boolean(errors.firstName) && (
+                    <p className="text-xs text-red-300">
+                      {touched.firstName && errors.firstName}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -168,11 +172,20 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                   <input
                     name="lastName"
                     id="lastName"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.lastName}
+                    className={`focus:outline-none focus:ring-1 focus:bg-white  dark:text-white border dark:placeholder-gray-400  text-gray-900 text-sm rounded-lg  block w-full p-2.5 ${
+                      Boolean(touched.lastName) && Boolean(errors.lastName)
+                        ? "focus:ring-red-500 focus:border-red-500 border-red-500 dark:bg-red-600 dark:border-red-500 "
+                        : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                    } `}
                   />
+                  {Boolean(touched.lastName) && Boolean(errors.lastName) && (
+                    <p className="text-xs text-red-300">
+                      {touched.lastName && errors.lastName}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -192,19 +205,19 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 </div>
               </>
             )}
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
               <a
                 href="#"
                 className="text-sm text-blue-700 hover:underline dark:text-blue-500"
               >
                 Lost Password?
               </a>
-            </div>
+            </div> */}
             <button
               type="submit"
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              {pageType}
+              {loading ? <Loading /> : pageType}
             </button>
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
               {isLogin ? "Not registered? " : "Already have an account? "}
