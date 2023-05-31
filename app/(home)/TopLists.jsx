@@ -4,6 +4,7 @@ import FoodSpotCards from "./FoodSpotCards";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import NoResults from "../(shared)/NoResults";
+import Loading from "../(shared)/Loading copy";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -11,7 +12,6 @@ const getAreaId = async (area) => {
     process.env.NEXT_PUBLIC_AREA,
     [Query.equal("areaName", [area])]
   );
-  console.log("🚀 ~ file: TopLists.jsx:13 ~ getAreaId ~ area:", area);
   return areas.documents[0] || {};
 };
 
@@ -26,12 +26,15 @@ const getTopLists = async (area) => {
 };
 const TopLists = ({ colNumber = 2, area, closeTopList }) => {
   const [toplists, setToplists] = useState([]);
-  console.log("🚀 ~ file: TopLists.jsx:36 ~ TopLists ~ toplists:", toplists);
+  const [loading, setLoading] = useState(false);
+  console.log("🚀 ~ file: TopLists.jsx:30 ~ TopLists ~ loading:", loading);
 
   useEffect(() => {
     const getList = async () => {
+      setLoading(true);
       const lists = await getTopLists(area);
       setToplists(lists);
+      setLoading(false);
     };
 
     getList();
@@ -72,17 +75,22 @@ const TopLists = ({ colNumber = 2, area, closeTopList }) => {
               <span className="sr-only">Close modal</span>
             </button>
           </div>
-          <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
-            {toplists.map((item) => (
-              <FoodSpotCards
-                key={item.spotName}
-                name={item.spotName}
-                foodSpotId={item.$id}
-                area={area}
-              />
-            ))}
-          </div>
-          {toplists.length === 0 && <NoResults />}
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className={`grid grid-cols-${colNumber} gap-4 p-6`}>
+              {toplists.map((item) => (
+                <FoodSpotCards
+                  key={item.foodSpotName}
+                  name={item.foodSpotName}
+                  foodSpotId={item.$id}
+                  imgUrl={item.imgUrl}
+                  area={area}
+                />
+              ))}
+            </div>
+          )}
+          {toplists.length === 0 && !loading && <NoResults />}
         </div>
       </div>
     </div>

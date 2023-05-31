@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import Tabs from "./Tabs";
 
 const Content = ({ name, area }) => {
@@ -10,7 +9,7 @@ const Content = ({ name, area }) => {
         href="#"
         className="px-4 py-1 bg-white rounded-lg text-gray-500 flex items-start mb-2"
       >
-        <h5 className="text-wh-300">{`Home > ${decodeURI(area)} > ${name}`}</h5>
+        <h5 className="text-wh-300">{`Home > ${area} > ${name}`}</h5>
       </a>
       <div
         className=" rounded-lg mb-4 md:mb-0 w-full relative"
@@ -29,7 +28,7 @@ const Content = ({ name, area }) => {
         />
         <div className="p-4 absolute bottom-0 left-0 z-20">
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-            {name} Jolliben
+            {name}
           </h2>
         </div>
       </div>

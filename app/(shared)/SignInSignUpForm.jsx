@@ -26,27 +26,6 @@ const registerSchema = yup.object().shape({
     .string()
     .required("Required")
     .min(6, "Password must be at least 6 characters"),
-  // mobileNumber: yup
-  //   .string()
-  //   .matches(/^(\+63|0)\d{9,10}$/, {
-  //     message:
-  //       "Mobile number must start with +63 or 0, followed by 9 or 10 digits",
-  //   })
-  //   .test("is-allowed-length", "Invalid mobile number length", (value) => {
-  //     if (value?.startsWith("+63")) {
-  //       return value.length === 13;
-  //     } else if (value?.startsWith("0")) {
-  //       return value.length === 11;
-  //     }
-  //     return false;
-  //   })
-  //   .required("Required"),
-  // isTermsChecked: yup
-  //   .boolean()
-  //   .oneOf([true], "Please read and check the Terms of Use"),
-  // isPrivacyChecked: yup
-  //   .boolean()
-  //   .oneOf([true], "Please read and check the Privacy Policy"),
 });
 
 const loginSchema = yup.object().shape({
@@ -97,7 +76,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
       }
     }
   };
-
+  // TODO: Add error validation
   return (
     <Formik
       onSubmit={handleFormSubmit}

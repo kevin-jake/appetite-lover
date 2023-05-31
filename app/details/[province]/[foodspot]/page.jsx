@@ -23,7 +23,6 @@ const getPost = async (foodspotId) => {
 };
 
 const Post = async ({ params }) => {
-  console.log("🚀 ~ file: page.jsx:27 ~ params:", params);
   const post = await getPost(params.foodspot);
   const areaName = await getAreaId(post.areaId);
 
@@ -35,10 +34,10 @@ const Post = async ({ params }) => {
     <main className="px-10 leading-7">
       <div className="md:flex gap-10 mb-5">
         <div className="basis-3/4">
-          <Content name={post.spotName} area={areaName} />
+          <Content name={post.foodSpotName} area={areaName} />
         </div>
         <div className="basis-1/4">
-          <TopLists colNumber={"1"} area={decodeURI(params.area)} />
+          <TopLists colNumber={"1"} area={areaName} />
         </div>
       </div>
     </main>
