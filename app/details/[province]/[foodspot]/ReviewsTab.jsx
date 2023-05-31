@@ -1,6 +1,7 @@
 import React from "react";
 import ReviewCards from "./ReviewCards";
 import NoResults from "@/app/(shared)/NoResults";
+import ReviewForm from "./ReviewForm";
 
 const ReviewsTab = ({ reviews }) => {
   return (
@@ -11,6 +12,7 @@ const ReviewsTab = ({ reviews }) => {
         </h4>
       </div>
       <div className="flex flex-col gap-8">
+        <ReviewForm />
         {reviews.map((review) => (
           <ReviewCards key={review.$id} review={review} />
         ))}
