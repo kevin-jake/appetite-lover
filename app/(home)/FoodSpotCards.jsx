@@ -8,13 +8,14 @@ const FoodSpotCards = ({ name, area, foodSpotId, imgUrl }) => {
       <div className="px-5 py-5 w-full">
         <Link href={`/details/${area}/${foodSpotId}`}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
-            {name} Jolliben
+            {name}
           </h5>
         </Link>
+      </div>
+      <div className="basis-full relative w-auto h-32 bg-wh-500">
         <Image
-          fill
           alt={name}
-          placeholder="blur"
+          fill
           src={imgUrl}
           sizes="(max-width: 480px) 100vw,
                 (max-width: 768px) 75vw,

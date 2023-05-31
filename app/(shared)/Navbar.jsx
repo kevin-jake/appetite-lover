@@ -9,10 +9,6 @@ import Loading from "./Loading";
 const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, logout } = UseUser();
   const [openDropdown, setOpenDropdown] = useState(false);
-  console.log(
-    "🚀 ~ file: Navbar.jsx:12 ~ Navbar ~ openDropdown:",
-    openDropdown
-  );
 
   const [pageType, setPageType] = useState("Login");
   if (loading) return <Loading />;
