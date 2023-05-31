@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
 import { UseUser } from "@/hooks/useUser";
 import Link from "next/link";
-import Loading from "./Loading";
 
 const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, closeModal, logout } =
@@ -12,8 +11,6 @@ const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const [pageType, setPageType] = useState("Login");
-  if (loading) return <Loading />;
-
   return (
     <header className="mb-5">
       {isSignInOpen && (
@@ -56,7 +53,7 @@ const Navbar = () => {
               </button>
             </div>
           )}
-          {user && (
+          {user && !loading && (
             <button onClick={() => setOpenDropdown(!openDropdown)}>
               <div className="relative m-2 inline-flex items-center justify-center w-10 h-10 overflow-hidden border-gray-600 border-2 bg-lime-400 rounded-full dark:bg-gray-600">
                 <span className="font-black text-gray-600 dark:text-gray-300">
@@ -117,7 +114,7 @@ const Navbar = () => {
             </>
           )}
           <div className="flex justify-center flex-col p-2">
-            {user && (
+            {user && !loading && (
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"

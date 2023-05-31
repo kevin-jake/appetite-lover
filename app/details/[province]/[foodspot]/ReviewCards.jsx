@@ -11,7 +11,11 @@ const ReviewCards = ({ review }) => {
     >
       <div>
         <h5 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          {`${review.comment.split(" ")[0]} ${review.comment.split(" ")[1]}...`}
+          {`${review.comment.split(" ")[0]} ${
+            review.comment.split(" ").length > 1
+              ? review.comment.split(" ")[1]
+              : ""
+          }...`}
         </h5>
         <p className="mt-2 dark:text-white">{review.comment}</p>
       </div>

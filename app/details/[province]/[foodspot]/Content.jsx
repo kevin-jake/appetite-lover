@@ -13,19 +13,9 @@ const getFoodMenu = async (foodSpotId) => {
   return menu.documents;
 };
 
-const getReviews = async (foodSpotId) => {
-  const reviews = await database.listDocuments(
-    process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_REVIEWS,
-    [Query.equal("foodSpotId", [foodSpotId])]
-  );
-  return reviews.documents;
-};
-
 const Content = async ({ foodspot, area }) => {
   const { foodSpotName: name, imgUrl } = foodspot;
   const foodMenu = await getFoodMenu(foodspot.$id);
-  const reviews = await getReviews(foodspot.$id);
 
   return (
     <div className="flex-col flex w-full  mb-10">
@@ -61,7 +51,7 @@ const Content = async ({ foodspot, area }) => {
           </h2>
         </div>
       </div>
-      <Tabs foodMenu={foodMenu} reviews={reviews} />
+      <Tabs foodMenu={foodMenu} foodSpotId={foodspot.$id} />
     </div>
   );
 };

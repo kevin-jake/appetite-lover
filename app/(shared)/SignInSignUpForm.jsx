@@ -94,17 +94,16 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 onChange={handleChange}
                 value={values.email}
                 name="email"
-                required={isRegister}
                 type="email"
                 id="email"
                 className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
                   Boolean(touched.email) && Boolean(errors.email)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500"
                 } `}
               />
               {Boolean(touched.email) && Boolean(errors.email) && (
-                <p className="text-xs m-2 m-2 text-red-300">
+                <p className="text-xs m-2 text-red-300">
                   {touched.email && errors.email}
                 </p>
               )}
@@ -122,7 +121,6 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                 onChange={handleChange}
                 value={values.password}
                 name="password"
-                required={isRegister}
                 className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
                   Boolean(touched.password) && Boolean(errors.password)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
