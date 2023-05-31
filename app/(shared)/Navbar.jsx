@@ -28,15 +28,15 @@ const Navbar = () => {
         </div>
         <div className="flex flex-col justify-center items-center align-middle md:hidden">
           {!user && !loading && (
-            <div className="relative h-full gap-4 flex flex-col items-center justify-center">
+            <div className="relative h-full gap-3 flex flex-col items-center justify-center">
               <button
                 onClick={() => {
                   openModal();
                   setPageType("Login");
                 }}
-                className="relative inline-flex w-full items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
               >
-                <span className="relative p-1 w-full transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="inline-flex p-2 font-bold  align-middle items-center text-white">
                   Sign In
                 </span>
               </button>
@@ -45,9 +45,9 @@ const Navbar = () => {
                   openModal();
                   setPageType("Register");
                 }}
-                className="relative inline-flex w-full items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
               >
-                <span className="relative p-1  transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="inline-flex p-2 font-bold  align-middle items-center text-white">
                   Register
                 </span>
               </button>
@@ -94,9 +94,9 @@ const Navbar = () => {
                   openModal();
                   setPageType("Login");
                 }}
-                className="relative inline-flex items-center justify-center p-0.5  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="inline-flex p-4 font-bold  align-middle items-center text-white">
                   Sign In
                 </span>
               </button>
@@ -105,9 +105,9 @@ const Navbar = () => {
                   openModal();
                   setPageType("Register");
                 }}
-                className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
               >
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                <span className="inline-flex p-4 font-bold  align-middle items-center text-white">
                   Register
                 </span>
               </button>
@@ -118,7 +118,7 @@ const Navbar = () => {
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
-                className="relative inline-flex items-center justify-center p-3 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                className="relative inline-flex items-center justify-center p-3 overflow-hidden text-sm font-bold text-gray-600 dark:text-gray-300 border-gray-600 border-2 bg-blue-100 rounded-lg dark:bg-gray-600"
                 type="button"
                 onClick={() => setOpenDropdown(!openDropdown)}
               >

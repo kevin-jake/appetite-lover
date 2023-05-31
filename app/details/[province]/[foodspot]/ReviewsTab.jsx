@@ -15,7 +15,7 @@ const getReviews = async (foodSpotId) => {
   return reviews.documents;
 };
 
-const ReviewsTab = async ({ foodSpotId, refetch, setRefetch }) => {
+const ReviewsTab = async ({ foodSpotId, setRefetch }) => {
   const reviews = await getReviews(foodSpotId);
   console.log("🚀 ~ file: ReviewsTab.jsx:23 ~ ReviewsTab ~ reviews:", reviews);
   setRefetch(false);

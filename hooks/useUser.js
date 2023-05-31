@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
 
   const openModal = () => {
+    window.scrollTo(0, 0);
     setIsSignInOpen(true);
   };
 
