@@ -8,9 +8,9 @@ const SignInSignUpModal = ({ closeModal, pageType, setPageType }) => {
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className=" z-30 flex justify-center absolute items-center w-full h-full md:m-0"
+        className=" z-30 flex justify-center absolute items-center w-full h-full rounded-lg "
       >
-        <div className="relative w-full max-w-md max-h-full">
+        <div className="relative w-4/5 lg:w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               onClick={closeModal}
@@ -33,9 +33,9 @@ const SignInSignUpModal = ({ closeModal, pageType, setPageType }) => {
               <span className="sr-only">Close modal</span>
             </button>
             <div className="px-6 py-6 lg:px-8">
-              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                {pageType == "Login" ? "Sign in" : "Register"} to Appetite Lover
-              </h3>
+              <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
+                {pageType}
+              </h2>
               <SignInSignUpForm
                 pageType={pageType}
                 setModalType={(type) => setPageType(type)}

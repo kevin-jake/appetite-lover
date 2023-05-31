@@ -45,10 +45,6 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "🚀 ~ file: Map.jsx:49 ~ useEffect ~ isTopListVisible:",
-      isTopListVisible
-    );
     if (isTopListVisible) {
       setTooltipVisible(false);
     }

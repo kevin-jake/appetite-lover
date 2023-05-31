@@ -16,11 +16,7 @@ const ReviewCards = ({ review }) => {
         <p className="mt-2 dark:text-white">{review.comment}</p>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <p
-          className={`text-sm font-medium ${
-            isPositiveFeedback ? "text-green-500 " : "text-red-500 "
-          }`}
-        >
+        <p className="text-sm font-medium text-gray-500">
           {review.reviewerEmail}
         </p>
         {isPositiveFeedback ? (

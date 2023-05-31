@@ -16,7 +16,6 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  console.log("🚀 ~ file: useUser.js:19 ~ UserProvider ~ error:", error);
   const [isSignInOpen, setIsSignInOpen] = useState(false);
 
   const openModal = () => {
