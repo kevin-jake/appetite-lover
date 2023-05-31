@@ -21,6 +21,26 @@ body {
   background-repeat: no-repeat;
 }
 
+.positive {
+  font-family: var(--font-inter);
+  background: linear-gradient(
+    0deg,
+    rgb(220, 255, 220) 0%,
+    rgba(33, 188, 241, 0) 100%
+  );
+  background-repeat: no-repeat;
+}
+
+.negative {
+  font-family: var(--font-inter);
+  background: linear-gradient(
+    0deg,
+    rgb(237, 165, 165) 0%,
+    rgba(33, 188, 241, 0) 100%
+  );
+  background-repeat: no-repeat;
+}
+
 h1,
 h2,
 h3,
