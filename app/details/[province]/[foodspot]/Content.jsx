@@ -1,8 +1,33 @@
-"use client";
 import Image from "next/image";
 import Tabs from "./Tabs";
+import { database } from "@/libs/appwrite";
+import { Query } from "appwrite";
 
-const Content = ({ name, area, imgUrl }) => {
+const getFoodMenu = async (foodSpotId) => {
+  const menu = await database.listDocuments(
+    process.env.NEXT_PUBLIC_DATABASE,
+    process.env.NEXT_PUBLIC_FOOD_MENU,
+    [Query.equal("foodSpotId", [foodSpotId])]
+  );
+  return menu.documents;
+};
+
+const getReviews = async (foodSpotId) => {
+  const reviews = await database.listDocuments(
+    process.env.NEXT_PUBLIC_DATABASE,
+    process.env.NEXT_PUBLIC_REVIEWS,
+    [Query.equal("foodSpotId", [foodSpotId])]
+  );
+  return reviews.documents;
+};
+
+const Content = async ({ foodspot, area }) => {
+  const { foodSpotName: name, imgUrl } = foodspot;
+  const foodMenu = await getFoodMenu(foodspot.$id);
+  console.log("🚀 ~ file: Content.jsx:27 ~ Content ~ foodMenu:", foodMenu);
+  const reviews = await getReviews(foodspot.$id);
+  console.log("🚀 ~ file: Content.jsx:29 ~ Content ~ reviews:", reviews);
+
   return (
     <div className="flex-col flex w-full  mb-10">
       <a
@@ -38,7 +63,7 @@ const Content = ({ name, area, imgUrl }) => {
           </h2>
         </div>
       </div>
-      <Tabs />
+      <Tabs foodMenu={foodMenu} reviews={reviews} />
     </div>
   );
 };

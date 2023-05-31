@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import MenuTab from "./MenuTab";
 import ReviewsTab from "./ReviewsTab";
 
-const Tabs = () => {
+const Tabs = ({ foodMenu, reviews }) => {
   const TABS = ["Menu", "Reviews", "Location"];
   const [tab, setTab] = useState("Menu");
 
@@ -14,9 +14,9 @@ const Tabs = () => {
   const tabContent = (tab) => {
     switch (tab) {
       case "Menu":
-        return <MenuTab />;
+        return <MenuTab foodMenu={foodMenu} />;
       case "Reviews":
-        return <ReviewsTab />;
+        return <ReviewsTab reviews={reviews} />;
     }
   };
 

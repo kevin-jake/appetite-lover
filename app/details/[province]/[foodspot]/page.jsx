@@ -13,39 +13,35 @@ const getAreaId = async (areaId) => {
   return area.documents[0].areaName;
 };
 
-const getPost = async (foodspotId) => {
-  const post = await database.listDocuments(
+const getSpot = async (foodspotId) => {
+  const spot = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_FOOD_SPOT,
     [Query.equal("$id", [foodspotId])]
   );
-  return post.documents[0];
+  return spot.documents[0];
 };
 
-const Post = async ({ params }) => {
-  const post = await getPost(params.foodspot);
-  const areaName = await getAreaId(post.areaId);
+const Spot = async ({ params }) => {
+  const spot = await getSpot(params.foodspot);
+  const areaName = await getAreaId(spot.areaId);
 
-  if (!post) {
-    return <div>Post Not Found</div>;
+  if (!spot) {
+    return <div>Food Spot Not Found</div>;
   }
 
   return (
     <main className="px-10 leading-7">
       <div className="md:flex gap-10 mb-5">
         <div className="basis-3/4">
-          <Content
-            name={post.foodSpotName}
-            area={areaName}
-            imgUrl={post.imgUrl}
-          />
+          <Content foodspot={spot} area={areaName} />
         </div>
         <div className="basis-1/4">
-          <TopLists colNumber={"1"} area={areaName} />
+          <TopLists colNumber={"1"} area={areaName} isFromContent={true} />
         </div>
       </div>
     </main>
   );
 };
 
-export default Post;
+export default Spot;
