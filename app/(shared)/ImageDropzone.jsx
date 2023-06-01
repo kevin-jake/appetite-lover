@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { createRef, useRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import { toast } from "react-hot-toast";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
 
 const ImageDropzone = ({ setFieldValue, values }) => {
   const [files, setFiles] = useState([]);
+  const dropzoneRef = createRef();
 
   const areFilesPresent = Boolean(files.length);
 
@@ -16,12 +17,19 @@ const ImageDropzone = ({ setFieldValue, values }) => {
     setFieldValue("imgUrl", null);
   };
 
+  const openDialog = () => {
+    if (dropzoneRef.current) {
+      dropzoneRef.current.open();
+    }
+  };
+
   return (
     <div
       className="flex flex-col w-1/2 border-solid border rounded-lg justify-center"
       // justifySelf={areFilesPresent ? "center" : ""}
     >
       <Dropzone
+        ref={dropzoneRef}
         accept={{ "image/jpg": [".jpg", ".jpeg", ".png"] }}
         maxSize={5242880}
         multiple={false}
@@ -72,21 +80,6 @@ const ImageDropzone = ({ setFieldValue, values }) => {
                         src={file.preview}
                         alt={file.name}
                       />
-                      <div className="flex w-full justify-between">
-                        <button
-                          type="button"
-                          className="flex justify-center text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                        >
-                          <MdModeEditOutline />
-                        </button>
-                        <buttton
-                          type="button"
-                          onClick={removeFile(files[0])}
-                          className="flex justify-center text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                        >
-                          <MdDelete />
-                        </buttton>
-                      </div>
                     </div>
                   ))}
                 </>
@@ -95,6 +88,24 @@ const ImageDropzone = ({ setFieldValue, values }) => {
           </div>
         )}
       </Dropzone>
+      {values.imgUrl && (
+        <div className="flex w-full p-4 justify-center gap-8">
+          <button
+            type="button"
+            onClick={openDialog}
+            className="flex justify-center text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          >
+            <MdModeEditOutline />
+          </button>
+          <buttton
+            type="button"
+            onClick={removeFile(files[0])}
+            className="flex justify-center text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          >
+            <MdDelete />
+          </buttton>
+        </div>
+      )}
     </div>
   );
 };
