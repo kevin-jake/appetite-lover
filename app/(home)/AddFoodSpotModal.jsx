@@ -5,12 +5,13 @@ const AddFoodSpotModal = ({ closeModal }) => {
   return (
     <>
       <div
-        id="foodSpot-modal"
+        id="foodSpot"
         tabIndex="-1"
         aria-hidden="true"
-        className=" z-40 flex justify-center absolute items-center w-full h-full rounded-lg top-0"
+        className="flex justify-center absolute top-0 z-50 w-full p-4 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        // z-40 flex justify-center absolute items-center w-full h-full rounded-lg top-0 left-0
       >
-        <div className="relative w-4/5 lg:w-full max-w-md max-h-full">
+        <div className="relative w-full max-w-2xl max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               onClick={closeModal}
@@ -34,7 +35,7 @@ const AddFoodSpotModal = ({ closeModal }) => {
             </button>
             <div className="px-6 py-6 lg:px-8">
               <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
-                Add Food Spot
+                Add Food Spot for
               </h2>
               <AddFoodSpotForm />
             </div>

@@ -1,75 +1,40 @@
 "use client";
-import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { UseUser } from "@/hooks/useUser";
 import { CgSpinnerTwo } from "react-icons/cg";
+import ImageDropzone from "../(shared)/ImageDropzone";
 
-const registerSchema = yup.object().shape({
-  firstName: yup
+const foodSpotSchema = yup.object().shape({
+  foodSpotName: yup
     .string()
-    .required("Required")
-    .max(35, "Nickname will be fine, if your name is that long.")
-    .matches(/^[^0-9]*$/, "Your name should not contain any numbers"),
-  lastName: yup
+    .required("Food Name is required.")
+    .max(255, "Please limit your description to 255 characters only."),
+  description: yup
     .string()
-    .max(
-      35,
-      "Woah! you have a longer last name than Sir Wolfeschlegelsteinhausenbergerdorff. Apply in Guiness and get back to us."
-    )
-    .matches(/^[^0-9]*$/, "Your name should not contain any numbers"),
-  email: yup
-    .string()
-    .email("Please enter a valid email address")
-    .required("Required"),
-  password: yup
-    .string()
-    .required("Required")
-    .min(6, "Password must be at least 6 characters"),
-});
-
-const loginSchema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Required"),
-  password: yup.string().required("Required"),
+    .max(255, "Please limit your description to 255 characters only."),
 });
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  location: "",
-  imagePath: "",
+  foodSpotName: "",
+  description: "",
+  imgUrl: "",
 };
 
-const AddFoodSpotForm = ({ setModalType, pageType }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const { login, register, loading } = UseUser();
-  const isLogin = pageType === "Login";
-  const isRegister = pageType === "Register";
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+const AddFoodSpotForm = ({ areaId }) => {
+  const { user, loading } = UseUser();
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    if (isLogin) {
-      const { email, password } = values;
-      login(email, password);
-    }
-    if (isRegister) {
-      const { email, password, firstName, lastName } = values;
-      const name = `${firstName} ${lastName}`;
-      register(email, password, name);
-    }
+    console.log(
+      "🚀 ~ file: AddFoodSpotForm.jsx:28 ~ handleFormSubmit ~ values:",
+      values
+    );
   };
   return (
     <Formik
       onSubmit={handleFormSubmit}
       initialValues={initialValues}
-      validationSchema={isLogin ? loginSchema : registerSchema}
+      validationSchema={foodSpotSchema}
     >
       {({
         values,
@@ -78,110 +43,64 @@ const AddFoodSpotForm = ({ setModalType, pageType }) => {
         handleBlur,
         handleChange,
         handleSubmit,
+        setFieldValue,
       }) => {
         return (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
-                htmlFor="email"
+                htmlFor="foodSpotName"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Email
+                Food Spot Name
               </label>
               <input
-                label="Email"
+                label=" Food Spot Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.email}
-                name="email"
-                type="email"
-                id="email"
+                value={values.foodSpotName}
+                name="foodSpotName"
+                type="foodSpotName"
+                id="foodSpotName"
                 className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
-                  Boolean(touched.email) && Boolean(errors.email)
+                  Boolean(touched.foodSpotName) && Boolean(errors.foodSpotName)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
                     : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500"
                 } `}
               />
-              {Boolean(touched.email) && Boolean(errors.email) && (
-                <p className="text-xs m-2 text-red-300">
-                  {touched.email && errors.email}
-                </p>
-              )}
+              {Boolean(touched.foodSpotName) &&
+                Boolean(errors.foodSpotName) && (
+                  <p className="text-xs m-2 text-red-300">
+                    {touched.foodSpotName && errors.foodSpotName}
+                  </p>
+                )}
             </div>
             <div>
               <label
-                htmlFor="password"
+                htmlFor="description"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Password
+                Description
               </label>
-              <input
-                type={showPassword ? "text" : "password"}
+              <textarea
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.password}
-                name="password"
+                value={values.description}
+                name="description"
                 className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
-                  Boolean(touched.password) && Boolean(errors.password)
+                  Boolean(touched.description) && Boolean(errors.description)
                     ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
                     : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
                 } `}
               />
-              {Boolean(touched.password) && Boolean(errors.password) && (
+              {Boolean(touched.description) && Boolean(errors.description) && (
                 <p className="text-xs m-2 text-red-300">
-                  {touched.password && errors.password}
+                  {touched.description && errors.description}
                 </p>
               )}
             </div>
-            <div>
-              <label
-                htmlFor="firstName"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                First name
-              </label>
-              <input
-                name="firstName"
-                id="firstName"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.firstName}
-                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400  ${
-                  Boolean(touched.firstName) && Boolean(errors.firstName)
-                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
-                } `}
-              />
-              {Boolean(touched.firstName) && Boolean(errors.firstName) && (
-                <p className="text-xs m-2 text-red-300">
-                  {touched.firstName && errors.firstName}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="lastName"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Last name
-              </label>
-              <input
-                name="lastName"
-                id="lastName"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
-                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400 ${
-                  Boolean(touched.lastName) && Boolean(errors.lastName)
-                    ? "focus:ring-red-500 focus:border-red-500 bg-red-200 border-red-500 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
-                } `}
-              />
-              {Boolean(touched.lastName) && Boolean(errors.lastName) && (
-                <p className="text-xs m-2 text-red-300">
-                  {touched.lastName && errors.lastName}
-                </p>
-              )}
+            <div className="flex justify-center">
+              <ImageDropzone setFieldValue={setFieldValue} values={values} />
             </div>
             <button
               type="submit"
