@@ -46,7 +46,7 @@ const Content = async ({ foodspot, area }) => {
                 33vw"
           style={{ objectFit: "cover" }}
         />
-        <div className="p-4 absolute bottom-0 left-0 z-20">
+        <div className="flex justify-between w-full p-4 absolute bottom-0 left-0 z-20">
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
             {name}
           </h2>
