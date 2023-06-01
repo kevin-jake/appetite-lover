@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
+import { toast } from "react-hot-toast";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
-import { toast } from "react-toastify";
 
 const ImageDropzone = ({ setFieldValue, values }) => {
   const [files, setFiles] = useState([]);

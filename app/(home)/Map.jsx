@@ -1,6 +1,7 @@
 "use client";
 import { database } from "@/libs/appwrite";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
@@ -37,6 +38,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         );
         setMapshapes(areas.documents);
       } catch (error) {
+        toast.error(error.message);
         console.log(error);
       }
     };

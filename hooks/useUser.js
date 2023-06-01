@@ -1,6 +1,7 @@
 "use client";
 import { account } from "@/libs/appwrite";
 import { useContext, createContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 const defaultState = {
   user: null,
@@ -15,7 +16,6 @@ const userContext = createContext(defaultState);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [isSignInOpen, setIsSignInOpen] = useState(false);
 
   const openModal = () => {
@@ -32,11 +32,10 @@ export const UserProvider = ({ children }) => {
       setLoading(true);
       const loadedAccount = await account.get();
       setUser(loadedAccount);
-      setError("");
+
       closeModal();
     } catch (error) {
       console.error(error);
-      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -46,9 +45,10 @@ export const UserProvider = ({ children }) => {
     try {
       await account.createEmailSession(email, password);
       await loadAccount();
+      toast.success("You are now logged in");
     } catch (error) {
+      toast.error(error.message);
       console.error(error);
-      setError(error.message);
     }
   };
 
@@ -56,7 +56,9 @@ export const UserProvider = ({ children }) => {
     try {
       await account.create("unique()", email, password, name);
       await login(email, password);
+      toast.success("Registered successfully");
     } catch (error) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -75,7 +77,6 @@ export const UserProvider = ({ children }) => {
       value={{
         user,
         loading,
-        error,
         isSignInOpen,
         logout,
         login,

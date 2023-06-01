@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { database, functions } from "@/libs/appwrite";
 import { UseUser } from "@/hooks/useUser";
 import { ID } from "appwrite";
+import { toast } from "react-hot-toast";
 
 const commentSchema = yup.object().shape({
   comment: yup
@@ -44,6 +45,7 @@ const ReviewForm = ({ foodSpotId, setRefetch }) => {
       );
       onSubmitProps.resetForm();
     } catch (error) {
+      toast.error(error.message);
       console.error(error.message);
     }
 
@@ -56,6 +58,7 @@ const ReviewForm = ({ foodSpotId, setRefetch }) => {
       setPosting(false);
       setRefetch(true);
     } catch (error) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };

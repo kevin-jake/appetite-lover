@@ -3,6 +3,7 @@ import { UseUser } from "@/hooks/useUser";
 import Map from "./Map";
 import TopLists from "./TopLists";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function LandingPage() {
   const [isTopListVisible, setisTopListVisible] = useState(false);

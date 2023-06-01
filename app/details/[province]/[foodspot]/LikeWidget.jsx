@@ -3,6 +3,7 @@ import { UseUser } from "@/hooks/useUser";
 import { database, functions } from "@/libs/appwrite";
 import { Query } from "appwrite";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { MdOutlineThumbDown, MdOutlineThumbUp } from "react-icons/md";
 
@@ -59,6 +60,7 @@ const LikeWidget = ({ foodSpotId }) => {
       else setButtonState(value);
       setLoading(false);
     } catch (error) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };

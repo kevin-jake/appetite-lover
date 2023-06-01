@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
 import { UseUser } from "@/hooks/useUser";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, closeModal, logout } =
@@ -13,6 +14,7 @@ const Navbar = () => {
   const [pageType, setPageType] = useState("Login");
   return (
     <header className="mb-5">
+      <Toaster />
       {isSignInOpen && (
         <SignInSignUpModal
           pageType={pageType}
