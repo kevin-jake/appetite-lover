@@ -28,11 +28,12 @@ const LikeWidget = ({ foodSpotId }) => {
   }, [buttonState]);
 
   useEffect(() => {
-    if (!userLoading && foodSpot.likes?.includes(user.email))
+    if (!userLoading && foodSpot.likes?.includes(user?.email))
       setButtonState("Like");
-    if (!userLoading && foodSpot.dislikes?.includes(user.email))
+    else if (!userLoading && foodSpot.dislikes?.includes(user?.email))
       setButtonState("Dislike");
-  }, []);
+    else setButtonState("neutral");
+  }, [foodSpotId, user, foodSpot]);
 
   const handleClick = async (e, value) => {
     if (!user) {
@@ -77,7 +78,7 @@ const LikeWidget = ({ foodSpotId }) => {
               `}
             >
               <MdOutlineThumbUp />
-              {foodSpot.likes.length > 0 && foodSpot.likes.length}
+              {foodSpot.likes?.length > 0 && foodSpot.likes.length}
             </span>
           </button>
           <button type="button" onClick={(e) => handleClick(e, "Dislike")}>
@@ -88,7 +89,7 @@ const LikeWidget = ({ foodSpotId }) => {
               `}
             >
               <MdOutlineThumbDown />
-              {foodSpot.dislikes.length > 0 && foodSpot.dislikes.length}
+              {foodSpot.dislikes?.length > 0 && foodSpot.dislikes.length}
             </span>
           </button>
         </>

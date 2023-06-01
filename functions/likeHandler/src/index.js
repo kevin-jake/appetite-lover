@@ -53,6 +53,7 @@ module.exports = async function (req, res) {
           [sdk.Query.equal("$id", foodSpotId)]
         );
         likes = result.documents[0].likes;
+        console.log("🚀 ~ file: index.js:56 ~ likes:", likes);
         dislikes = result.documents[0].dislikes;
       } catch (error) {
         console.log(error);
@@ -75,8 +76,10 @@ module.exports = async function (req, res) {
         newLikes = [...likes, email];
       } else if (isLike) {
         newLikes = [...likes, email];
+        newDislikes = dislikes;
       } else if (isDisLike) {
         newDislikes = [...dislikes, email];
+        newLikes = likes;
       } else {
         newDislikes = dislikes;
         newLikes = likes;

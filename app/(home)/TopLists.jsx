@@ -21,7 +21,7 @@ const getTopLists = async (area) => {
   const toplists = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_FOOD_SPOT,
-    [Query.equal("areaId", [areaId])]
+    [Query.equal("areaId", [areaId]), Query.orderDesc("ratings")]
   );
   return toplists.documents;
 };
