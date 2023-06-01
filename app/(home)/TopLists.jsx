@@ -98,12 +98,12 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                     isFromContent ? "" : "md:grid-cols-2"
                   }`}
                 >
-                  {toplists.map((item) => (
+                  {toplists.map((item, index) => (
                     <FoodSpotCards
-                      key={item.foodSpotName}
+                      key={`${item.foodSpotName}-${index}`}
                       name={item.foodSpotName}
                       foodSpotId={item.$id}
-                      imgUrl={item.imgUrl}
+                      imgUrl={item.imgUrl || ""}
                       area={area}
                     />
                   ))}
