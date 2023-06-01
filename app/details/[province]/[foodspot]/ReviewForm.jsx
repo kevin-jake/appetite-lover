@@ -5,7 +5,7 @@ import { MdSend } from "react-icons/md";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { database } from "@/libs/appwrite";
+import { database, functions } from "@/libs/appwrite";
 import { UseUser } from "@/hooks/useUser";
 import { ID } from "appwrite";
 
@@ -43,8 +43,18 @@ const ReviewForm = ({ foodSpotId, setRefetch }) => {
         data
       );
       onSubmitProps.resetForm();
-      setRefetch(true);
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    try {
+      await functions.createExecution(
+        process.env.NEXT_PUBLIC_UPDATE_RATINGS_FUNC,
+        foodSpotId,
+        true
+      );
       setPosting(false);
+      setRefetch(true);
     } catch (error) {
       console.error(error.message);
     }
