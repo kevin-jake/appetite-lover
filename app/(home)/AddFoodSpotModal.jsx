@@ -1,7 +1,7 @@
 import ModalBackdrop from "../(shared)/ModalBackdrop";
 import AddFoodSpotForm from "./AddFoodSpotForm";
 
-const AddFoodSpotModal = ({ closeModal }) => {
+const AddFoodSpotModal = ({ closeModal, areaId, area }) => {
   return (
     <>
       <div
@@ -35,9 +35,9 @@ const AddFoodSpotModal = ({ closeModal }) => {
             </button>
             <div className="px-6 py-6 lg:px-8">
               <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
-                Add Food Spot for
+                Add Food Spot for {area}
               </h2>
-              <AddFoodSpotForm />
+              <AddFoodSpotForm areaId={areaId} area={area} />
             </div>
           </div>
         </div>

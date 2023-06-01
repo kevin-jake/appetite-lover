@@ -1,9 +1,13 @@
 "use client";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { UseUser } from "@/hooks/useUser";
 import { CgSpinnerTwo } from "react-icons/cg";
 import ImageDropzone from "../(shared)/ImageDropzone";
+import { ID } from "appwrite";
+import { database, storage } from "@/libs/appwrite";
+import { toast } from "react-hot-toast";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const foodSpotSchema = yup.object().shape({
   foodSpotName: yup
@@ -21,14 +25,48 @@ const initialValues = {
   imgUrl: "",
 };
 
-const AddFoodSpotForm = ({ areaId }) => {
-  const { user, loading } = UseUser();
+const uploadImage = async (image) => {
+  try {
+    const fileId = ID.unique();
+    const res = await storage.createFile(
+      process.env.NEXT_PUBLIC_IMAGE_BUCKET,
+      fileId,
+      image
+    );
+    return `${process.env.NEXT_PUBLIC_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_IMAGE_BUCKET}/files/${res.$id}/preview?project=${process.env.NEXT_PUBLIC_PROJECT}`;
+  } catch (error) {
+    toast.error(error.message);
+    console.error(error.message);
+  }
+};
+
+const AddFoodSpotForm = ({ area, areaId }) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log(
-      "🚀 ~ file: AddFoodSpotForm.jsx:28 ~ handleFormSubmit ~ values:",
-      values
-    );
+    setLoading(true);
+    let data = { ...values, areaId };
+    if (values.imgUrl) {
+      data.imgUrl = await uploadImage(values.imgUrl);
+    }
+
+    try {
+      const result = await database.createDocument(
+        process.env.NEXT_PUBLIC_DATABASE,
+        process.env.NEXT_PUBLIC_FOOD_SPOT,
+        ID.unique(),
+        data
+      );
+      onSubmitProps.resetForm();
+      toast.success("Food Spot successfully created.");
+      router.push(`/details/${area}/${result.$id}`);
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <Formik

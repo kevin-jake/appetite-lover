@@ -1,5 +1,5 @@
 "use client";
-import React, { createRef, useRef, useState } from "react";
+import React, { createRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import { toast } from "react-hot-toast";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
@@ -97,13 +97,13 @@ const ImageDropzone = ({ setFieldValue, values }) => {
           >
             <MdModeEditOutline />
           </button>
-          <buttton
+          <button
             type="button"
             onClick={removeFile(files[0])}
             className="flex justify-center text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
           >
             <MdDelete />
-          </buttton>
+          </button>
         </div>
       )}
     </div>

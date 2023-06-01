@@ -2,7 +2,6 @@ import Image from "next/image";
 import Tabs from "./Tabs";
 import { database } from "@/libs/appwrite";
 import { Query } from "appwrite";
-import Link from "next/link";
 import LikeWidget from "./LikeWidget";
 
 const getFoodMenu = async (foodSpotId) => {
@@ -20,11 +19,9 @@ const Content = async ({ foodspot, area }) => {
 
   return (
     <div className="flex-col flex w-full  mb-10">
-      <Link href="/">
-        <span className="px-4 py-1 bg-white dark:bg-gray-700 rounded-lg text-gray-500 dark:text-white flex items-start mb-2">
-          <h5 className="text-wh-300">{`Home > ${area} > ${name}`}</h5>
-        </span>
-      </Link>
+      <span className="px-4 py-1 bg-white dark:bg-gray-700 rounded-lg text-gray-500 dark:text-white flex items-start mb-2">
+        <h5 className="text-wh-300">{`Home > ${area} > ${name}`}</h5>
+      </span>
       <div
         className=" rounded-lg mb-4 md:mb-0 w-full relative"
         style={{ height: "18em" }}

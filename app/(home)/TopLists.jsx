@@ -23,17 +23,20 @@ const getTopLists = async (area) => {
     process.env.NEXT_PUBLIC_FOOD_SPOT,
     [Query.equal("areaId", [areaId]), Query.orderDesc("ratings")]
   );
-  return toplists.documents;
+  return { lists: toplists.documents, areaId };
 };
+
 const TopLists = ({ area, closeTopList, isFromContent }) => {
   const [toplists, setToplists] = useState([]);
+  const [uniqueArea, setUniqueArea] = useState("");
   const [isAddFoodSpotOpen, setIsAddFoodSpotOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getList = async () => {
       setLoading(true);
-      const lists = await getTopLists(area);
+      const { lists, areaId } = await getTopLists(area);
+      setUniqueArea(areaId);
       setToplists(lists);
       setLoading(false);
     };
@@ -44,7 +47,11 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
   return (
     <>
       {isAddFoodSpotOpen && (
-        <AddFoodSpotModal closeModal={() => setIsAddFoodSpotOpen(false)} />
+        <AddFoodSpotModal
+          closeModal={() => setIsAddFoodSpotOpen(false)}
+          areaId={uniqueArea}
+          area={area}
+        />
       )}
       <div
         id="top-left-modal"
