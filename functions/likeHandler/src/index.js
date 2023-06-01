@@ -5,6 +5,9 @@ module.exports = async function (req, res) {
 
   const database = new sdk.Databases(client);
   const { foodSpotId, likeState, email } = JSON.parse(req.payload);
+  console.log("🚀 ~ file: index.js:8 ~ email:", email);
+  console.log("🚀 ~ file: index.js:8 ~ likeState:", likeState);
+  console.log("🚀 ~ file: index.js:8 ~ foodSpotId:", foodSpotId);
 
   if (
     !req.variables["APPWRITE_FUNCTION_ENDPOINT"] ||
@@ -27,7 +30,9 @@ module.exports = async function (req, res) {
     let newLikes = [];
     let newDislikes = [];
     const isLike = Boolean(likeState === "Like");
+    console.log("🚀 ~ file: index.js:30 ~ isLike:", isLike);
     const isDisLike = Boolean(likeState === "Dislike");
+    console.log("🚀 ~ file: index.js:32 ~ isDisLike:", isDisLike);
 
     if (foodSpotId) {
       try {
@@ -54,17 +59,19 @@ module.exports = async function (req, res) {
         return res.json({ error });
       }
       const indexOfLikes = likes.indexOf(email);
+      console.log("🚀 ~ file: index.js:57 ~ indexOfLikes:", indexOfLikes);
       const indexOfDislikes = dislikes.indexOf(email);
+      console.log("🚀 ~ file: index.js:59 ~ indexOfDislikes:", indexOfDislikes);
 
       if (isLike && indexOfLikes >= 0) {
-        newLikes = likes.splice(indexOfLikes, 1);
+        newLikes = likes.filter((emails) => emails != email);
       } else if (isDisLike && indexOfLikes >= 0) {
-        newLikes = likes.splice(indexOfLikes, 1);
+        newLikes = likes.filter((emails) => emails != email);
         newDislikes = [...dislikes, email];
       } else if (isDisLike && indexOfDislikes >= 0) {
-        newDislikes = dislikes.splice(indexOfLikes, 1);
+        newDislikes = dislikes.filter((emails) => emails != email);
       } else if (isLike && indexOfDislikes >= 0) {
-        newDislikes = dislikes.splice(indexOfDislikes, 1);
+        newDislikes = dislikes.filter((emails) => emails != email);
         newLikes = [...likes, email];
       } else if (isLike) {
         newLikes = [...likes, email];
@@ -76,6 +83,7 @@ module.exports = async function (req, res) {
       }
       try {
         const data = { likes: newLikes, dislikes: newDislikes };
+        console.log("🚀 ~ file: index.js:82 ~ data:", data);
         await database.updateDocument(
           "646feb70c324e93d5f31",
           "647033849eb4493510d0",
@@ -91,6 +99,7 @@ module.exports = async function (req, res) {
       );
       const ratings =
         newLikes.length - dislikes.length + positiveFeedbacks.length;
+      console.log("🚀 ~ file: index.js:101 ~ ratings:", ratings);
       try {
         newFoodSpot = await database.updateDocument(
           "646feb70c324e93d5f31",
