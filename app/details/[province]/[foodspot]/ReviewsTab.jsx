@@ -17,7 +17,6 @@ const getReviews = async (foodSpotId) => {
 
 const ReviewsTab = async ({ foodSpotId, setRefetch }) => {
   const reviews = await getReviews(foodSpotId);
-  console.log("🚀 ~ file: ReviewsTab.jsx:23 ~ ReviewsTab ~ reviews:", reviews);
   setRefetch(false);
   return (
     <div className="flex flex-col gap-8">

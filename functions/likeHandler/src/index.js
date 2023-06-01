@@ -4,7 +4,7 @@ module.exports = async function (req, res) {
   const client = new sdk.Client();
 
   const database = new sdk.Databases(client);
-  const foodSpotId = req.payload;
+  const { foodSpotId, likeState, email } = JSON.parse(req.payload);
 
   if (
     !req.variables["APPWRITE_FUNCTION_ENDPOINT"] ||
@@ -24,6 +24,10 @@ module.exports = async function (req, res) {
     let reviews = [];
     let likes = [];
     let dislikes = [];
+    let newLikes = [];
+    let newDislikes = [];
+    const isLike = Boolean(likeState === "Like");
+    const isDisLike = Boolean(likeState === "Dislike");
 
     if (foodSpotId) {
       try {
@@ -37,7 +41,6 @@ module.exports = async function (req, res) {
         console.log(error);
         return res.json({ error });
       }
-
       try {
         const result = await database.listDocuments(
           "646feb70c324e93d5f31",
@@ -50,12 +53,44 @@ module.exports = async function (req, res) {
         console.log(error);
         return res.json({ error });
       }
+      const indexOfLikes = likes.indexOf(email);
+      const indexOfDislikes = dislikes.indexOf(email);
+
+      if (isLike && indexOfLikes >= 0) {
+        newLikes = likes.splice(indexOfLikes, 1);
+      } else if (isDisLike && indexOfLikes >= 0) {
+        newLikes = likes.splice(indexOfLikes, 1);
+        newDislikes = [...dislikes, email];
+      } else if (isDisLike && indexOfDislikes >= 0) {
+        newDislikes = dislikes.splice(indexOfLikes, 1);
+      } else if (isLike && indexOfDislikes >= 0) {
+        newDislikes = dislikes.splice(indexOfDislikes, 1);
+        newLikes = [...likes, email];
+      } else if (isLike) {
+        newLikes = [...likes, email];
+      } else if (isDisLike) {
+        newDislikes = [...dislikes, email];
+      } else {
+        newDislikes = dislikes;
+        newLikes = likes;
+      }
+      try {
+        const data = { likes: newLikes, dislikes: newDislikes };
+        await database.updateDocument(
+          "646feb70c324e93d5f31",
+          "647033849eb4493510d0",
+          foodSpotId,
+          data
+        );
+      } catch (error) {
+        console.error(error.message);
+      }
 
       const positiveFeedbacks = reviews.filter(
         (review) => review.isPositiveFeedback
       );
-      const ratings = likes.length - dislikes.length + positiveFeedbacks.length;
-
+      const ratings =
+        newLikes.length - dislikes.length + positiveFeedbacks.length;
       try {
         newFoodSpot = await database.updateDocument(
           "646feb70c324e93d5f31",

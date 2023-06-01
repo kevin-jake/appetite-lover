@@ -3,6 +3,7 @@ import Tabs from "./Tabs";
 import { database } from "@/libs/appwrite";
 import { Query } from "appwrite";
 import Link from "next/link";
+import LikeWidget from "./LikeWidget";
 
 const getFoodMenu = async (foodSpotId) => {
   const menu = await database.listDocuments(
@@ -49,6 +50,7 @@ const Content = async ({ foodspot, area }) => {
           <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
             {name}
           </h2>
+          <LikeWidget foodSpotId={foodspot.$id} />
         </div>
       </div>
       <Tabs foodMenu={foodMenu} foodSpotId={foodspot.$id} />
