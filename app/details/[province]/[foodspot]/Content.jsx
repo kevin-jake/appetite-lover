@@ -50,7 +50,7 @@ const Content = async ({ foodspot, area }) => {
           <LikeWidget foodSpotId={foodspot.$id} />
         </div>
       </div>
-      <Tabs foodMenu={foodMenu} foodSpotId={foodspot.$id} />
+      <Tabs foodSpotId={foodspot.$id} />
     </div>
   );
 };

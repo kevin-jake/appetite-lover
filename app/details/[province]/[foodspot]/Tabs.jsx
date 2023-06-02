@@ -5,7 +5,7 @@ import ReviewsTab from "./ReviewsTab";
 import Loading from "@/app/(shared)/Loading";
 import ReviewForm from "./ReviewForm";
 
-const Tabs = ({ foodMenu, foodSpotId }) => {
+const Tabs = ({ foodSpotId }) => {
   const TABS = ["Menu", "Reviews", "Location"];
   const [tab, setTab] = useState("Menu");
   const [refetch, setRefetch] = useState(false);
@@ -17,7 +17,20 @@ const Tabs = ({ foodMenu, foodSpotId }) => {
   const tabContent = (tab) => {
     switch (tab) {
       case "Menu":
-        return <MenuTab foodMenu={foodMenu} foodSpotId={foodSpotId} />;
+        return (
+          <section className="pt-4 pb-1">
+            <div className="text-left">
+              <h4 className="text-3xl mb-4 dark:text-lime-200 font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+                Menu
+              </h4>
+            </div>
+            <div className="container w-full px-5 py-6 mx-auto">
+              <Suspense fallback={<Loading />}>
+                <MenuTab foodSpotId={foodSpotId} />
+              </Suspense>
+            </div>
+          </section>
+        );
       case "Reviews":
         return (
           <section className="pt-4 pb-1">
