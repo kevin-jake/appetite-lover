@@ -103,7 +103,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                       key={`${item.foodSpotName}-${index}`}
                       name={item.foodSpotName}
                       foodSpotId={item.$id}
-                      imgUrl={item.imgUrl || ""}
+                      imgUrl={item.imgUrl || "/placeholder-image.jpg"}
                       area={area}
                     />
                   ))}

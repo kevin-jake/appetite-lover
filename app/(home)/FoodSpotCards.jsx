@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+// {/* TODO: Make a custom image component to handle onError  https://gist.github.com/codegino/b9ed69fec8495c5024ef925c432bf1f2 */}
 const FoodSpotCards = ({ name, area, foodSpotId, imgUrl }) => {
   return (
     <div className="w-full grid grid-cols-2 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -12,7 +13,7 @@ const FoodSpotCards = ({ name, area, foodSpotId, imgUrl }) => {
           </h5>
         </Link>
       </div>
-      <div className="basis-full relative w-auto h-32 bg-wh-500">
+      <div className="relative w-auto h-32 bg-wh-500 overflow-hidden rounded-lg">
         <Image
           alt={name}
           fill

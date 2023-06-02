@@ -7,7 +7,7 @@ const MenuCards = ({ food }) => {
       <div className="basis-full relative w-auto h-32 bg-white-500">
         <Image
           fill
-          src={food.imgUrl}
+          src={food.imgUrl || "/placeholder-image.jpg"}
           alt={food.foodName}
           sizes="(max-width: 480px) 100vw,
                 (max-width: 768px) 75vw,

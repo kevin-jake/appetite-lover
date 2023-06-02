@@ -23,7 +23,7 @@ const Content = async ({ foodspot, area }) => {
         <h5 className="text-wh-300">{`Home > ${area} > ${name}`}</h5>
       </span>
       <div
-        className=" rounded-lg mb-4 md:mb-0 w-full relative"
+        className=" rounded-lg mb-4 md:mb-0 w-full relative overflow-hidden"
         style={{ height: "18em" }}
       >
         <div
@@ -36,7 +36,7 @@ const Content = async ({ foodspot, area }) => {
         <Image
           alt={name}
           fill
-          src={imgUrl}
+          src={imgUrl || "/placeholder-image.jpg"}
           sizes="(max-width: 480px) 100vw,
                 (max-width: 768px) 75vw,
                 (max-width: 1060px) 50vw,
