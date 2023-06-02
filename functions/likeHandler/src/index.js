@@ -100,8 +100,12 @@ module.exports = async function (req, res) {
       const positiveFeedbacks = reviews.filter(
         (review) => review.isPositiveFeedback
       );
+
       const ratings =
-        newLikes.length - dislikes.length + positiveFeedbacks.length;
+        newLikes.length -
+        dislikes.length +
+        2 * positiveFeedbacks.length -
+        reviews.length;
       console.log("🚀 ~ file: index.js:101 ~ ratings:", ratings);
       try {
         newFoodSpot = await database.updateDocument(
