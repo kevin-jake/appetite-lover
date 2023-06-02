@@ -8,7 +8,7 @@ import { database, storage } from "@/libs/appwrite";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 
 const foodSpotSchema = yup.object().shape({
   foodSpotName: yup
@@ -44,7 +44,7 @@ const uploadImage = async (image) => {
 const AddFoodSpotForm = ({ area, areaId }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { user, openModal } = UseUser();
+  const { user, openModal } = useUser();
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (!user) {

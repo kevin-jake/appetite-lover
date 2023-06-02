@@ -43,7 +43,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
 
     getList();
   }, [area]);
-
+  // TODO: Add ratings, description or ranking of food cards
   return (
     <>
       {isAddFoodSpotOpen && (

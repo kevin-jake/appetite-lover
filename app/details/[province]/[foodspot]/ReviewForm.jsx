@@ -6,7 +6,7 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { database, functions } from "@/libs/appwrite";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import { ID } from "appwrite";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ const initialComment = {
 
 const ReviewForm = ({ foodSpotId }) => {
   const router = useRouter();
-  const { user, openModal } = UseUser();
+  const { user, openModal } = useUser();
   const [posting, setPosting] = useState(false);
 
   const handleFormSubmit = async (values, onSubmitProps) => {

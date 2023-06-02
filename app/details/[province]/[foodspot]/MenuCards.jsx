@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-// TODO: Add food menu create card
+
 const MenuCards = ({ food }) => {
   return (
     <div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600">

@@ -1,5 +1,5 @@
 "use client";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import { database, functions } from "@/libs/appwrite";
 import { Query } from "appwrite";
 import React, { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ const LikeWidget = ({ foodSpotId }) => {
   const [buttonState, setButtonState] = useState("neutral");
   const [foodSpot, setFoodSpot] = useState({});
   const [loading, setLoading] = useState(false);
-  const { user, openModal, loading: userLoading } = UseUser();
+  const { user, openModal, loading: userLoading } = useUser();
 
   useEffect(() => {
     const getLikes = async () => {

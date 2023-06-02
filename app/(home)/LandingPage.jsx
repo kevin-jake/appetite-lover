@@ -1,5 +1,5 @@
 "use client";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import Map from "./Map";
 import TopLists from "./TopLists";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 export default function LandingPage() {
   const [isTopListVisible, setisTopListVisible] = useState(false);
   const [areaSelected, setAreaSelected] = useState("");
-  const { loading } = UseUser();
+  const { loading } = useUser();
 
   return (
     <>

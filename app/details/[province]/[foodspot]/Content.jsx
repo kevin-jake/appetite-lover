@@ -4,7 +4,7 @@ import LikeWidget from "./LikeWidget";
 
 const Content = ({ foodspot, area }) => {
   const { foodSpotName: name, imgUrl } = foodspot;
-
+  // TODO: Add food spot description on content page and improve the breadcrumbs display
   return (
     <div className="flex-col flex w-full  mb-10">
       <span className="px-4 py-1 bg-white dark:bg-gray-700 rounded-lg text-gray-500 dark:text-white flex items-start mb-2">

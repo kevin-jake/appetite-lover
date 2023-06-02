@@ -90,7 +90,7 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-export const UseUser = () => {
+export const useUser = () => {
   const context = useContext(userContext);
   return context;
 };

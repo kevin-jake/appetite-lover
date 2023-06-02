@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import { CgSpinnerTwo } from "react-icons/cg";
 
 const registerSchema = yup.object().shape({
@@ -44,7 +44,7 @@ const initialValues = {
 
 const SignInSignUpForm = ({ setModalType, pageType }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { login, register, loading } = UseUser();
+  const { login, register, loading } = useUser();
   const isLogin = pageType === "Login";
   const isRegister = pageType === "Register";
 

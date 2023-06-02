@@ -2,13 +2,13 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
-import { UseUser } from "@/hooks/useUser";
+import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, closeModal, logout } =
-    UseUser();
+    useUser();
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const [pageType, setPageType] = useState("Login");
