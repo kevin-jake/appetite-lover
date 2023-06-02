@@ -2,6 +2,7 @@
 import { database } from "@/libs/appwrite";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
+import Loading from "../(shared)/Loading";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
@@ -23,6 +24,7 @@ const MapTooltip = ({ visible, position, content }) => {
 
 const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   const [selectedArea, setSelectedArea] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -37,9 +39,11 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
           process.env.NEXT_PUBLIC_AREA
         );
         setMapshapes(areas.documents);
+        setLoading(false);
       } catch (error) {
         toast.error(error.message);
         console.log(error);
+        setLoading(false);
       }
     };
 
@@ -55,7 +59,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   useEffect(() => {
     const adjustViewBox = () => {
       const svg = svgRef.current;
-
+      if (!svg) return;
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
@@ -87,7 +91,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
     return () => {
       window.removeEventListener("resize", adjustViewBox);
     };
-  }, [isTopListVisible]);
+  }, [loading, isTopListVisible]);
 
   const handleAreaClick = (event) => {
     if (selectedArea) {
@@ -117,6 +121,12 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
       setTooltipVisible(true);
     }
   };
+  if (loading)
+    return (
+      <div className="flex justify-center w-full items-start">
+        <Loading />
+      </div>
+    );
 
   const handleMouseLeave = (event) => {
     if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
