@@ -26,6 +26,7 @@ const initialValues = {
   imgUrl: null,
 };
 
+// TODO: Add edit and delete function? This needs to add owner or email field  on the database
 const uploadImage = async (image) => {
   try {
     const fileId = ID.unique();

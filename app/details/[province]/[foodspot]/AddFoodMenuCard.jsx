@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import AddFoodMenuModal from "./AddFoodMenuModal";
-
+// TODO: Add edit and delete function?
 const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
   const [isAddFoodMenuOpen, setIsAddFoodMenuOpen] = useState(false);
   return (

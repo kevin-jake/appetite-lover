@@ -23,6 +23,7 @@ const initialComment = {
   isPositiveFeedback: true,
 };
 
+// TODO: Add edit and delete function?
 const ReviewForm = ({ foodSpotId }) => {
   const router = useRouter();
   const { user, openModal } = useUser();
