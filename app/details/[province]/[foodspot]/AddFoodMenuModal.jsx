@@ -36,7 +36,10 @@ const AddFoodMenuModal = ({ closeModal, foodSpotId, foodSpotName }) => {
               <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
                 Add Food Menu for {foodSpotName}
               </h2>
-              <AddFoodMenuForm foodSpotId={foodSpotId} />
+              <AddFoodMenuForm
+                foodSpotId={foodSpotId}
+                closeModal={closeModal}
+              />
             </div>
           </div>
         </div>

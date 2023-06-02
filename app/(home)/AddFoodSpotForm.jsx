@@ -23,7 +23,7 @@ const foodSpotSchema = yup.object().shape({
 const initialValues = {
   foodSpotName: "",
   description: "",
-  imgUrl: "",
+  imgUrl: null,
 };
 
 const uploadImage = async (image) => {
