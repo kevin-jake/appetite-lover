@@ -110,7 +110,10 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                 </div>
                 {!isFromContent && (
                   <button
-                    onClick={() => setIsAddFoodSpotOpen(true)}
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setIsAddFoodSpotOpen(true);
+                    }}
                     className="flex justify-center my-4 w-2/3 text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                   >
                     Add a Food Spot

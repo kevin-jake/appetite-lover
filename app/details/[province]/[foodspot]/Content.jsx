@@ -1,21 +1,9 @@
 import Image from "next/image";
 import Tabs from "./Tabs";
-import { database } from "@/libs/appwrite";
-import { Query } from "appwrite";
 import LikeWidget from "./LikeWidget";
 
-const getFoodMenu = async (foodSpotId) => {
-  const menu = await database.listDocuments(
-    process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_FOOD_MENU,
-    [Query.equal("foodSpotId", [foodSpotId])]
-  );
-  return menu.documents;
-};
-
-const Content = async ({ foodspot, area }) => {
+const Content = ({ foodspot, area }) => {
   const { foodSpotName: name, imgUrl } = foodspot;
-  const foodMenu = await getFoodMenu(foodspot.$id);
 
   return (
     <div className="flex-col flex w-full  mb-10">
@@ -50,7 +38,7 @@ const Content = async ({ foodspot, area }) => {
           <LikeWidget foodSpotId={foodspot.$id} />
         </div>
       </div>
-      <Tabs foodSpotId={foodspot.$id} />
+      <Tabs foodSpotId={foodspot.$id} foodSpotName={name} />
     </div>
   );
 };

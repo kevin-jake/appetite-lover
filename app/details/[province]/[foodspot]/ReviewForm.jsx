@@ -9,6 +9,7 @@ import { database, functions } from "@/libs/appwrite";
 import { UseUser } from "@/hooks/useUser";
 import { ID } from "appwrite";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const commentSchema = yup.object().shape({
   comment: yup
@@ -22,7 +23,8 @@ const initialComment = {
   isPositiveFeedback: true,
 };
 
-const ReviewForm = ({ foodSpotId, setRefetch }) => {
+const ReviewForm = ({ foodSpotId }) => {
+  const router = useRouter();
   const { user, openModal } = UseUser();
   const [posting, setPosting] = useState(false);
 
@@ -33,10 +35,6 @@ const ReviewForm = ({ foodSpotId, setRefetch }) => {
     setPosting(true);
     try {
       const data = { ...values, reviewerEmail: user.email, foodSpotId };
-      console.log(
-        "🚀 ~ file: ReviewForm.jsx:33 ~ handleFormSubmit ~ data:",
-        data
-      );
       await database.createDocument(
         process.env.NEXT_PUBLIC_DATABASE,
         process.env.NEXT_PUBLIC_REVIEWS,
@@ -55,11 +53,13 @@ const ReviewForm = ({ foodSpotId, setRefetch }) => {
         foodSpotId,
         true
       );
-      setPosting(false);
-      setRefetch(true);
+      toast.success("Review posted!");
+      router.refresh();
     } catch (error) {
       toast.error(error.message);
       console.error(error.message);
+    } finally {
+      setPosting(false);
     }
   };
   return (

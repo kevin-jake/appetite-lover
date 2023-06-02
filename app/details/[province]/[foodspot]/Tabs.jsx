@@ -5,10 +5,9 @@ import ReviewsTab from "./ReviewsTab";
 import Loading from "@/app/(shared)/Loading";
 import ReviewForm from "./ReviewForm";
 
-const Tabs = ({ foodSpotId }) => {
+const Tabs = ({ foodSpotId, foodSpotName }) => {
   const TABS = ["Menu", "Reviews", "Location"];
   const [tab, setTab] = useState("Menu");
-  const [refetch, setRefetch] = useState(false);
 
   const handleTabClick = (tabOption) => {
     setTab(tabOption);
@@ -26,7 +25,7 @@ const Tabs = ({ foodSpotId }) => {
             </div>
             <div className="container w-full px-5 py-6 mx-auto">
               <Suspense fallback={<Loading />}>
-                <MenuTab foodSpotId={foodSpotId} />
+                <MenuTab foodSpotId={foodSpotId} foodSpotName={foodSpotName} />
               </Suspense>
             </div>
           </section>
@@ -40,13 +39,9 @@ const Tabs = ({ foodSpotId }) => {
               </h4>
             </div>
             <div className="flex flex-col gap-8">
-              <ReviewForm foodSpotId={foodSpotId} setRefetch={setRefetch} />
+              <ReviewForm foodSpotId={foodSpotId} />
               <Suspense fallback={<Loading />}>
-                <ReviewsTab
-                  foodSpotId={foodSpotId}
-                  refetch={refetch}
-                  setRefetch={setRefetch}
-                />
+                <ReviewsTab foodSpotId={foodSpotId} />
               </Suspense>
             </div>
           </section>

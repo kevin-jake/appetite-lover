@@ -15,9 +15,8 @@ const getReviews = async (foodSpotId) => {
   return reviews.documents;
 };
 
-const ReviewsTab = async ({ foodSpotId, setRefetch }) => {
+const ReviewsTab = async ({ foodSpotId }) => {
   const reviews = await getReviews(foodSpotId);
-  setRefetch(false);
   return (
     <div className="flex flex-col gap-8">
       {reviews.map((review) => (

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import AddFoodMenuModal from "./AddFoodMenuModal";
 
-const AddFoodMenuCard = ({ foodSpotId }) => {
+const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
   const [isAddFoodMenuOpen, setIsAddFoodMenuOpen] = useState(false);
   return (
     <>
@@ -11,10 +11,14 @@ const AddFoodMenuCard = ({ foodSpotId }) => {
         <AddFoodMenuModal
           closeModal={() => setIsAddFoodMenuOpen(false)}
           foodSpotId={foodSpotId}
+          foodSpotName={foodSpotName}
         />
       )}
       <div
-        onClick={() => setIsAddFoodMenuOpen(true)}
+        onClick={() => {
+          window.scrollTo(0, 0);
+          setIsAddFoodMenuOpen(true);
+        }}
         className="flex flex-col items-center justify-center align-middle max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600 cursor-pointer"
       >
         <div className="flex p-4 justify-center relative w-auto h-32 bg-white-500 text-gray-400 dark:text-lime-800">
