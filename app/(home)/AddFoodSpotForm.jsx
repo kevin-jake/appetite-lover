@@ -45,14 +45,14 @@ const uploadImage = async (image) => {
 const AddFoodSpotForm = ({ area, areaId }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { user, openModal } = useUser();
+  const { user, openModal, closeModal } = useUser();
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (!user) {
       return openModal();
     }
     setLoading(true);
-    let data = { ...values, areaId };
+    let data = { ...values, areaId, createdBy: user.email };
     if (values.imgUrl) {
       data.imgUrl = await uploadImage(values.imgUrl);
     }
@@ -67,6 +67,7 @@ const AddFoodSpotForm = ({ area, areaId }) => {
       onSubmitProps.resetForm();
       toast.success("Food Spot successfully created.");
       router.push(`/details/${area}/${result.$id}`);
+      closeModal();
     } catch (error) {
       toast.error(error.message);
       console.error(error.message);

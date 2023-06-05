@@ -55,7 +55,7 @@ const AddFoodMenuForm = ({ foodSpotId }) => {
       return openModal();
     }
     setLoading(true);
-    let data = { ...values, foodSpotId };
+    let data = { ...values, foodSpotId, createdBy: user.email };
     if (values.imgUrl) {
       data.imgUrl = await uploadImage(values.imgUrl);
     }

@@ -3,6 +3,7 @@ import Content from "./Content";
 import TopLists from "@/app/(home)/TopLists";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
+import PageNotFound from "@/components/PageNotFound";
 
 const getAreaId = async (areaId) => {
   const area = await database.listDocuments(
@@ -24,11 +25,11 @@ const getSpot = async (foodspotId) => {
 
 const Spot = async ({ params }) => {
   const spot = await getSpot(params.foodspot);
-  const areaName = await getAreaId(spot.areaId);
-
   if (!spot) {
-    return <div>Food Spot Not Found</div>;
+    return <PageNotFound />;
   }
+
+  const areaName = await getAreaId(spot.areaId);
 
   return (
     <main className="px-10 leading-7">

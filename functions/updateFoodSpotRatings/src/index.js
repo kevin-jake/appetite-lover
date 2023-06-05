@@ -58,9 +58,9 @@ module.exports = async function (req, res) {
       const ratings =
         likes.length -
         dislikes.length +
-        2 * positiveFeedbacks.length -
-        reviews.length;
+        (2 * positiveFeedbacks.length - reviews.length);
 
+      console.log("🚀 ~ file: index.js:59 ~ ratings:", ratings);
       try {
         newFoodSpot = await database.updateDocument(
           "646feb70c324e93d5f31",
