@@ -5,8 +5,10 @@ const ReviewCards = ({ review }) => {
   const { isPositiveFeedback } = review;
   return (
     <div
-      className={`w-full p-4 rounded-lg shadow-md ${
-        isPositiveFeedback ? "positive" : "negative"
+      className={`w-full p-4 rounded-lg shadow-md  ${
+        isPositiveFeedback
+          ? "bg-green-200 dark:bg-green-950"
+          : "bg-red-200 dark:bg-red-950"
       }`}
     >
       <div>

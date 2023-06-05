@@ -8,7 +8,7 @@ const getAreaId = async (areaId) => {
   const area = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_AREA,
-    [Query.equal("$id", [areaId])]
+    [Query.equal("$id", [areaId]), Query.limit(1)]
   );
   return area.documents[0].areaName;
 };
@@ -17,7 +17,7 @@ const getSpot = async (foodspotId) => {
   const spot = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_FOOD_SPOT,
-    [Query.equal("$id", [foodspotId])]
+    [Query.equal("$id", [foodspotId]), , Query.limit(1)]
   );
   return spot.documents[0];
 };

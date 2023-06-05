@@ -21,26 +21,6 @@ body {
   background-repeat: no-repeat;
 }
 
-.positive {
-  font-family: var(--font-inter);
-  background: linear-gradient(
-    0deg,
-    rgb(220, 255, 220) 0%,
-    rgba(33, 188, 241, 0) 100%
-  );
-  background-repeat: no-repeat;
-}
-
-.negative {
-  font-family: var(--font-inter);
-  background: linear-gradient(
-    0deg,
-    rgb(237, 165, 165) 0%,
-    rgba(33, 188, 241, 0) 100%
-  );
-  background-repeat: no-repeat;
-}
-
 .loading-icon {
   color: white;
   font-size: 2rem;
@@ -54,11 +34,4 @@ body {
   100% {
     transform: rotate(720deg);
   }
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-playball);
 }

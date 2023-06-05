@@ -3,8 +3,7 @@ import Tabs from "./Tabs";
 import LikeWidget from "./LikeWidget";
 
 const Content = ({ foodspot, area }) => {
-  const { foodSpotName: name, imgUrl } = foodspot;
-  // TODO: Add food spot description on content page and improve the breadcrumbs display
+  const { foodSpotName: name, imgUrl, description } = foodspot;
   return (
     <div className="flex-col flex w-full  mb-10">
       <span className="px-4 py-1 bg-white dark:bg-gray-700 rounded-lg text-gray-500 dark:text-white flex items-start mb-2">
@@ -32,9 +31,14 @@ const Content = ({ foodspot, area }) => {
           style={{ objectFit: "cover" }}
         />
         <div className="flex justify-between w-full p-4 absolute bottom-0 left-0 z-20">
-          <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
-            {name}
-          </h2>
+          <div className="flex flex-col justify-between gap-1">
+            <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
+              {name}
+            </h2>
+            <h4 className="text-sm text-gray-100 leading-tight">
+              {description}
+            </h4>
+          </div>
           <LikeWidget foodSpotId={foodspot.$id} />
         </div>
       </div>
