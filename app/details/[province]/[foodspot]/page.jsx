@@ -5,6 +5,8 @@ import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import PageNotFound from "@/components/PageNotFound";
 
+export const revalidate = 0;
+
 const getAreaId = async (areaId) => {
   const area = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,

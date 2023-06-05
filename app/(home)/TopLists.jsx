@@ -7,6 +7,7 @@ import NoResults from "@/components/NoResults";
 import Loading from "@/components/Loading";
 import FoodSpotForm from "./FoodSpotForm";
 import { ModalContext } from "@/context/ModalContext";
+import { toast } from "react-hot-toast";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -32,6 +33,7 @@ const getTopLists = async (area) => {
 };
 
 const TopLists = ({ area, closeTopList, isFromContent }) => {
+  console.log("🚀 ~ file: TopLists.jsx:35 ~ TopLists ~ area:", area);
   const [toplists, setToplists] = useState([]);
   const [uniqueArea, setUniqueArea] = useState("");
   const { openModal } = useContext(ModalContext);
@@ -40,10 +42,17 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
   useEffect(() => {
     const getList = async () => {
       setLoading(true);
-      const { lists, areaId } = await getTopLists(area);
-      setUniqueArea(areaId);
-      setToplists(lists);
-      setLoading(false);
+      try {
+        const { lists, areaId } = await getTopLists(area);
+        console.log("🚀 ~ file: TopLists.jsx:48 ~ getList ~ lists:", lists);
+        setUniqueArea(areaId);
+        setToplists(lists);
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getList();

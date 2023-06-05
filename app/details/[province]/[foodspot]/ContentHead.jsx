@@ -39,7 +39,7 @@ const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
             )
           }
         >
-          <span className="block cursor-pointer text-white hover:bg-emerald-600  select-none rounded-xl p-2 text-center ">
+          <span className="block cursor-pointer text-white bg-emerald-700  hover:bg-emerald-600  select-none rounded-xl p-2 text-center ">
             <MdEdit />
           </span>
         </button>
@@ -47,7 +47,7 @@ const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
           type="button"
           className={user?.email !== createdBy ? "hidden" : ""}
         >
-          <span className="block cursor-pointer text-white hover:bg-emerald-600  select-none rounded-xl p-2 text-center ">
+          <span className="block cursor-pointer text-white bg-emerald-700  hover:bg-emerald-600  select-none rounded-xl p-2 text-center ">
             <MdDelete />
           </span>
         </button>

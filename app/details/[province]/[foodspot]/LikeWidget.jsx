@@ -16,17 +16,22 @@ const LikeWidget = ({ foodSpotId }) => {
   useEffect(() => {
     const getLikes = async () => {
       setLoading(true);
-      const foodSpot = await database.listDocuments(
-        process.env.NEXT_PUBLIC_DATABASE,
-        process.env.NEXT_PUBLIC_FOOD_SPOT,
-        [Query.equal("$id", [foodSpotId])]
-      );
-      setFoodSpot(foodSpot.documents[0]);
+      try {
+        const foodSpot = await database.listDocuments(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_FOOD_SPOT,
+          [Query.equal("$id", [foodSpotId])]
+        );
+        setFoodSpot(foodSpot.documents[0]);
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
       setLoading(false);
     };
 
     getLikes();
-  }, [buttonState]);
+  }, [buttonState, foodSpotId]);
 
   useEffect(() => {
     if (!userLoading && foodSpot.likes?.includes(user?.email))
@@ -34,7 +39,7 @@ const LikeWidget = ({ foodSpotId }) => {
     else if (!userLoading && foodSpot.dislikes?.includes(user?.email))
       setButtonState("Dislike");
     else setButtonState("neutral");
-  }, [foodSpotId, user, foodSpot]);
+  }, [foodSpotId, userLoading, foodSpot, user.email]);
 
   const handleClick = async (e, value) => {
     if (!user) {
@@ -52,16 +57,14 @@ const LikeWidget = ({ foodSpotId }) => {
         false
       );
       const result = JSON.parse(rawResult.response);
-      console.log(
-        "🚀 ~ file: LikeWidget.jsx:50 ~ handleClick ~ result:",
-        result
-      );
       if (buttonState === value) setButtonState("neutral");
       else setButtonState(value);
       setLoading(false);
     } catch (error) {
       toast.error(error.message);
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 

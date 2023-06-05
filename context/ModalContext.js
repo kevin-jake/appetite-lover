@@ -6,7 +6,6 @@ const initialState = {
   loading: true,
   modalChildren: {},
 };
-const modalContext = createContext(initialState);
 
 const ModalReducer = (state, action) => {
   switch (action.type) {

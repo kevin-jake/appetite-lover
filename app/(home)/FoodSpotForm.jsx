@@ -46,7 +46,7 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user, openModal, closeModal: closeUserModal } = useUser();
-  const { closeModal, refreshClient } = useContext(ModalContext);
+  const { closeModal } = useContext(ModalContext);
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (!user) {
@@ -65,11 +65,10 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
           values
         );
         onSubmitProps.resetForm();
-        toast.success("Food Spot successfully created.");
-        router.refresh();
+        toast.success("Food Spot successfully updated.");
         closeUserModal();
-        refreshClient();
         closeModal();
+        router.push(`/details/${area}/${result.$id}`);
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
