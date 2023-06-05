@@ -23,11 +23,16 @@ const getTopLists = async (area) => {
     process.env.NEXT_PUBLIC_FOOD_SPOT,
     [Query.equal("areaId", [areaId]), Query.orderDesc("ratings")]
   );
+  const highestRating = +toplists.documents[0]?.ratings;
+  toplists.documents.forEach(
+    (foodSpot) => (foodSpot.ratings = (+foodSpot.ratings / highestRating) * 5)
+  );
   return { lists: toplists.documents, areaId };
 };
 
 const TopLists = ({ area, closeTopList, isFromContent }) => {
   const [toplists, setToplists] = useState([]);
+  console.log("🚀 ~ file: TopLists.jsx:39 ~ TopLists ~ toplists:", toplists);
   const [uniqueArea, setUniqueArea] = useState("");
   const [isAddFoodSpotOpen, setIsAddFoodSpotOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,7 +48,6 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
 
     getList();
   }, [area]);
-  // TODO: Add ratings, description or ranking of food cards
   return (
     <>
       {isAddFoodSpotOpen && (
@@ -102,6 +106,8 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                     <FoodSpotCards
                       key={`${item.foodSpotName}-${index}`}
                       name={item.foodSpotName}
+                      description={item.description}
+                      ratings={item.ratings}
                       foodSpotId={item.$id}
                       imgUrl={item.imgUrl || "/placeholder-image.jpg"}
                       area={area}

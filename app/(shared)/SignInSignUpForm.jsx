@@ -129,7 +129,7 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
                       : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
                   } `}
                 />
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-lg leading-5">
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-lg leading-5">
                   {showPassword ? (
                     <button
                       type="button"
