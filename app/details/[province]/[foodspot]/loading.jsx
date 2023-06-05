@@ -1,4 +1,4 @@
-import Loading from "@/app/(shared)/Loading";
+import Loading from "@/components/Loading";
 import React from "react";
 
 const loading = () => {

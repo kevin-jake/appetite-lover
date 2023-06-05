@@ -2,7 +2,7 @@
 import React, { Suspense, useState } from "react";
 import MenuTab from "./MenuTab";
 import ReviewsTab from "./ReviewsTab";
-import Loading from "@/app/(shared)/Loading";
+import Loading from "@/components/Loading";
 import ReviewForm from "./ReviewForm";
 
 const Tabs = ({ foodSpotId, foodSpotName }) => {

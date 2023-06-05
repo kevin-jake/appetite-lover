@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import ReviewCards from "./ReviewCards";
-import NoResults from "@/app/(shared)/NoResults";
 import { database } from "@/libs/appwrite";
 import { Query } from "appwrite";
+import ReviewContent from "./ReviewContent";
 
 export const revalidate = 0;
 
@@ -17,14 +15,7 @@ const getReviews = async (foodSpotId) => {
 
 const ReviewsTab = async ({ foodSpotId }) => {
   const reviews = await getReviews(foodSpotId);
-  return (
-    <div className="flex flex-col gap-8">
-      {reviews.map((review) => (
-        <ReviewCards key={review.$id} review={review} />
-      ))}
-      {reviews.length == 0 && <NoResults />}
-    </div>
-  );
+  return <ReviewContent reviews={reviews} />;
 };
 
 export default ReviewsTab;

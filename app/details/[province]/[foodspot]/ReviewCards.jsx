@@ -9,11 +9,24 @@ import {
 } from "react-icons/md";
 import ReviewForm from "./ReviewForm";
 
-const ReviewCards = ({ review }) => {
+const ReviewCards = ({
+  review,
+  setDocumentId,
+  setName,
+  setFoodSpotId,
+  openDelete,
+}) => {
   const [editMode, setEditMode] = useState(false);
   const { isPositiveFeedback } = review;
   console.log("🚀 ~ file: ReviewCards.jsx:15 ~ ReviewCards ~ review:", review);
   const { user } = useUser();
+
+  const handleDeleteClick = () => {
+    setDocumentId(review.$id);
+    setFoodSpotId(review.foodSpotId);
+    setName(" your review?");
+    openDelete();
+  };
 
   return (
     <div
@@ -59,7 +72,7 @@ const ReviewCards = ({ review }) => {
                   className={
                     user?.email !== review.reviewerEmail ? "hidden" : ""
                   }
-                  onClick={() => setEditMode(true)}
+                  onClick={() => handleDeleteClick()}
                 >
                   <span className="block cursor-pointer text-gray-800 select-none rounded-xl p-2 text-center dark:text-white hover:bg-blue-700 hover:text-white dark:hover:bg-blue-400">
                     <MdDelete />

@@ -5,10 +5,11 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { ID } from "appwrite";
 import { database, storage } from "@/libs/appwrite";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
-import ImageDropzone from "@/app/(shared)/ImageDropzone";
+import ImageDropzone from "@/components/ImageDropzone";
+import { ModalContext } from "@/context/ModalContext";
 
 const foodMenuSchema = yup.object().shape({
   foodName: yup
@@ -43,8 +44,9 @@ const uploadImage = async (image) => {
   }
 };
 
-const AddFoodMenuForm = ({ foodSpotId, closeModal }) => {
+const AddFoodMenuForm = ({ foodSpotId }) => {
   const router = useRouter();
+  const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const { user, openModal } = useUser();
 

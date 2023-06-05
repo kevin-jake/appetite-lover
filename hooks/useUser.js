@@ -6,7 +6,6 @@ import { toast } from "react-hot-toast";
 const defaultState = {
   user: null,
   loading: true,
-  error: null,
   logout: async () => {},
   signup: async () => {},
   login: async () => {},

@@ -1,8 +1,8 @@
 "use client";
+import Loading from "@/components/Loading";
 import { database } from "@/libs/appwrite";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
-import Loading from "../(shared)/Loading";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;

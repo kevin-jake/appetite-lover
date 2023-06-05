@@ -1,23 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { IoMdAddCircle } from "react-icons/io";
-import AddFoodMenuModal from "./AddFoodMenuModal";
+import { ModalContext } from "@/context/ModalContext";
+import AddFoodMenuForm from "./AddFoodMenuForm";
 // TODO: Add edit and delete function?
 const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
-  const [isAddFoodMenuOpen, setIsAddFoodMenuOpen] = useState(false);
+  const { openModal } = useContext(ModalContext);
   return (
     <>
-      {isAddFoodMenuOpen && (
-        <AddFoodMenuModal
-          closeModal={() => setIsAddFoodMenuOpen(false)}
-          foodSpotId={foodSpotId}
-          foodSpotName={foodSpotName}
-        />
-      )}
       <div
         onClick={() => {
-          window.scrollTo(0, 0);
-          setIsAddFoodMenuOpen(true);
+          openModal(
+            <div className="px-6 py-6 lg:px-8">
+              <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
+                Add Food Menu for {foodSpotName}
+              </h2>
+              <AddFoodMenuForm foodSpotId={foodSpotId} />
+            </div>
+          );
         }}
         className="flex flex-col items-center justify-center align-middle max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600 cursor-pointer"
       >

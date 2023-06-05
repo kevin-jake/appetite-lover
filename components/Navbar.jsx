@@ -1,15 +1,18 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SignInSignUpModal from "./SignInSignUpModal";
 import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import { ModalContext } from "@/context/ModalContext";
+import ModalWrapper from "./ModalWrapper";
 
 const Navbar = () => {
   const { user, loading, isSignInOpen, openModal, closeModal, logout } =
     useUser();
   const [openDropdown, setOpenDropdown] = useState(false);
+  const { isModalOpen, modalChildren } = useContext(ModalContext);
 
   const [pageType, setPageType] = useState("Login");
   return (
@@ -22,6 +25,7 @@ const Navbar = () => {
           closeModal={closeModal}
         />
       )}
+      {isModalOpen && <ModalWrapper />}
       <nav
         className={`flex align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4 ${
           loading ? "justify-center" : "justify-between gap-4"

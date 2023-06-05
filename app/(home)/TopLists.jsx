@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FoodSpotCards from "./FoodSpotCards";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
-import NoResults from "../(shared)/NoResults";
-import Loading from "../(shared)/Loading";
-import AddFoodSpotModal from "./AddFoodSpotModal";
+import NoResults from "@/components/NoResults";
+import Loading from "@/components/Loading";
+import AddFoodSpotForm from "./AddFoodSpotForm";
+import { ModalContext } from "@/context/ModalContext";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -33,7 +34,7 @@ const getTopLists = async (area) => {
 const TopLists = ({ area, closeTopList, isFromContent }) => {
   const [toplists, setToplists] = useState([]);
   const [uniqueArea, setUniqueArea] = useState("");
-  const [isAddFoodSpotOpen, setIsAddFoodSpotOpen] = useState(false);
+  const { openModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -49,13 +50,6 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
   }, [area]);
   return (
     <>
-      {isAddFoodSpotOpen && (
-        <AddFoodSpotModal
-          closeModal={() => setIsAddFoodSpotOpen(false)}
-          areaId={uniqueArea}
-          area={area}
-        />
-      )}
       <div
         id="top-left-modal"
         data-modal-placement="top-left"
@@ -116,8 +110,14 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                 {!isFromContent && (
                   <button
                     onClick={() => {
-                      window.scrollTo(0, 0);
-                      setIsAddFoodSpotOpen(true);
+                      openModal(
+                        <div className="px-6 py-6 lg:px-8">
+                          <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
+                            Add Food Spot for {area}
+                          </h2>
+                          <AddFoodSpotForm areaId={uniqueArea} area={area} />
+                        </div>
+                      );
                     }}
                     className="flex justify-center my-4 w-2/3 text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                   >

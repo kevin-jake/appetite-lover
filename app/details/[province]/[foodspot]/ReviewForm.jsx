@@ -1,5 +1,5 @@
 "use client";
-import RadioButtonIcons from "@/app/(shared)/RadioButtonIcons";
+import RadioButtonIcons from "@/components/RadioButtonIcons";
 import React, { useState } from "react";
 import { MdSend } from "react-icons/md";
 import { CgSpinnerTwo } from "react-icons/cg";
@@ -24,7 +24,6 @@ const initialComment = {
   isPositiveFeedback: true,
 };
 
-// TODO: Add edit and delete function?
 const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
   const router = useRouter();
   const { user, openModal } = useUser();
@@ -52,6 +51,8 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
+        setPosting(false);
+        return;
       }
     } else {
       try {
@@ -66,6 +67,8 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
+        setPosting(false);
+        return;
       }
     }
 

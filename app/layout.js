@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Inter, Playball } from "next/font/google";
-import Navbar from "app/(shared)/Navbar";
-import Footer from "app/(shared)/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { UserProvider } from "@/hooks/useUser";
+import { ModalProvider } from "@/context/ModalContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playball = Playball({
@@ -21,9 +22,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${playball.variable} ${inter.variable} `}>
         <UserProvider>
-          <Navbar />
-          {children}
-          {/* <Footer /> */}
+          <ModalProvider>
+            <Navbar />
+            {children}
+            {/* <Footer /> */}
+          </ModalProvider>
         </UserProvider>
       </body>
     </html>

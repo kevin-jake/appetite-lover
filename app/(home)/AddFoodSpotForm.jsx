@@ -2,13 +2,13 @@
 import { Formik } from "formik";
 import * as yup from "yup";
 import { CgSpinnerTwo } from "react-icons/cg";
-import ImageDropzone from "../(shared)/ImageDropzone";
 import { ID } from "appwrite";
 import { database, storage } from "@/libs/appwrite";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
+import ImageDropzone from "@/components/ImageDropzone";
 
 const foodSpotSchema = yup.object().shape({
   foodSpotName: yup

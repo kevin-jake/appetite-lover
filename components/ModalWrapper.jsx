@@ -1,7 +1,9 @@
-import ModalBackdrop from "@/app/(shared)/ModalBackdrop";
-import AddFoodMenuForm from "./AddFoodMenuForm";
+import React, { useContext } from "react";
+import ModalBackdrop from "./ModalBackdrop";
+import { ModalContext } from "@/context/ModalContext";
 
-const AddFoodMenuModal = ({ closeModal, foodSpotId, foodSpotName }) => {
+const ModalWrapper = () => {
+  const { closeModal, modalChildren } = useContext(ModalContext);
   return (
     <>
       <div
@@ -32,15 +34,7 @@ const AddFoodMenuModal = ({ closeModal, foodSpotId, foodSpotName }) => {
               </svg>
               <span className="sr-only">Close modal</span>
             </button>
-            <div className="px-6 py-6 lg:px-8">
-              <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
-                Add Food Menu for {foodSpotName}
-              </h2>
-              <AddFoodMenuForm
-                foodSpotId={foodSpotId}
-                closeModal={closeModal}
-              />
-            </div>
+            {modalChildren}
           </div>
         </div>
       </div>
@@ -48,5 +42,4 @@ const AddFoodMenuModal = ({ closeModal, foodSpotId, foodSpotName }) => {
     </>
   );
 };
-
-export default AddFoodMenuModal;
+export default ModalWrapper;
