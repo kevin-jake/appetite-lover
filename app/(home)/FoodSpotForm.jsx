@@ -5,10 +5,11 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { ID } from "appwrite";
 import { database, storage } from "@/libs/appwrite";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import ImageDropzone from "@/components/ImageDropzone";
+import { ModalContext } from "@/context/ModalContext";
 
 const foodSpotSchema = yup.object().shape({
   foodSpotName: yup
@@ -26,7 +27,6 @@ const initialValues = {
   imgUrl: null,
 };
 
-// TODO: Add edit and delete function? This needs to add owner or email field  on the database
 const uploadImage = async (image) => {
   try {
     const fileId = ID.unique();
@@ -42,43 +42,70 @@ const uploadImage = async (image) => {
   }
 };
 
-const AddFoodSpotForm = ({ area, areaId }) => {
+const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { user, openModal, closeModal } = useUser();
+  const { user, openModal, closeModal: closeUserModal } = useUser();
+  const { closeModal, refreshClient } = useContext(ModalContext);
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (!user) {
       return openModal();
     }
     setLoading(true);
-    let data = { ...values, areaId, createdBy: user.email };
-    if (values.imgUrl) {
-      data.imgUrl = await uploadImage(values.imgUrl);
-    }
+    if (isEdit) {
+      if (values.imgUrl !== oldData.imgUrl) {
+        values.imgUrl = await uploadImage(values.imgUrl);
+      }
+      try {
+        const result = await database.updateDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_FOOD_SPOT,
+          oldData.$id,
+          values
+        );
+        onSubmitProps.resetForm();
+        toast.success("Food Spot successfully created.");
+        router.refresh();
+        closeUserModal();
+        refreshClient();
+        closeModal();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      let data = { ...values, areaId, createdBy: user.email };
+      if (values.imgUrl) {
+        data.imgUrl = await uploadImage(values.imgUrl);
+      }
 
-    try {
-      const result = await database.createDocument(
-        process.env.NEXT_PUBLIC_DATABASE,
-        process.env.NEXT_PUBLIC_FOOD_SPOT,
-        ID.unique(),
-        data
-      );
-      onSubmitProps.resetForm();
-      toast.success("Food Spot successfully created.");
-      router.push(`/details/${area}/${result.$id}`);
-      closeModal();
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error.message);
-    } finally {
-      setLoading(false);
+      try {
+        const result = await database.createDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_FOOD_SPOT,
+          ID.unique(),
+          data
+        );
+        onSubmitProps.resetForm();
+        toast.success("Food Spot successfully created.");
+        router.push(`/details/${area}/${result.$id}`);
+        closeUserModal();
+        closeModal();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
     }
   };
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={initialValues}
+      initialValues={isEdit ? oldData : initialValues}
       validationSchema={foodSpotSchema}
     >
       {({
@@ -145,7 +172,11 @@ const AddFoodSpotForm = ({ area, areaId }) => {
               )}
             </div>
             <div className="flex justify-center">
-              <ImageDropzone setFieldValue={setFieldValue} values={values} />
+              <ImageDropzone
+                setFieldValue={setFieldValue}
+                values={values}
+                isEdit={isEdit}
+              />
             </div>
             <button
               type="submit"
@@ -160,4 +191,4 @@ const AddFoodSpotForm = ({ area, areaId }) => {
   );
 };
 
-export default AddFoodSpotForm;
+export default FoodSpotForm;

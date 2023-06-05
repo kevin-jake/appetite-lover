@@ -1,10 +1,11 @@
 "use client";
+import Image from "next/image";
 import React, { createRef, useState } from "react";
 import Dropzone from "react-dropzone";
 import { toast } from "react-hot-toast";
 import { MdDelete, MdModeEditOutline } from "react-icons/md";
 
-const ImageDropzone = ({ setFieldValue, values }) => {
+const ImageDropzone = ({ setFieldValue, values, isEdit }) => {
   const [files, setFiles] = useState([]);
   const dropzoneRef = createRef();
 
@@ -24,10 +25,7 @@ const ImageDropzone = ({ setFieldValue, values }) => {
   };
 
   return (
-    <div
-      className="flex flex-col w-1/2 border-solid border rounded-lg justify-center"
-      // justifySelf={areFilesPresent ? "center" : ""}
-    >
+    <div className="flex flex-col w-1/2 border-solid border rounded-lg justify-center">
       <Dropzone
         ref={dropzoneRef}
         accept={{ "image/jpg": [".jpg", ".jpeg", ".png"] }}
@@ -64,7 +62,7 @@ const ImageDropzone = ({ setFieldValue, values }) => {
           >
             <input {...getInputProps()} />
             <div className="flex justify-center items-center">
-              {!values.imgUrl ? (
+              {!values.imgUrl && !isEdit ? (
                 <p>Add Picture Here</p>
               ) : (
                 <>
@@ -83,6 +81,17 @@ const ImageDropzone = ({ setFieldValue, values }) => {
                     </div>
                   ))}
                 </>
+              )}
+              {isEdit && !areFilesPresent && (
+                <div className="w-full h-full flex flex-col justify-center items-center">
+                  <Image
+                    style={{ objectFit: "cover" }}
+                    width="120"
+                    height="120"
+                    src={values.imgUrl}
+                    alt={values.foodSpotName}
+                  />
+                </div>
               )}
             </div>
           </div>

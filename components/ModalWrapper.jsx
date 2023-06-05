@@ -10,7 +10,7 @@ const ModalWrapper = () => {
         id="foodSpot"
         tabIndex="-1"
         aria-hidden="true"
-        className="flex justify-center absolute top-0 z-50 w-full p-4 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        className="flex justify-center absolute top-0 z-40 w-full p-4 overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
       >
         <div className="relative w-full max-w-2xl max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">

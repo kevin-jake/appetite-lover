@@ -5,7 +5,7 @@ import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import NoResults from "@/components/NoResults";
 import Loading from "@/components/Loading";
-import AddFoodSpotForm from "./AddFoodSpotForm";
+import FoodSpotForm from "./FoodSpotForm";
 import { ModalContext } from "@/context/ModalContext";
 
 const getAreaId = async (area) => {
@@ -115,7 +115,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                           <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
                             Add Food Spot for {area}
                           </h2>
-                          <AddFoodSpotForm areaId={uniqueArea} area={area} />
+                          <FoodSpotForm areaId={uniqueArea} area={area} />
                         </div>
                       );
                     }}
