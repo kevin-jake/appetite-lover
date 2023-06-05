@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useUser } from "@/hooks/useUser";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const registerSchema = yup.object().shape({
   firstName: yup
@@ -25,7 +26,7 @@ const registerSchema = yup.object().shape({
   password: yup
     .string()
     .required("Required")
-    .min(6, "Password must be at least 6 characters"),
+    .min(8, "Password must be at least 8 characters"),
 });
 
 const loginSchema = yup.object().shape({
@@ -110,23 +111,44 @@ const SignInSignUpForm = ({ setModalType, pageType }) => {
             </div>
             <div>
               <label
-                htmlFor="password"
+                htmlFor="price"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Password
               </label>
-              <input
-                type={showPassword ? "text" : "password"}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.password}
-                name="password"
-                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
-                  Boolean(touched.password) && Boolean(errors.password)
-                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
-                } `}
-              />
+              <div className="relative mb-2">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.password}
+                  name="password"
+                  className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
+                    Boolean(touched.password) && Boolean(errors.password)
+                      ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
+                      : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+                  } `}
+                />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-lg leading-5">
+                  {showPassword ? (
+                    <button
+                      type="button"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      <AiFillEyeInvisible />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      <AiFillEye />
+                    </button>
+                  )}
+                </div>
+              </div>
               {Boolean(touched.password) && Boolean(errors.password) && (
                 <p className="text-xs m-2 text-red-300">
                   {touched.password && errors.password}

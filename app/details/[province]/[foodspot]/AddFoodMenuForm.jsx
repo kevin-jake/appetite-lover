@@ -152,8 +152,8 @@ const AddFoodMenuForm = ({ foodSpotId, closeModal }) => {
               >
                 Price
               </label>
-              <div className="relative mb-6">
-                <div className="absolute h-full inset-y-0 left-0 flex items-center pointer-events-none">
+              <div className="relative mb-2">
+                <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
                   <span className="text-gray-400 font-bold text-md m-4">
                     Php
                   </span>
@@ -171,12 +171,12 @@ const AddFoodMenuForm = ({ foodSpotId, closeModal }) => {
                       : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
                   } `}
                 />
-                {Boolean(touched.price) && Boolean(errors.price) && (
-                  <p className="text-xs m-2 text-red-300">
-                    {touched.price && errors.price}
-                  </p>
-                )}
               </div>
+              {Boolean(touched.price) && Boolean(errors.price) && (
+                <p className="text-xs mb-2 text-red-300">
+                  {touched.price && errors.price}
+                </p>
+              )}
             </div>
             <div className="flex justify-center">
               <ImageDropzone setFieldValue={setFieldValue} values={values} />
