@@ -7,10 +7,11 @@ import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { MdOutlineThumbDown, MdOutlineThumbUp } from "react-icons/md";
 
-const LikeWidget = ({ foodSpotId }) => {
+const LikeWidget = ({ foodSpotId, refetchTopList }) => {
   const [buttonState, setButtonState] = useState("neutral");
   const [foodSpot, setFoodSpot] = useState({});
   const [loading, setLoading] = useState(false);
+
   const { user, openModal, loading: userLoading } = useUser();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const LikeWidget = ({ foodSpotId }) => {
     else if (!userLoading && foodSpot.dislikes?.includes(user?.email))
       setButtonState("Dislike");
     else setButtonState("neutral");
-  }, [foodSpotId, userLoading, foodSpot, user.email]);
+  }, [foodSpotId, userLoading, foodSpot, user?.email]);
 
   const handleClick = async (e, value) => {
     if (!user) {
@@ -59,6 +60,7 @@ const LikeWidget = ({ foodSpotId }) => {
       const result = JSON.parse(rawResult.response);
       if (buttonState === value) setButtonState("neutral");
       else setButtonState(value);
+      refetchTopList();
       setLoading(false);
     } catch (error) {
       toast.error(error.message);

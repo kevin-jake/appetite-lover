@@ -35,14 +35,7 @@ const Spot = async ({ params }) => {
 
   return (
     <main className="px-10 leading-7">
-      <div className="md:flex gap-10 mb-5">
-        <div className="basis-3/4">
-          <Content foodspot={spot} area={areaName} />
-        </div>
-        <div className="basis-1/4">
-          <TopLists area={areaName} isFromContent={true} />
-        </div>
-      </div>
+      <Content foodspot={spot} area={areaName} />
     </main>
   );
 };

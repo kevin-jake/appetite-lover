@@ -9,7 +9,7 @@ import FoodSpotForm from "@/app/(home)/FoodSpotForm";
 
 const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
   const { user } = useUser();
-  const { openModal } = useContext(ModalContext);
+  const { openModal, refetchTopList } = useContext(ModalContext);
 
   return (
     <div
@@ -75,7 +75,7 @@ const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
             <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
               {foodSpotName}
             </h2>
-            <LikeWidget foodSpotId={$id} />
+            <LikeWidget foodSpotId={$id} refetchTopList={refetchTopList} />
           </div>
           <div>
             <h4 className="text-sm text-gray-100 leading-tight">

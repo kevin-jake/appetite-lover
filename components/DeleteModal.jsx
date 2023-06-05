@@ -9,7 +9,7 @@ import { ModalContext } from "@/context/ModalContext";
 const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
-  const { closeModal } = useContext(ModalContext);
+  const { closeModal, refetchTopList } = useContext(ModalContext);
 
   const handleDelete = async () => {
     setDeleting(true);
@@ -39,6 +39,7 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
           true
         );
         toast.success(`Successfully deleted`);
+        refetchTopList();
         router.refresh();
       } catch (error) {
         toast.error(error.message);

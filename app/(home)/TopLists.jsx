@@ -33,18 +33,16 @@ const getTopLists = async (area) => {
 };
 
 const TopLists = ({ area, closeTopList, isFromContent }) => {
-  console.log("🚀 ~ file: TopLists.jsx:35 ~ TopLists ~ area:", area);
   const [toplists, setToplists] = useState([]);
   const [uniqueArea, setUniqueArea] = useState("");
-  const { openModal } = useContext(ModalContext);
+  const { openModal, refetch } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const getList = async () => {
-      setLoading(true);
       try {
         const { lists, areaId } = await getTopLists(area);
-        console.log("🚀 ~ file: TopLists.jsx:48 ~ getList ~ lists:", lists);
         setUniqueArea(areaId);
         setToplists(lists);
       } catch (error) {
@@ -56,7 +54,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
     };
 
     getList();
-  }, [area]);
+  }, [area, refetch]);
   return (
     <>
       <div
