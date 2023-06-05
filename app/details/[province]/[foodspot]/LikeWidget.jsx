@@ -66,11 +66,11 @@ const LikeWidget = ({ foodSpotId }) => {
   };
 
   return (
-    <div className="flex justify-center gap-3 rounded-xl w-auto bg-gray-200 dark:bg-gray-700 p-2">
+    <div className="flex justify-center align-middle gap-3 rounded-xl w-auto bg-gray-200 dark:bg-gray-700 p-2">
       {(loading || userLoading) && (
         <CgSpinnerTwo className="loading-icon" color="forestgreen" />
       )}
-      {!loading && (
+      {!loading && !userLoading && (
         <>
           <button type="button" onClick={(e) => handleClick(e, "Like")}>
             <span

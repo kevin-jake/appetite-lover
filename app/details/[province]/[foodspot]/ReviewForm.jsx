@@ -3,6 +3,7 @@ import RadioButtonIcons from "@/app/(shared)/RadioButtonIcons";
 import React, { useState } from "react";
 import { MdSend } from "react-icons/md";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { GrFormClose } from "react-icons/gr";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { database, functions } from "@/libs/appwrite";
@@ -24,7 +25,7 @@ const initialComment = {
 };
 
 // TODO: Add edit and delete function?
-const ReviewForm = ({ foodSpotId }) => {
+const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
   const router = useRouter();
   const { user, openModal } = useUser();
   const [posting, setPosting] = useState(false);
@@ -34,18 +35,38 @@ const ReviewForm = ({ foodSpotId }) => {
       return openModal();
     }
     setPosting(true);
-    try {
-      const data = { ...values, reviewerEmail: user.email, foodSpotId };
-      await database.createDocument(
-        process.env.NEXT_PUBLIC_DATABASE,
-        process.env.NEXT_PUBLIC_REVIEWS,
-        ID.unique(),
-        data
-      );
-      onSubmitProps.resetForm();
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error.message);
+    if (isEdit) {
+      try {
+        const data = {
+          comment: values.comment,
+          isPositiveFeedback: values.isPositiveFeedback,
+        };
+        await database.updateDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_REVIEWS,
+          oldReview.$id,
+          data
+        );
+        closeEdit();
+        onSubmitProps.resetForm();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    } else {
+      try {
+        const data = { ...values, reviewerEmail: user.email, foodSpotId };
+        await database.createDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_REVIEWS,
+          ID.unique(),
+          data
+        );
+        onSubmitProps.resetForm();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
 
     try {
@@ -54,7 +75,7 @@ const ReviewForm = ({ foodSpotId }) => {
         foodSpotId,
         true
       );
-      toast.success("Review posted!");
+      toast.success(`Review ${isEdit ? "edited" : "posted"}`);
       router.refresh();
     } catch (error) {
       toast.error(error.message);
@@ -66,7 +87,7 @@ const ReviewForm = ({ foodSpotId }) => {
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={initialComment}
+      initialValues={isEdit ? oldReview : initialComment}
       validationSchema={commentSchema}
       validateOnChange={false}
       validateOnBlur={false}
@@ -85,9 +106,20 @@ const ReviewForm = ({ foodSpotId }) => {
           className="w-full bg-white dark:bg-gray-600 rounded-lg px-4 pt-2"
         >
           <div className="flex flex-col justify-center align-middle w-full -mx-3 mb-6">
-            <h5 className="font-bold px-4 pt-3 pb-2 text-gray-800 text-lg dark:text-white">
-              Add a review
-            </h5>
+            <div className="flex justify-between">
+              <h5 className="font-bold px-4 pt-3 pb-2 text-gray-800 text-lg dark:text-white">
+                {isEdit ? "Edit" : "Add a"} review
+              </h5>
+              {isEdit && (
+                <button
+                  onClick={closeEdit}
+                  type="button"
+                  className="text-gray-400 bg-transparent p-2 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-lg ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                >
+                  <GrFormClose />
+                </button>
+              )}
+            </div>
             <div className="w-full md:w-full px-3 mb-2 mt-2">
               <textarea
                 onBlur={handleBlur}
@@ -118,7 +150,7 @@ const ReviewForm = ({ foodSpotId }) => {
                 className="bg-gray-200 dark:bg-blue-700 dark:hover:bg-blue-400 text-gray-700 font-medium py-1 px-4  rounded-lg tracking-wide mr-1 hover:text-white hover:bg-blue-500"
               >
                 <span className="inline-flex font-bold gap-2 justify-between align-middle items-center dark:text-white">
-                  Post
+                  {isEdit ? "Update" : "Post"}
                   {posting ? (
                     <CgSpinnerTwo className="loading-icon" />
                   ) : (

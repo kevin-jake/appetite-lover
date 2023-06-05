@@ -32,7 +32,6 @@ const getTopLists = async (area) => {
 
 const TopLists = ({ area, closeTopList, isFromContent }) => {
   const [toplists, setToplists] = useState([]);
-  console.log("🚀 ~ file: TopLists.jsx:39 ~ TopLists ~ toplists:", toplists);
   const [uniqueArea, setUniqueArea] = useState("");
   const [isAddFoodSpotOpen, setIsAddFoodSpotOpen] = useState(false);
   const [loading, setLoading] = useState(false);
