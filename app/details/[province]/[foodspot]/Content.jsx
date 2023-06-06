@@ -14,6 +14,7 @@ const Content = ({ foodspot, area }) => {
           <Tabs
             foodSpotId={foodspot.$id}
             foodSpotName={foodspot.foodSpotName}
+            location={foodspot.location}
           />
         </div>
       </div>

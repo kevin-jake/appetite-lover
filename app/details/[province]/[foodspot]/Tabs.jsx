@@ -4,8 +4,9 @@ import MenuTab from "./MenuTab";
 import ReviewsTab from "./ReviewsTab";
 import Loading from "@/components/Loading";
 import ReviewForm from "./ReviewForm";
+import LocationTab from "./LocationTab";
 
-const Tabs = ({ foodSpotId, foodSpotName }) => {
+const Tabs = ({ foodSpotId, foodSpotName, location }) => {
   const TABS = ["Menu", "Reviews", "Location"];
   const [tab, setTab] = useState("Menu");
 
@@ -46,6 +47,8 @@ const Tabs = ({ foodSpotId, foodSpotName }) => {
             </div>
           </section>
         );
+      case "Location":
+        return <LocationTab location={location} />;
     }
   };
 

@@ -15,6 +15,9 @@ const playball = Playball({
 export const metadata = {
   title: "Appetite Lover",
   description: "Top 10 food spots on your area",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
