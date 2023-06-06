@@ -82,17 +82,38 @@ const ImageDropzone = ({ setFieldValue, values, isEdit }) => {
                   ))}
                 </>
               )}
-              {isEdit && !areFilesPresent && (
-                <div className="w-full h-full flex flex-col justify-center items-center">
-                  <Image
-                    style={{ objectFit: "cover" }}
-                    width="120"
-                    height="120"
-                    src={values.imgUrl}
-                    alt={values.foodSpotName}
-                  />
-                </div>
-              )}
+              {isEdit &&
+                !areFilesPresent &&
+                (typeof values.imgUrl === "string" ? (
+                  <div className="w-full h-full flex flex-col justify-center items-center">
+                    <Image
+                      style={{ objectFit: "cover" }}
+                      width="120"
+                      height="120"
+                      src={values.imgUrl}
+                      alt={values.foodSpotName || values.foodName || "photo"}
+                    />
+                  </div>
+                ) : !values.imgUrl ? (
+                  <p>Add Picture Here</p>
+                ) : (
+                  <>
+                    {files.map((file) => (
+                      <div
+                        key={file.name}
+                        className="w-full h-full flex flex-col justify-center items-center"
+                      >
+                        <img
+                          style={{ objectFit: "cover" }}
+                          width="120px"
+                          height="120px"
+                          src={file.preview}
+                          alt={file.name}
+                        />
+                      </div>
+                    ))}
+                  </>
+                ))}
             </div>
           </div>
         )}

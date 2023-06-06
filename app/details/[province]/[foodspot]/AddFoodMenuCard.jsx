@@ -1,11 +1,29 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { ModalContext } from "@/context/ModalContext";
-import AddFoodMenuForm from "./AddFoodMenuForm";
-// TODO: Add edit and delete function?
+import FoodMenuForm from "./FoodMenuForm";
+import { useUser } from "@/hooks/useUser";
+import { database } from "@/libs/appwrite";
+import { Query } from "appwrite";
 const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
+  const [createdBy, setCreatedBy] = useState("");
   const { openModal } = useContext(ModalContext);
+  const { user } = useUser();
+
+  useEffect(() => {
+    const getSpot = async () => {
+      const spot = await database.listDocuments(
+        process.env.NEXT_PUBLIC_DATABASE,
+        process.env.NEXT_PUBLIC_FOOD_SPOT,
+        [Query.equal("$id", [foodSpotId]), Query.limit(1)]
+      );
+      console.log("🚀 ~ file: AddFoodMenuCard.jsx:25 ~ getSpot ~ spot:", spot);
+      setCreatedBy(spot.documents[0]?.createdBy);
+    };
+    getSpot();
+  }, [foodSpotId]);
+
   return (
     <>
       <div
@@ -15,11 +33,13 @@ const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
               <h2 className="mb-4 text-4xl font-medium text-gray-900 dark:text-white">
                 Add Food Menu for {foodSpotName}
               </h2>
-              <AddFoodMenuForm foodSpotId={foodSpotId} />
+              <FoodMenuForm foodSpotId={foodSpotId} />
             </div>
           );
         }}
-        className="flex flex-col items-center justify-center align-middle max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600 cursor-pointer"
+        className={`${
+          user?.email === createdBy ? "" : "hidden"
+        } flex flex-col items-center justify-center align-middle max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600 cursor-pointer`}
       >
         <div className="flex p-4 justify-center relative w-auto h-32 bg-white-500 text-gray-400 dark:text-lime-800">
           <IoMdAddCircle size={"6rem"} />

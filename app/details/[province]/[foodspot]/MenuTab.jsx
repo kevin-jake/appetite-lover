@@ -20,7 +20,7 @@ const MenuTab = async ({ foodSpotId, foodSpotName }) => {
   return (
     <div className="grid lg:grid-cols-4 gap-y-6">
       {foodMenu.map((food) => (
-        <MenuCards key={food.$id} food={food} />
+        <MenuCards key={food.$id} foodMenu={food} />
       ))}
       <AddFoodMenuCard foodSpotId={foodSpotId} foodSpotName={foodSpotName} />
     </div>

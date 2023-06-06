@@ -44,44 +44,71 @@ const uploadImage = async (image) => {
   }
 };
 
-const AddFoodMenuForm = ({ foodSpotId }) => {
+const FoodMenuForm = ({ foodSpotId, isEdit, oldData }) => {
+  console.log(
+    "🚀 ~ file: FoodMenuForm.jsx:48 ~ FoodMenuForm ~ oldData:",
+    oldData
+  );
   const router = useRouter();
-  const { closeModal } = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
-  const { user, openModal } = useUser();
+  const { user, openModal, closeModal: closeUserModal } = useUser();
+  const { closeModal } = useContext(ModalContext);
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (!user) {
       return openModal();
     }
     setLoading(true);
-    let data = { ...values, foodSpotId, createdBy: user.email };
-    if (values.imgUrl) {
-      data.imgUrl = await uploadImage(values.imgUrl);
-    }
+    if (isEdit) {
+      if (values.imgUrl !== oldData.imgUrl) {
+        values.imgUrl = await uploadImage(values.imgUrl);
+      }
+      try {
+        const result = await database.updateDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_FOOD_MENU,
+          oldData.$id,
+          values
+        );
+        onSubmitProps.resetForm();
+        toast.success("Food Menu successfully updated.");
+        closeUserModal();
+        closeModal();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      let data = { ...values, foodSpotId, createdBy: user.email };
+      if (values.imgUrl) {
+        data.imgUrl = await uploadImage(values.imgUrl);
+      }
 
-    try {
-      const result = await database.createDocument(
-        process.env.NEXT_PUBLIC_DATABASE,
-        process.env.NEXT_PUBLIC_FOOD_MENU,
-        ID.unique(),
-        data
-      );
-      onSubmitProps.resetForm();
-      closeModal();
-      toast.success("Food Menu successfully created.");
-      router.refresh();
-    } catch (error) {
-      toast.error(error.message);
-      console.error(error.message);
-    } finally {
-      setLoading(false);
+      try {
+        const result = await database.createDocument(
+          process.env.NEXT_PUBLIC_DATABASE,
+          process.env.NEXT_PUBLIC_FOOD_MENU,
+          ID.unique(),
+          data
+        );
+        onSubmitProps.resetForm();
+        closeModal();
+        toast.success("Food Menu successfully created.");
+        router.refresh();
+      } catch (error) {
+        toast.error(error.message);
+        console.error(error.message);
+      } finally {
+        setLoading(false);
+      }
     }
   };
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      initialValues={initialValues}
+      initialValues={isEdit ? oldData : initialValues}
       validationSchema={foodMenuSchema}
     >
       {({
@@ -181,7 +208,11 @@ const AddFoodMenuForm = ({ foodSpotId }) => {
               )}
             </div>
             <div className="flex justify-center">
-              <ImageDropzone setFieldValue={setFieldValue} values={values} />
+              <ImageDropzone
+                setFieldValue={setFieldValue}
+                values={values}
+                isEdit={isEdit}
+              />
             </div>
             <button
               type="submit"
@@ -196,4 +227,4 @@ const AddFoodMenuForm = ({ foodSpotId }) => {
   );
 };
 
-export default AddFoodMenuForm;
+export default FoodMenuForm;
