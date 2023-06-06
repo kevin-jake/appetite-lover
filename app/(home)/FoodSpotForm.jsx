@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import ImageDropzone from "@/components/ImageDropzone";
 import { ModalContext } from "@/context/ModalContext";
+import GmapComponent from "@/components/GmapComponent";
 
 const foodSpotSchema = yup.object().shape({
   foodSpotName: yup
@@ -24,6 +25,7 @@ const foodSpotSchema = yup.object().shape({
 const initialValues = {
   foodSpotName: "",
   description: "",
+  location: "",
   imgUrl: null,
 };
 
@@ -117,9 +119,20 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
         handleSubmit,
         setFieldValue,
       }) => {
+        console.log(
+          "🚀 ~ file: FoodSpotForm.jsx:121 ~ FoodSpotForm ~ values:",
+          values
+        );
         return (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
+              <div className="flex justify-center">
+                <ImageDropzone
+                  setFieldValue={setFieldValue}
+                  values={values}
+                  isEdit={isEdit}
+                />
+              </div>
               <label
                 htmlFor="foodSpotName"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -171,12 +184,15 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
                 </p>
               )}
             </div>
-            <div className="flex justify-center">
-              <ImageDropzone
-                setFieldValue={setFieldValue}
-                values={values}
-                isEdit={isEdit}
-              />
+
+            <div>
+              <label
+                htmlFor="location"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Location
+              </label>
+              <GmapComponent setFieldValue={setFieldValue} />
             </div>
             <button
               type="submit"
