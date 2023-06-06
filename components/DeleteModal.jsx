@@ -20,7 +20,7 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
         documentId
       );
       closeModal();
-      if (!foodSpotId) {
+      if (collectionId === process.env.NEXT_PUBLIC_FOOD_MENU) {
         toast.success(`Successfully deleted`);
         router.refresh();
       }
@@ -31,7 +31,7 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
       return;
     }
 
-    if (foodSpotId) {
+    if (collectionId !== process.env.NEXT_PUBLIC_FOOD_MENU) {
       try {
         await functions.createExecution(
           process.env.NEXT_PUBLIC_UPDATE_RATINGS_FUNC,
@@ -40,7 +40,9 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
         );
         toast.success(`Successfully deleted`);
         refetchTopList();
-        router.refresh();
+        if (collectionId === process.env.NEXT_PUBLIC_FOOD_SPOT) {
+          router.push("/");
+        } else router.refresh();
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
@@ -53,7 +55,7 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
   return (
     <div className="px-6 py-6 lg:px-8">
       <h2 className="mb-4 text-lg font-medium text-gray-900 dark:text-white">
-        Delete {name}
+        Delete {name}?
       </h2>
       <p className="mb-4 text-lg text-center font-medium text-gray-500 dark:text-gray-600">
         Are you sure you want to delete?

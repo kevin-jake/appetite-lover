@@ -6,6 +6,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useUser } from "@/hooks/useUser";
 import { ModalContext } from "@/context/ModalContext";
 import FoodSpotForm from "@/app/(home)/FoodSpotForm";
+import DeleteModal from "@/components/DeleteModal";
 
 const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
   const { user } = useUser();
@@ -46,6 +47,15 @@ const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
         <button
           type="button"
           className={user?.email !== createdBy ? "hidden" : ""}
+          onClick={() =>
+            openModal(
+              <DeleteModal
+                collectionId={process.env.NEXT_PUBLIC_FOOD_SPOT}
+                name={foodSpotName}
+                documentId={$id}
+              />
+            )
+          }
         >
           <span className="block cursor-pointer text-white bg-emerald-700  hover:bg-emerald-600  select-none rounded-xl p-2 text-center ">
             <MdDelete />

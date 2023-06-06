@@ -33,7 +33,7 @@ const Navbar = () => {
       >
         <div className=" md:mt-3">
           <Link href="/">
-            <Image src="/logo.png" alt="logo" width={300} height={100} />
+            <Image src="/logo.svg" alt="logo" width={300} height={100} />
           </Link>
         </div>
         {!loading && (
