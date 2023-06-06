@@ -4,12 +4,9 @@ import { useUser } from "@/hooks/useUser";
 import React, { useContext } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import FoodMenuForm from "./FoodMenuForm";
+import DeleteModal from "@/components/DeleteModal";
 
 const MenuCardButtons = ({ foodMenu }) => {
-  console.log(
-    "🚀 ~ file: MenuCardButtons.jsx:9 ~ MenuCardButtons ~ foodMenu:",
-    foodMenu
-  );
   const { user } = useUser();
   const { openModal } = useContext(ModalContext);
   return (
@@ -45,7 +42,15 @@ const MenuCardButtons = ({ foodMenu }) => {
       <button
         type="button"
         className={user?.email !== foodMenu?.createdBy ? "hidden" : ""}
-        //   onClick={}
+        onClick={() =>
+          openModal(
+            <DeleteModal
+              collectionId={process.env.NEXT_PUBLIC_FOOD_MENU}
+              name={foodMenu.foodName}
+              documentId={foodMenu.$id}
+            />
+          )
+        }
       >
         <span className="block cursor-pointer text-gray-800 bg-gray-300 dark:bg-gray-500 select-none rounded-xl p-2 text-center dark:text-white hover:bg-blue-700 hover:text-white dark:hover:bg-blue-400">
           <MdDelete />

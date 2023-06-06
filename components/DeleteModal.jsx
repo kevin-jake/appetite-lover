@@ -7,6 +7,10 @@ import { database, functions } from "@/libs/appwrite";
 import { ModalContext } from "@/context/ModalContext";
 
 const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
+  console.log(
+    "🚀 ~ file: DeleteModal.jsx:10 ~ DeleteModal ~ collectionId:",
+    collectionId
+  );
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
   const { closeModal, refetchTopList } = useContext(ModalContext);
@@ -58,7 +62,16 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
         Delete {name}?
       </h2>
       <p className="mb-4 text-lg text-center font-medium text-gray-500 dark:text-gray-600">
-        Are you sure you want to delete?
+        {collectionId === process.env.NEXT_PUBLIC_FOOD_SPOT ? (
+          <div className="flex flex-col">
+            <span>
+              Reviews and Food Menu will also not be accessible after deleting.
+            </span>
+            <span>Are you sure you want to delete this food spot?</span>
+          </div>
+        ) : (
+          "Are you sure you want to delete?"
+        )}
       </p>
       <div className="flex gap-2 justify-center">
         {deleting ? (

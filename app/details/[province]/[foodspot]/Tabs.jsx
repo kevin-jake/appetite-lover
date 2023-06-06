@@ -19,7 +19,7 @@ const Tabs = ({ foodSpotId, foodSpotName }) => {
         return (
           <section className="pt-4 pb-1">
             <div className="text-left">
-              <h4 className="text-3xl mb-4 dark:text-lime-200 font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+              <h4 className="text-3xl mb-4 text-emerald-700 dark:text-lime-200 font-bold ">
                 Menu
               </h4>
             </div>
@@ -34,7 +34,7 @@ const Tabs = ({ foodSpotId, foodSpotName }) => {
         return (
           <section className="pt-4 pb-1">
             <div className="text-left">
-              <h4 className="text-3xl mb-4 dark:text-lime-200 font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+              <h4 className="text-3xl mb-4 text-emerald-700 dark:text-lime-200 font-bold ">
                 Reviews
               </h4>
             </div>
