@@ -45,7 +45,9 @@ module.exports = async function (req, res) {
           [sdk.Query.equal("$id", foodSpotId)]
         );
         likes = result.documents[0].likes;
+        console.log("🚀 ~ file: index.js:48 ~ likes:", likes);
         dislikes = result.documents[0].dislikes;
+        console.log("🚀 ~ file: index.js:50 ~ dislikes:", dislikes);
       } catch (error) {
         console.log(error);
         return res.json({ error });
@@ -53,6 +55,10 @@ module.exports = async function (req, res) {
 
       const positiveFeedbacks = reviews.filter(
         (review) => review.isPositiveFeedback
+      );
+      console.log(
+        "🚀 ~ file: index.js:59 ~ positiveFeedbacks:",
+        positiveFeedbacks
       );
 
       const ratings =

@@ -1,12 +1,12 @@
-import Image from "next/image";
 import React from "react";
 import MenuCardButtons from "./MenuCardButtons";
+import CustomImage from "@/components/CustomImage";
 
 const MenuCards = ({ foodMenu }) => {
   return (
     <div className="max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600">
       <div className="basis-full relative w-auto h-32 bg-white-500">
-        <Image
+        <CustomImage
           fill
           src={foodMenu.imgUrl || "/placeholder-image.jpg"}
           alt={foodMenu.foodName}

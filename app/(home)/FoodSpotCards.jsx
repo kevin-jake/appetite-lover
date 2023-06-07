@@ -1,9 +1,7 @@
-import Image from "next/image";
+import CustomImage from "@/components/CustomImage";
 import Link from "next/link";
 import React from "react";
 
-// {/* TODO: Make a custom image component to handle onError  https://gist.github.com/codegino/b9ed69fec8495c5024ef925c432bf1f2 */}
-// TODO: Add ratings, description or ranking of food cards
 const FoodSpotCards = ({
   name,
   area,
@@ -89,7 +87,7 @@ const FoodSpotCards = ({
         </div>
       </div>
       <div className="relative w-auto h-32 bg-wh-500 overflow-hidden rounded-lg">
-        <Image
+        <CustomImage
           alt={name}
           fill
           src={imgUrl}

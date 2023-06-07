@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useContext } from "react";
 import LikeWidget from "./LikeWidget";
 import { MdDelete, MdEdit } from "react-icons/md";
@@ -7,6 +6,7 @@ import { useUser } from "@/hooks/useUser";
 import { ModalContext } from "@/context/ModalContext";
 import FoodSpotForm from "@/app/(home)/FoodSpotForm";
 import DeleteModal from "@/components/DeleteModal";
+import CustomImage from "@/components/CustomImage";
 
 const ContentHead = ({
   foodSpotName,
@@ -76,8 +76,7 @@ const ContentHead = ({
           backgroundImage: "linear-gradient(180deg,transparent,rgba(0,0,0,.7))",
         }}
       ></div>
-
-      <Image
+      <CustomImage
         alt={foodSpotName}
         fill
         src={imgUrl || "/placeholder-image.jpg"}
