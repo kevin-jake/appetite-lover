@@ -3,12 +3,9 @@ import React, { useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useEffect } from "react";
 import Loading from "./Loading";
+import { toast } from "react-hot-toast";
 
-const GmapComponent = ({ location, isFromContent, setFieldValue }) => {
-  console.log(
-    "🚀 ~ file: GmapComponent.jsx:12 ~ GmapComponent ~ location:",
-    location
-  );
+const GmapComponent = ({ location, setFieldValue }) => {
   const [center, setCenter] = useState({
     lat: 14.600138480430042,
     lng: 120.98470772364081,
@@ -23,14 +20,9 @@ const GmapComponent = ({ location, isFromContent, setFieldValue }) => {
   }, [location]);
 
   const handleClickMap = (event) => {
-    console.log(
-      "🚀 ~ file: GmapComponent.jsx:25 ~ handleClickMap ~ event:",
-      event
-    );
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     const loc = `${event.latLng.lat()},${event.latLng.lng()}`;
-    console.log("🚀 ~ file: GmapComponent.jsx:31 ~ handleClickMap ~ loc:", loc);
     setCenter({ lat, lng });
     setFieldValue("location", loc);
   };
@@ -39,17 +31,18 @@ const GmapComponent = ({ location, isFromContent, setFieldValue }) => {
     <LoadScript
       googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS}
       loadingElement={<Loading />}
+      onError={(error) => toast.error(error)}
     >
       <GoogleMap
         mapContainerStyle={{
           width: "100%",
-          height: isFromContent ? "300px" : "200px",
+          height: location ? "300px" : "200px",
         }}
         center={center}
-        zoom={isFromContent ? 15 : 10}
+        zoom={location ? 15 : 10}
         onClick={(e) => handleClickMap(e)}
       >
-        <Marker position={center} />
+        {Boolean(location) && <Marker position={center} />}
       </GoogleMap>
     </LoadScript>
   );

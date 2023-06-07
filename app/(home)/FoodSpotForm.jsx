@@ -118,91 +118,87 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
         handleChange,
         handleSubmit,
         setFieldValue,
-      }) => {
-        console.log(
-          "🚀 ~ file: FoodSpotForm.jsx:121 ~ FoodSpotForm ~ values:",
-          values
-        );
-        return (
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <div className="flex justify-center">
-                <ImageDropzone
-                  setFieldValue={setFieldValue}
-                  values={values}
-                  isEdit={isEdit}
-                />
-              </div>
-              <label
-                htmlFor="foodSpotName"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Food Spot Name
-              </label>
-              <input
-                label=" Food Spot Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.foodSpotName}
-                name="foodSpotName"
-                type="foodSpotName"
-                id="foodSpotName"
-                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
-                  Boolean(touched.foodSpotName) && Boolean(errors.foodSpotName)
-                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500"
-                } `}
+      }) => (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <div className="flex justify-center">
+              <ImageDropzone
+                setFieldValue={setFieldValue}
+                values={values}
+                isEdit={isEdit}
               />
-              {Boolean(touched.foodSpotName) &&
-                Boolean(errors.foodSpotName) && (
-                  <p className="text-xs m-2 text-red-300">
-                    {touched.foodSpotName && errors.foodSpotName}
-                  </p>
-                )}
             </div>
-            <div>
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Description
-              </label>
-              <textarea
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-                name="description"
-                className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
-                  Boolean(touched.description) && Boolean(errors.description)
-                    ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
-                    : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
-                } `}
-              />
-              {Boolean(touched.description) && Boolean(errors.description) && (
-                <p className="text-xs m-2 text-red-300">
-                  {touched.description && errors.description}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label
-                htmlFor="location"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Location
-              </label>
-              <GmapComponent setFieldValue={setFieldValue} />
-            </div>
-            <button
-              type="submit"
-              className="flex justify-center w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+            <label
+              htmlFor="foodSpotName"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              {loading ? <CgSpinnerTwo className="loading-icon" /> : "Submit"}
-            </button>
-          </form>
-        );
-      }}
+              Food Spot Name
+            </label>
+            <input
+              label=" Food Spot Name"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.foodSpotName}
+              name="foodSpotName"
+              type="foodSpotName"
+              id="foodSpotName"
+              className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5  dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
+                Boolean(touched.foodSpotName) && Boolean(errors.foodSpotName)
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
+                  : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500"
+              } `}
+            />
+            {Boolean(touched.foodSpotName) && Boolean(errors.foodSpotName) && (
+              <p className="text-xs m-2 text-red-300">
+                {touched.foodSpotName && errors.foodSpotName}
+              </p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Description
+            </label>
+            <textarea
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.description}
+              name="description"
+              className={`focus:outline-none focus:ring-1 focus:bg-white text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:text-white dark:bg-gray-700 border dark:placeholder-gray-400   ${
+                Boolean(touched.description) && Boolean(errors.description)
+                  ? "focus:ring-red-500 focus:border-red-500 border-red-500 bg-red-200 dark:border-red-500 "
+                  : "focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-600 dark:border-gray-500   "
+              } `}
+            />
+            {Boolean(touched.description) && Boolean(errors.description) && (
+              <p className="text-xs m-2 text-red-300">
+                {touched.description && errors.description}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="location"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Location
+            </label>
+            <GmapComponent
+              setFieldValue={setFieldValue}
+              location={values.location}
+            />
+          </div>
+          <button
+            type="submit"
+            className="flex justify-center w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          >
+            {loading ? <CgSpinnerTwo className="loading-icon" /> : "Submit"}
+          </button>
+        </form>
+      )}
     </Formik>
   );
 };

@@ -8,7 +8,14 @@ import { ModalContext } from "@/context/ModalContext";
 import FoodSpotForm from "@/app/(home)/FoodSpotForm";
 import DeleteModal from "@/components/DeleteModal";
 
-const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
+const ContentHead = ({
+  foodSpotName,
+  imgUrl,
+  location,
+  description,
+  $id,
+  createdBy,
+}) => {
   const { user } = useUser();
   const { openModal, refetchTopList } = useContext(ModalContext);
 
@@ -33,6 +40,7 @@ const ContentHead = ({ foodSpotName, imgUrl, description, $id, createdBy }) => {
                     foodSpotName,
                     description,
                     imgUrl,
+                    location,
                     $id,
                   }}
                 />

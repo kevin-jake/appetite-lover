@@ -45,10 +45,6 @@ const uploadImage = async (image) => {
 };
 
 const FoodMenuForm = ({ foodSpotId, isEdit, oldData }) => {
-  console.log(
-    "🚀 ~ file: FoodMenuForm.jsx:48 ~ FoodMenuForm ~ oldData:",
-    oldData
-  );
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { user, openModal, closeModal: closeUserModal } = useUser();

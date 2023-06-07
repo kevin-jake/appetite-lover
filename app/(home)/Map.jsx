@@ -42,7 +42,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         setLoading(false);
       } catch (error) {
         toast.error(error.message);
-        console.log(error.message);
+        console.error(error.message);
         setLoading(false);
       }
     };
@@ -146,7 +146,10 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         xmlns="http://www.w3.org/2000/svg"
         id="svg574"
         version="1.1"
+        // width="300"
+        // height="500"
         ref={svgRef}
+        // viewBox="150 100 475 600"
         style={{ width: "100%", position: "relative" }}
       >
         <g transform="translate(-20.998,-140.998)">

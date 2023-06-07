@@ -18,7 +18,6 @@ const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
         process.env.NEXT_PUBLIC_FOOD_SPOT,
         [Query.equal("$id", [foodSpotId]), Query.limit(1)]
       );
-      console.log("🚀 ~ file: AddFoodMenuCard.jsx:25 ~ getSpot ~ spot:", spot);
       setCreatedBy(spot.documents[0]?.createdBy);
     };
     getSpot();

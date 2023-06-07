@@ -7,10 +7,6 @@ import { database, functions } from "@/libs/appwrite";
 import { ModalContext } from "@/context/ModalContext";
 
 const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
-  console.log(
-    "🚀 ~ file: DeleteModal.jsx:10 ~ DeleteModal ~ collectionId:",
-    collectionId
-  );
   const router = useRouter();
   const [deleting, setDeleting] = useState(false);
   const { closeModal, refetchTopList } = useContext(ModalContext);

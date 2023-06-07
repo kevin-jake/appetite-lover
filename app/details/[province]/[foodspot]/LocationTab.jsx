@@ -10,7 +10,7 @@ const LocationTab = ({ location }) => {
         </h4>
       </div>
       <div className="flex w-full h-full flex-col gap-8">
-        <GmapComponent isFromContent={true} location={location} />
+        <GmapComponent location={location} />
       </div>
     </section>
   );
