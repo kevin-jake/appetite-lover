@@ -66,7 +66,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
       // Calculate new viewBox values based on window size
       const viewBoxWidth = 900;
       // const viewBoxHeight = 1800; this is for mobile
-      const viewBoxHeight = 1300;
+      const viewBoxHeight = 800;
       const viewBoxRatio = viewBoxWidth / viewBoxHeight;
       const windowRatio = windowWidth / windowHeight;
 
@@ -83,7 +83,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         const xOffset = (viewBoxWidth - scaledWidth) / 2;
         newViewBox = `${xOffset} 0 ${scaledWidth} ${viewBoxHeight}`;
       }
-
+      svg.setAttribute("height", windowHeight - 200);
       svg.setAttribute("viewBox", newViewBox);
     };
     adjustViewBox();
@@ -147,7 +147,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         id="svg574"
         version="1.1"
         // width="300"
-        // height="500"
+        height="500"
         ref={svgRef}
         // viewBox="150 100 475 600"
         style={{ width: "100%", position: "relative" }}
