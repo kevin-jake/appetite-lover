@@ -119,15 +119,17 @@ const Map = ({
       event.target.getAttribute("id") || event.target.innerHTML
     ).childNodes[0];
     if (
-      areaSelected == event.target.getAttribute("id") ||
-      areaSelected == event.target.innerHTML
-    )
+      (areaSelected == event.target.getAttribute("id") ||
+        areaSelected == event.target.innerHTML) &&
+      Boolean(areaSelected)
+    ) {
       shapeArea.setAttribute("fill", "#4ad840");
-    else if (
+    } else if (
       areaSelected != event.target.getAttribute("id") ||
       areaSelected != event.target.innerHTML
-    )
+    ) {
       shapeArea.setAttribute("fill", "#CCCCCC");
+    }
     const position = shapeArea.parentNode.getBoundingClientRect();
     setTooltipPosition({
       x: position.x + window.pageXOffset + 5,
@@ -144,15 +146,17 @@ const Map = ({
       event.target.getAttribute("id") || event.target.innerHTML
     ).childNodes[0];
     if (
-      areaSelected == event.target.getAttribute("id") ||
-      areaSelected == event.target.innerHTML
-    )
+      (areaSelected == event.target.getAttribute("id") ||
+        areaSelected == event.target.innerHTML) &&
+      Boolean(areaSelected)
+    ) {
       shapeArea.setAttribute("fill", "#4ad840");
-    else if (
+    } else if (
       areaSelected != event.target.getAttribute("id") ||
       areaSelected != event.target.innerHTML
-    )
+    ) {
       shapeArea.setAttribute("fill", "#fff");
+    }
     setTooltipVisible(false);
   };
 
