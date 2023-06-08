@@ -17,11 +17,10 @@ const LandingPageInfo = () => {
           <div className="flex font-lg fo flex-col p-6 justify-center items-center align-middle">
             Find the the top 10 best eating spots in Manila, Philippines! This
             website will show you the list of eating spots on the municipality
-            or area that you have selected on the map. To get started kindly
-            select an area on the Map
+            or area that you have selected on the map.
             <div className="flex w-full justify-end align-middle items-center">
               <p className="text-emerald-700 font-bold mt-2 mr-2">
-                To get started click an area on the Map
+                To get started click or search an area on the Map
               </p>{" "}
               <AiOutlineArrowRight size={20} color="forestgreen" />
             </div>

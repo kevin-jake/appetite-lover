@@ -18,13 +18,13 @@ export default function LandingPage() {
       ) : (
         <LandingPageInfo />
       )}
-      <div className="flex justify-center w-full">
-        <Map
-          setisTopListVisible={(state) => setisTopListVisible(state)}
-          isTopListVisible={isTopListVisible}
-          setAreaSelected={(area) => setAreaSelected(area)}
-        />
-      </div>
+
+      <Map
+        setisTopListVisible={(state) => setisTopListVisible(state)}
+        isTopListVisible={isTopListVisible}
+        areaSelected={areaSelected}
+        setAreaSelected={(area) => setAreaSelected(area)}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Loading from "@/components/Loading";
 import { database } from "@/libs/appwrite";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
+import SearchArea from "./SearchArea";
 
 const MapTooltip = ({ visible, position, content }) => {
   if (!visible) return null;
@@ -22,8 +23,12 @@ const MapTooltip = ({ visible, position, content }) => {
   );
 };
 
-const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
-  const [selectedArea, setSelectedArea] = useState(null);
+const Map = ({
+  setisTopListVisible,
+  isTopListVisible,
+  areaSelected,
+  setAreaSelected,
+}) => {
   const [loading, setLoading] = useState(true);
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipContent, setTooltipContent] = useState("");
@@ -54,7 +59,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
     if (isTopListVisible) {
       setTooltipVisible(false);
     }
-  }, [selectedArea, isTopListVisible]);
+  }, [areaSelected, isTopListVisible]);
 
   useEffect(() => {
     const adjustViewBox = () => {
@@ -94,31 +99,71 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
   }, [loading, isTopListVisible]);
 
   const handleAreaClick = (event) => {
-    if (selectedArea) {
-      setSelectedArea(null);
-      selectedArea.setAttribute("fill", "#fff");
-      setisTopListVisible(false);
+    if (areaSelected) {
+      const shape = document.getElementById(areaSelected).childNodes[0];
+      shape.setAttribute("fill", "#fff");
     }
-    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
-      setisTopListVisible(true);
-      event.target.setAttribute("fill", "#4ade80");
-      setSelectedArea(event.target);
+    if (areaSelected != event.target.getAttribute("id")) {
       setAreaSelected(event.target.getAttribute("id"));
+      event.target.setAttribute("fill", "#4ad840");
+      setisTopListVisible(true);
+    } else if (areaSelected == event.target.getAttribute("id")) {
+      event.target.setAttribute("fill", "#fff");
+      setAreaSelected(null);
+      setisTopListVisible(false);
     }
   };
 
   const handleMouseHover = (event) => {
-    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
-      event.target.setAttribute("fill", "#CCCCCC");
-      const position = event.target.parentNode.getBoundingClientRect();
+    if (
+      areaSelected != event.target.getAttribute("id") ||
+      areaSelected != event.target.innerHTML
+    ) {
+      const shapeArea = document.getElementById(
+        event.target.getAttribute("id") || event.target.innerHTML
+      ).childNodes[0];
+      areaSelected != event.target.getAttribute("id") &&
+      areaSelected != event.target.innerHTML
+        ? shapeArea.setAttribute("fill", "#CCCCCC")
+        : shapeArea.setAttribute("fill", "#4ad840");
+      const position = shapeArea.parentNode.getBoundingClientRect();
       setTooltipPosition({
         x: position.x + window.pageXOffset + 5,
         y: position.y + window.pageYOffset + 5,
       });
       setTooltipContent(
-        event.target.parentNode.getAttribute("id").replace(/_/g, " ")
+        shapeArea.parentNode.getAttribute("id").replace(/_/g, " ")
       );
       setTooltipVisible(true);
+    }
+  };
+
+  const handleMouseLeave = (event) => {
+    if (
+      areaSelected != event.target.getAttribute("id") ||
+      areaSelected != event.target.innerHTML
+    ) {
+      const shapeArea = document.getElementById(
+        event.target.getAttribute("id") || event.target.innerHTML
+      ).childNodes[0];
+      areaSelected != event.target.getAttribute("id") &&
+      areaSelected != event.target.innerHTML
+        ? shapeArea.setAttribute("fill", "#fff")
+        : shapeArea.setAttribute("fill", "#4ad840");
+      setTooltipVisible(false);
+    }
+  };
+
+  const handleSearch = (areaName) => {
+    if (areaSelected) {
+      const shape = document.getElementById(areaSelected).childNodes[0];
+      shape.setAttribute("fill", "#fff");
+    }
+    if (areaSelected != areaName) {
+      const selectedShape = document.getElementById(areaName)?.childNodes[0];
+      setAreaSelected(areaName);
+      selectedShape.setAttribute("fill", "#4ad840");
+      setisTopListVisible(true);
     }
   };
   if (loading)
@@ -128,15 +173,17 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
       </div>
     );
 
-  const handleMouseLeave = (event) => {
-    if (selectedArea?.getAttribute("id") != event.target.getAttribute("id")) {
-      event.target.setAttribute("fill", "#fff");
-      setTooltipVisible(false);
-    }
-  };
-
   return (
-    <>
+    <div className="flex flex-col justify-center w-full">
+      <div className="flex justify-center w-full items-center">
+        <SearchArea
+          areas={mapShapes}
+          areaSelected={areaSelected}
+          onSearch={handleSearch}
+          handleMouseHover={handleMouseHover}
+          handleMouseLeave={handleMouseLeave}
+        />
+      </div>
       <MapTooltip
         visible={tooltipVisible}
         content={tooltipContent}
@@ -159,7 +206,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
                 <path
                   d={area.areaShape}
                   id={area.areaName}
-                  fill="#ffffff"
+                  fill="#fff"
                   fillRule="nonzero"
                   stroke="#000000"
                   strokeDasharray="none"
@@ -179,7 +226,7 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
           })}
         </g>
       </svg>
-    </>
+    </div>
   );
 };
 
