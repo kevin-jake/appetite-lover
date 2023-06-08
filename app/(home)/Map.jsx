@@ -115,43 +115,45 @@ const Map = ({
   };
 
   const handleMouseHover = (event) => {
+    const shapeArea = document.getElementById(
+      event.target.getAttribute("id") || event.target.innerHTML
+    ).childNodes[0];
     if (
+      areaSelected == event.target.getAttribute("id") ||
+      areaSelected == event.target.innerHTML
+    )
+      shapeArea.setAttribute("fill", "#4ad840");
+    else if (
       areaSelected != event.target.getAttribute("id") ||
       areaSelected != event.target.innerHTML
-    ) {
-      const shapeArea = document.getElementById(
-        event.target.getAttribute("id") || event.target.innerHTML
-      ).childNodes[0];
-      areaSelected != event.target.getAttribute("id") &&
-      areaSelected != event.target.innerHTML
-        ? shapeArea.setAttribute("fill", "#CCCCCC")
-        : shapeArea.setAttribute("fill", "#4ad840");
-      const position = shapeArea.parentNode.getBoundingClientRect();
-      setTooltipPosition({
-        x: position.x + window.pageXOffset + 5,
-        y: position.y + window.pageYOffset + 5,
-      });
-      setTooltipContent(
-        shapeArea.parentNode.getAttribute("id").replace(/_/g, " ")
-      );
-      setTooltipVisible(true);
-    }
+    )
+      shapeArea.setAttribute("fill", "#CCCCCC");
+    const position = shapeArea.parentNode.getBoundingClientRect();
+    setTooltipPosition({
+      x: position.x + window.pageXOffset + 5,
+      y: position.y + window.pageYOffset + 5,
+    });
+    setTooltipContent(
+      shapeArea.parentNode.getAttribute("id").replace(/_/g, " ")
+    );
+    setTooltipVisible(true);
   };
 
   const handleMouseLeave = (event) => {
+    const shapeArea = document.getElementById(
+      event.target.getAttribute("id") || event.target.innerHTML
+    ).childNodes[0];
     if (
+      areaSelected == event.target.getAttribute("id") ||
+      areaSelected == event.target.innerHTML
+    )
+      shapeArea.setAttribute("fill", "#4ad840");
+    else if (
       areaSelected != event.target.getAttribute("id") ||
       areaSelected != event.target.innerHTML
-    ) {
-      const shapeArea = document.getElementById(
-        event.target.getAttribute("id") || event.target.innerHTML
-      ).childNodes[0];
-      areaSelected != event.target.getAttribute("id") &&
-      areaSelected != event.target.innerHTML
-        ? shapeArea.setAttribute("fill", "#fff")
-        : shapeArea.setAttribute("fill", "#4ad840");
-      setTooltipVisible(false);
-    }
+    )
+      shapeArea.setAttribute("fill", "#fff");
+    setTooltipVisible(false);
   };
 
   const handleSearch = (areaName) => {
