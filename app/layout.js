@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           <ModalProvider>
             <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
           </ModalProvider>
         </UserProvider>
       </body>

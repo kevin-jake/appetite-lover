@@ -73,13 +73,13 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
       let newViewBox;
       if (windowRatio < viewBoxRatio) {
         const scaledHeight = viewBoxWidth / windowRatio;
-        const yOffset = (viewBoxHeight - scaledHeight) / 2;
-        newViewBox = `0 ${yOffset} ${viewBoxWidth} ${scaledHeight}`;
+        const yOffset = viewBoxHeight - scaledHeight / 3;
+        newViewBox = `50 ${yOffset - 50} ${viewBoxWidth - 200} ${
+          scaledHeight - 1100
+        }`;
       } else {
         // Add /2 on the windowRatio if TopLists is active
-        const scaledWidth = isTopListVisible
-          ? (viewBoxHeight * windowRatio) / 2
-          : viewBoxHeight * windowRatio;
+        const scaledWidth = (viewBoxHeight * windowRatio) / 2;
         const xOffset = (viewBoxWidth - scaledWidth) / 2;
         newViewBox = `${xOffset} 0 ${scaledWidth} ${viewBoxHeight}`;
       }
@@ -147,9 +147,9 @@ const Map = ({ setisTopListVisible, isTopListVisible, setAreaSelected }) => {
         id="svg574"
         version="1.1"
         // width="300"
-        height="500"
+        height="510"
         ref={svgRef}
-        // viewBox="150 100 475 600"
+        viewBox="150 100 475 600"
         style={{ width: "100%", position: "relative" }}
       >
         <g transform="translate(-20.998,-140.998)">
