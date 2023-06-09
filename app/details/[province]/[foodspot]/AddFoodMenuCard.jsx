@@ -37,7 +37,7 @@ const AddFoodMenuCard = ({ foodSpotId, foodSpotName }) => {
           );
         }}
         className={`${
-          user?.email === createdBy || true ? "" : "hidden"
+          user?.email === createdBy ? "" : "hidden"
         } flex flex-col items-center justify-center align-middle max-w-xs mx-4 mb-2 rounded-lg shadow-lg dark:bg-gray-600 cursor-pointer`}
       >
         <div className="flex p-4 justify-center relative w-auto h-32 bg-white-500 text-gray-400 dark:text-lime-800">
