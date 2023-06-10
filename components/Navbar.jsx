@@ -93,7 +93,7 @@ const Navbar = () => {
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="user-menu-button"
-                    tabindex="-1"
+                    tabIndex="-1"
                     style={dropdownPosition}
                   >
                     <ul
@@ -176,7 +176,7 @@ const Navbar = () => {
                       role="menu"
                       aria-orientation="vertical"
                       aria-labelledby="user-menu-button"
-                      tabindex="-1"
+                      tabIndex="-1"
                       style={dropdownPosition}
                     >
                       <ul
