@@ -1,10 +1,13 @@
 import CustomImage from "@/components/CustomImage";
 import React from "react";
 
-const FoodSpotCards = ({ name, description, ratings, imgUrl }) => {
+const FoodSpotCards = ({ rank, name, description, ratings, imgUrl }) => {
   return (
     <div className="w-full grid grid-cols-2 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="px-5 py-5 w-full flex flex-col justify-between">
+        <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {rank}
+        </h3>
         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate">
           {name}
         </h5>

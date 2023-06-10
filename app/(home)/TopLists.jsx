@@ -119,6 +119,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                       }
                     >
                       <FoodSpotCards
+                        rank={index + 1}
                         name={item.foodSpotName}
                         description={item.description}
                         ratings={item.ratings}
