@@ -8,6 +8,8 @@ import Loading from "@/components/Loading";
 import FoodSpotForm from "./FoodSpotForm";
 import { ModalContext } from "@/context/ModalContext";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/useUser";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -23,7 +25,11 @@ const getTopLists = async (area) => {
   const toplists = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_FOOD_SPOT,
-    [Query.equal("areaId", [areaId]), Query.orderDesc("ratings")]
+    [
+      Query.equal("areaId", [areaId]),
+      Query.orderDesc("ratings"),
+      Query.limit(10),
+    ]
   );
   const highestRating = +toplists.documents[0]?.ratings;
   toplists.documents.forEach(
@@ -33,9 +39,11 @@ const getTopLists = async (area) => {
 };
 
 const TopLists = ({ area, closeTopList, isFromContent }) => {
+  const router = useRouter();
   const [toplists, setToplists] = useState([]);
   const [uniqueArea, setUniqueArea] = useState("");
   const { openModal, refetch } = useContext(ModalContext);
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -103,18 +111,23 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                   }`}
                 >
                   {toplists.map((item, index) => (
-                    <FoodSpotCards
+                    <div
                       key={`${item.foodSpotName}-${index}`}
-                      name={item.foodSpotName}
-                      description={item.description}
-                      ratings={item.ratings}
-                      foodSpotId={item.$id}
-                      imgUrl={item.imgUrl || "/placeholder-image.jpg"}
-                      area={area}
-                    />
+                      className="cursor-pointer"
+                      onClick={() =>
+                        router.push(`/details/${area}/${item.$id}`)
+                      }
+                    >
+                      <FoodSpotCards
+                        name={item.foodSpotName}
+                        description={item.description}
+                        ratings={item.ratings}
+                        imgUrl={item.imgUrl || "/placeholder-image.jpg"}
+                      />
+                    </div>
                   ))}
                 </div>
-                {!isFromContent && (
+                {!isFromContent && user && (
                   <button
                     onClick={() => {
                       openModal(
