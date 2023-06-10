@@ -50,6 +50,7 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
         );
         closeEdit();
         onSubmitProps.resetForm();
+        router.refresh();
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
@@ -83,11 +84,11 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
       );
       toast.success(`Review ${isEdit ? "edited" : "posted"}`);
       refetchTopList();
+      router.refresh();
     } catch (error) {
       toast.error(error.message);
       console.error(error.message);
     } finally {
-      router.refresh();
       setPosting(false);
     }
   };
@@ -106,7 +107,6 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
         handleChange,
         handleSubmit,
         setFieldValue,
-        resetForm,
       }) => (
         <form
           onSubmit={handleSubmit}
@@ -154,7 +154,9 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
               <button
                 type="submit"
                 disabled={posting}
-                className="bg-gray-200 dark:bg-blue-700 dark:hover:bg-blue-400 text-gray-700 font-medium py-1 px-4  rounded-lg tracking-wide mr-1 hover:text-white hover:bg-blue-500"
+                className={`bg-gray-200 dark:bg-blue-700 dark:hover:bg-blue-400 text-gray-700 font-medium py-1 px-4  rounded-lg tracking-wide mr-1 hover:text-white hover:bg-blue-500 ${
+                  posting && "cursor-not-allowed"
+                }`}
               >
                 <span className="inline-flex font-bold gap-2 justify-between align-middle items-center dark:text-white">
                   {isEdit ? "Update" : "Post"}
