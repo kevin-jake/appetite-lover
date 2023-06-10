@@ -7,7 +7,7 @@ import PageNotFound from "@/components/PageNotFound";
 
 export const revalidate = 0;
 
-const getAreaId = async (areaId) => {
+const getAreaName = async (areaId) => {
   const area = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,
     process.env.NEXT_PUBLIC_AREA,
@@ -31,7 +31,7 @@ const Spot = async ({ params }) => {
     return <PageNotFound />;
   }
 
-  const areaName = await getAreaId(spot.areaId);
+  const areaName = await getAreaName(spot.areaId);
 
   return (
     <main className="px-10 leading-7">

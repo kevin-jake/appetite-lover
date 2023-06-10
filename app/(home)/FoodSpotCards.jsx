@@ -1,3 +1,4 @@
+"use client";
 import CustomImage from "@/components/CustomImage";
 import React from "react";
 

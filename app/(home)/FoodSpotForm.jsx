@@ -71,7 +71,7 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
         closeUserModal();
         closeModal();
         refetchTopList();
-        router.push(`/details/${area}/${result.$id}`);
+        router.push(`/${area}/${result.$id}`);
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
@@ -93,7 +93,7 @@ const FoodSpotForm = ({ area, areaId, isEdit, oldData }) => {
         );
         onSubmitProps.resetForm();
         toast.success("Food Spot successfully created.");
-        router.push(`/details/${area}/${result.$id}`);
+        router.push(`/${area}/${result.$id}`);
         closeUserModal();
         closeModal();
       } catch (error) {

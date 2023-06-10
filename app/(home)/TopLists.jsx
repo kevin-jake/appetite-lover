@@ -10,6 +10,7 @@ import { ModalContext } from "@/context/ModalContext";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
+import Link from "next/link";
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(
@@ -75,7 +76,8 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
           <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">
             <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                Top 10 Food Spots in {area}
+                Top 10 Food Spots in
+                <Link href={`/${area}`}>{area}</Link>
               </h3>
               {!isFromContent && (
                 <button
@@ -114,9 +116,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                     <div
                       key={`${item.foodSpotName}-${index}`}
                       className="cursor-pointer"
-                      onClick={() =>
-                        router.push(`/details/${area}/${item.$id}`)
-                      }
+                      onClick={() => router.push(`/${area}/${item.$id}`)}
                     >
                       <FoodSpotCards
                         rank={index + 1}
