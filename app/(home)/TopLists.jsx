@@ -61,7 +61,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
         id="top-left-modal"
         data-modal-placement="top-left"
         tabIndex="-1"
-        className="flex justify-center relative z-10 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full"
+        className="flex justify-center relative z-10 w-full px-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full"
       >
         <div className=" max-w-full max-h-full">
           <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">

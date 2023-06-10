@@ -35,3 +35,7 @@ body {
     transform: rotate(720deg);
   }
 }
+
+.navbar-color {
+  background: rgb(187, 248, 187) 100%;
+}

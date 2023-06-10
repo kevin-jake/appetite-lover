@@ -3,7 +3,7 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 const LandingPageInfo = () => {
   return (
-    <div className="flex justify-center relative z-10 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
+    <div className="flex justify-center relative z-10 w-full px-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full">
       <div className=" w-full max-w-full max-h-full">
         <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
