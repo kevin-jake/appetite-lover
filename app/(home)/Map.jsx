@@ -58,6 +58,10 @@ const Map = ({
   useEffect(() => {
     if (isTopListVisible) {
       setTooltipVisible(false);
+    } else {
+      const shape = document.getElementById(areaSelected)?.childNodes[0];
+      shape?.setAttribute("fill", "#fff");
+      setAreaSelected("");
     }
   }, [areaSelected, isTopListVisible]);
 

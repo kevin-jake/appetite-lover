@@ -7,8 +7,8 @@ import ReviewForm from "./ReviewForm";
 import LocationTab from "./LocationTab";
 
 const Tabs = ({ foodSpotId, foodSpotName, location }) => {
-  const TABS = ["Menu", "Reviews", "Location"];
-  const [tab, setTab] = useState("Menu");
+  const TABS = ["Reviews", "Menu", "Location"];
+  const [tab, setTab] = useState("Reviews");
 
   const handleTabClick = (tabOption) => {
     setTab(tabOption);

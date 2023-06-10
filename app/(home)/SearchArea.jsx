@@ -13,10 +13,10 @@ const SearchArea = ({
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  console.log("🚀 ~ file: SearchArea.jsx:9 ~ SearchArea ~ selected:", selected);
 
   useEffect(() => {
     if (areaSelected) setSelected(areaSelected);
+    else setSelected("");
   }, [areaSelected]);
 
   return (
