@@ -77,7 +77,15 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
             <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Top 10 Food Spots in
-                <Link href={`/${area}`}>{area}</Link>
+                {isFromContent ? (
+                  <>{` ${area}`}</>
+                ) : (
+                  <Link href={`/${area}?page=1`}>
+                    <button className="m-2 rounded-lg p-2 font-bold text-white bg-emerald-700 hover:bg-emerald-600">
+                      {area}
+                    </button>
+                  </Link>
+                )}
               </h3>
               {!isFromContent && (
                 <button
