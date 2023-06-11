@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { MdOutlineThumbDown, MdOutlineThumbUp } from "react-icons/md";
 
-const LikeWidget = ({ foodSpotId, refetchTopList }) => {
+const LikeWidget = ({ foodSpotId }) => {
   const [buttonState, setButtonState] = useState("neutral");
   const [foodSpot, setFoodSpot] = useState({});
   const [loading, setLoading] = useState(false);
@@ -60,7 +60,6 @@ const LikeWidget = ({ foodSpotId, refetchTopList }) => {
       const result = JSON.parse(rawResult.response);
       if (buttonState === value) setButtonState("neutral");
       else setButtonState(value);
-      refetchTopList();
       setLoading(false);
     } catch (error) {
       toast.error(error.message);

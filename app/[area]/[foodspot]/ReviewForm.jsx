@@ -11,7 +11,6 @@ import { useUser } from "@/hooks/useUser";
 import { ID } from "appwrite";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { ModalContext } from "@/context/ModalContext";
 
 const commentSchema = yup.object().shape({
   comment: yup
@@ -28,7 +27,6 @@ const initialComment = {
 const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
   const router = useRouter();
   const { user, openModal } = useUser();
-  const { refetchTopList } = useContext(ModalContext);
   const [posting, setPosting] = useState(false);
 
   const handleFormSubmit = async (values, onSubmitProps) => {
@@ -81,7 +79,6 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
         true
       );
       toast.success(`Review ${isEdit ? "edited" : "posted"}`);
-      refetchTopList();
       router.refresh();
     } catch (error) {
       toast.error(error.message);

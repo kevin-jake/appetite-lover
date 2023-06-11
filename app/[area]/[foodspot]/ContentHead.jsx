@@ -17,7 +17,7 @@ const ContentHead = ({
   createdBy,
 }) => {
   const { user } = useUser();
-  const { openModal, refetchTopList } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
 
   return (
     <div
@@ -92,7 +92,7 @@ const ContentHead = ({
             <h2 className="text-4xl font-semibold text-gray-100 leading-tight">
               {foodSpotName}
             </h2>
-            <LikeWidget foodSpotId={$id} refetchTopList={refetchTopList} />
+            <LikeWidget foodSpotId={$id} />
           </div>
           <div>
             <h4 className="text-sm text-gray-100 leading-tight">

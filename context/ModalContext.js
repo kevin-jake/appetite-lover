@@ -3,7 +3,6 @@ import React, { createContext, useReducer } from "react";
 
 const initialState = {
   isModalOpen: false,
-  refetch: true,
   modalChildren: {},
 };
 
@@ -19,11 +18,6 @@ const ModalReducer = (state, action) => {
       return {
         ...state,
         isModalOpen: false,
-      };
-    case "refetchTopList":
-      return {
-        ...state,
-        refetch: action.refetch,
       };
     default:
       return state;
@@ -49,18 +43,9 @@ export const ModalProvider = ({ children }) => {
     });
   };
 
-  const refetchTopList = () => {
-    dispatch({
-      type: "refetchTopList",
-      refetch: !state.refetch,
-    });
-  };
-
   const value = {
     isModalOpen: state.isModalOpen,
     modalChildren: state.modalChildren,
-    refetch: state.refetch,
-    refetchTopList,
     openModal,
     closeModal,
   };

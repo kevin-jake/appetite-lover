@@ -5,12 +5,16 @@ import ReviewContent from "./ReviewContent";
 export const revalidate = 0;
 
 const getReviews = async (foodSpotId) => {
-  const reviews = await database.listDocuments(
-    process.env.NEXT_PUBLIC_DATABASE,
-    process.env.NEXT_PUBLIC_REVIEWS,
-    [Query.equal("foodSpotId", [foodSpotId]), Query.orderDesc("$createdAt")]
-  );
-  return reviews.documents;
+  try {
+    const reviews = await database.listDocuments(
+      process.env.NEXT_PUBLIC_DATABASE,
+      process.env.NEXT_PUBLIC_REVIEWS,
+      [Query.equal("foodSpotId", [foodSpotId]), Query.orderDesc("$createdAt")]
+    );
+    return reviews.documents;
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 const ReviewsTab = async ({ foodSpotId }) => {

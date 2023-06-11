@@ -2,6 +2,8 @@ import TopLists from "@/app/(home)/TopLists";
 import ContentHead from "./ContentHead";
 import Tabs from "./Tabs";
 import Link from "next/link";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
 
 const Content = ({ foodspot, area }) => {
   return (
@@ -33,7 +35,25 @@ const Content = ({ foodspot, area }) => {
         </div>
       </div>
       <div className="basis-1/4">
-        <TopLists area={area} isFromContent={true} />
+        <div
+          id="top-left-modal"
+          data-modal-placement="top-left"
+          tabIndex="-1"
+          className="flex justify-center relative z-10 w-full px-4 overflow-x-hidden overflow-y-auto md:inset-0 h-full"
+        >
+          <div className=" max-w-full max-h-full">
+            <div className=" bg-white w-full rounded-lg shadow dark:bg-gray-700">
+              <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                  Top 10 Food Spots in {area}
+                </h3>
+              </div>
+              <Suspense fallback={<Loading />}>
+                <TopLists area={area} isFromContent={true} />
+              </Suspense>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
