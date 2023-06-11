@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@/hooks/useUser";
 import { database, functions } from "@/libs/appwrite";
+import { getShortNumber } from "@/libs/getShortNumber";
 import { Query } from "appwrite";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -87,7 +88,8 @@ const LikeWidget = ({ foodSpotId }) => {
               `}
             >
               <MdOutlineThumbUp />
-              {foodSpot.likes?.length > 0 && foodSpot.likes.length}
+              {foodSpot.likes?.length > 0 &&
+                getShortNumber(foodSpot.likes.length)}
             </span>
           </button>
           <button type="button" onClick={(e) => handleClick(e, "Dislike")}>
@@ -98,7 +100,8 @@ const LikeWidget = ({ foodSpotId }) => {
               `}
             >
               <MdOutlineThumbDown />
-              {foodSpot.dislikes?.length > 0 && foodSpot.dislikes.length}
+              {foodSpot.dislikes?.length > 0 &&
+                getShortNumber(foodSpot.likes.length)}
             </span>
           </button>
         </>
