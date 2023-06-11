@@ -43,7 +43,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
   const router = useRouter();
   const [toplists, setToplists] = useState([]);
   const [uniqueArea, setUniqueArea] = useState("");
-  const { openModal, refetch } = useContext(ModalContext);
+  const { openModal, refetch, refetchTopList } = useContext(ModalContext);
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
 
@@ -62,7 +62,10 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
       }
     };
 
-    getList();
+    if (refetch) {
+      getList();
+      refetchTopList();
+    }
   }, [area, refetch]);
   return (
     <>

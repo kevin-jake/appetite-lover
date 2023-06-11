@@ -50,7 +50,6 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
         );
         closeEdit();
         onSubmitProps.resetForm();
-        router.refresh();
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
@@ -67,7 +66,6 @@ const ReviewForm = ({ foodSpotId, isEdit, oldReview, closeEdit }) => {
           data
         );
         onSubmitProps.resetForm();
-        router.refresh();
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
