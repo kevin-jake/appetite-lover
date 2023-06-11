@@ -41,33 +41,21 @@ Introducing the features and functionality of Appetite Lover:
 
 2. **Food Spot Page**
 
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686446589307/63fa1d6b-b4ce-4b95-a930-fcf952f57594.png align="center")
-
    On this page, users can view the photo of the food spot and other details on the tabs below. The like, dislike buttons and reviews data entered on this page will update the rankings of the food spot on the website.
 
 3. **Reviews**
-
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686441926307/a080d8ed-a75e-4fc5-ad64-691cb6c18c44.jpeg align="center")
 
    On this screen, the users can engage in discussions and leave comments on reviews or recommend certain restaurants, cafes or eateries. The user can edit or delete the review.
 
 4. **Menu**
 
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686441934454/f7924681-bc8c-473a-8ddd-869537c92ef0.jpeg align="center")
-
    This page will display available menus and its price on the selected restaurant. The user can only be able to add a menu if the user is the creator of the food spot.
 
 5. **Location**
 
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686441941742/40978b88-edf3-47ef-b01d-46077837660f.jpeg align="center")
-
    On this page, the location of the selected food establishment will be shown based on google maps.
 
 6. **Add or Edit food Spot**
-
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686441949246/77d3405c-e158-4d69-9a39-20e5d3a45625.jpeg align="center")
-
-   ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1686445816507/5f3e42cf-d796-4f6e-977f-4127ad138249.png align="center")
 
    Once the user already registered on the website, the user can add food spots, and menus and make a review of that food establishment based on the selected location. The user can also edit or delete a food spot if that user is the one who submitted it on the platform.
 
