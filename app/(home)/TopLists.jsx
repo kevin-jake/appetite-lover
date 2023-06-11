@@ -81,7 +81,7 @@ const TopLists = ({ area, closeTopList, isFromContent }) => {
                   <>{` ${area}`}</>
                 ) : (
                   <Link href={`/${area}?page=1`}>
-                    <button className="m-2 rounded-lg p-2 font-bold text-white bg-emerald-700 hover:bg-emerald-600">
+                    <button className="m-2 p-1 font-bold text-blue-500 border-b-2 border-blue-500 hover:border-emerald-600 hover:text-emerald-600">
                       {area}
                     </button>
                   </Link>

@@ -56,9 +56,9 @@ const Navbar = () => {
                         openModal();
                         setPageType("Login");
                       }}
-                      className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
+                      className="w-full text-emerald-900 navbar-color hover:bg-emerald-600 hover:text-white  focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
                     >
-                      <span className="inline-flex p-2 font-bold  align-middle items-center text-white">
+                      <span className="inline-flex p-2 font-bold  align-middle items-center">
                         Sign In
                       </span>
                     </button>
@@ -115,7 +115,7 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-              <div className="justify-between align-bottom space-x-2 hidden md:flex">
+              <div className="justify-between align-bottom space-x-4 hidden md:flex">
                 {!user && (
                   <>
                     <button
@@ -123,9 +123,9 @@ const Navbar = () => {
                         openModal();
                         setPageType("Login");
                       }}
-                      className="w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
+                      className="w-full text-emerald-900 navbar-color hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm text-center"
                     >
-                      <span className="inline-flex text-sm p-2 font-medium  align-middle items-center text-white">
+                      <span className="inline-flex text-sm p-2 font-medium  align-middle items-center">
                         Sign In
                       </span>
                     </button>

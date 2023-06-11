@@ -23,7 +23,7 @@ const SearchArea = ({
     <div className={`w-full font-medium ${!open ? "h-20" : "h-80"}`}>
       <div
         onClick={() => setOpen(!open)}
-        className={`bg-white w-full p-2 flex items-center justify-between rounded ${
+        className={`bg-white w-full p-2 mt-4 md:m-0 border-2 border-gray-400 flex items-center justify-between rounded ${
           !selected ? "text-gray-400" : "text-gray-700"
         }`}
       >
