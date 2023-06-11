@@ -39,10 +39,10 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
           true
         );
         toast.success(`Successfully deleted`);
-        refetchTopList();
         if (collectionId === process.env.NEXT_PUBLIC_FOOD_SPOT) {
           router.push("/");
         } else router.refresh();
+        refetchTopList();
       } catch (error) {
         toast.error(error.message);
         console.error(error.message);
