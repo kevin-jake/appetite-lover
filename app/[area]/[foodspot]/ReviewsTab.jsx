@@ -2,7 +2,7 @@ import { database } from "@/libs/appwrite";
 import { Query } from "appwrite";
 import ReviewContent from "./ReviewContent";
 
-export const revalidate = 0;
+export const revalidate = 1;
 
 const getReviews = async (foodSpotId) => {
   try {

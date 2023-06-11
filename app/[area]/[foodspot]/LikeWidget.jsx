@@ -2,12 +2,14 @@
 import { useUser } from "@/hooks/useUser";
 import { database, functions } from "@/libs/appwrite";
 import { Query } from "appwrite";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { MdOutlineThumbDown, MdOutlineThumbUp } from "react-icons/md";
 
 const LikeWidget = ({ foodSpotId }) => {
+  const router = useRouter();
   const [buttonState, setButtonState] = useState("neutral");
   const [foodSpot, setFoodSpot] = useState({});
   const [loading, setLoading] = useState(false);
@@ -60,6 +62,7 @@ const LikeWidget = ({ foodSpotId }) => {
       const result = JSON.parse(rawResult.response);
       if (buttonState === value) setButtonState("neutral");
       else setButtonState(value);
+      router.refresh();
       setLoading(false);
     } catch (error) {
       toast.error(error.message);
