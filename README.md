@@ -58,5 +58,8 @@ Introducing the features and functionality of Appetite Lover:
 6. **Add or Edit food Spot**
 
    Once the user already registered on the website, the user can add food spots, and menus and make a review of that food establishment based on the selected location. The user can also edit or delete a food spot if that user is the one who submitted it on the platform.
+   
+Video Demo:
+[![Appetite_Lover](https://img.youtube.com/vi/zUPr_K4jMDs/0.jpg)](https://www.youtube.com/watch?v=zUPr_K4jMDs)
 
-For more details visit our blog at: [Discover Appetite Lover: Your Go-To Open-Source Food Review Site](https://www.hashnode.com)
+For more details visit our blog at: [Discover Appetite Lover: Your Go-To Open-Source Food Review Site](https://majek.hashnode.dev/discover-appetite-lover-your-go-to-open-source-food-review-site)
