@@ -34,8 +34,8 @@ const Navbar = () => {
           closeModal={closeModal}
         />
       )}
+      <Toaster />
       <header className="mb-5 navbar-color shadow-md z-30 sticky top-0">
-        <Toaster />
         <nav
           className={`flex align-middle items-center w-full bg-wh-900 text-wh-10 px-10 py-4 ${
             loading ? "justify-center" : "justify-between gap-4"
