@@ -2,9 +2,6 @@ import React from "react";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import TopListsContent from "./TopListsContent";
-import Link from "next/link";
-
-export const revalidate = 0;
 
 const getAreaId = async (area) => {
   const areas = await database.listDocuments(

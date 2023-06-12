@@ -5,8 +5,6 @@ import { database } from "@/libs/appwrite";
 import { Query } from "appwrite";
 import NoResults from "@/components/NoResults";
 
-export const revalidate = 0;
-
 const getFoodMenu = async (foodSpotId) => {
   const menu = await database.listDocuments(
     process.env.NEXT_PUBLIC_DATABASE,

@@ -70,7 +70,7 @@ const DeleteModal = ({ name, collectionId, documentId, foodSpotId }) => {
       </p>
       <div className="flex gap-2 justify-center">
         {deleting ? (
-          <span className="flex justify-center w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+          <span className="flex  cursor-not-allowed justify-center w-full text-white bg-emerald-700 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
             <CgSpinnerTwo className="loading-icon" />
           </span>
         ) : (

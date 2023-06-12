@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import FoodSpotCards from "./FoodSpotCards";
 import NoResults from "@/components/NoResults";
 import FoodSpotForm from "./FoodSpotForm";

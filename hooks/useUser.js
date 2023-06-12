@@ -42,22 +42,26 @@ export const UserProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      setLoading(true);
       await account.createEmailSession(email, password);
       await loadAccount();
       toast.success("You are now logged in");
     } catch (error) {
       toast.error(error.message);
+      setLoading(false);
       console.error(error);
     }
   };
 
   const register = async (email, password, name) => {
     try {
+      setLoading(true);
       await account.create("unique()", email, password, name);
       await login(email, password);
       toast.success("Registered successfully");
     } catch (error) {
       toast.error(error.message);
+      setLoading(false);
       console.error(error.message);
     }
   };

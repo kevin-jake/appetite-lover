@@ -1,11 +1,8 @@
 import React from "react";
 import Content from "./Content";
-import TopLists from "@/app/(home)/TopLists";
 import { Query } from "appwrite";
 import { database } from "@/libs/appwrite";
 import PageNotFound from "@/components/PageNotFound";
-
-export const revalidate = 0;
 
 const getAreaName = async (areaId) => {
   const area = await database.listDocuments(
